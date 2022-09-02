@@ -1,0 +1,774 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+
+/**********************************************
+		  Styles For All Pages/Fonts
+**********************************************/
+
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+body {
+/* background: rgb(69,59,89); */
+/* background: rgb(0,59,89); */
+  /* background: linear-gradient(0deg, rgba(69,59,89,1) 4%, rgba(38,49,66,1) 13%, rgba(0,0,0,1) 39%); */
+  background: linear-gradient(0deg, rgb(36, 61, 132) 4%, rgb(43, 61, 87) 13%, rgba(0,0,0,1) 39%);
+}
+/* 
+@font-face {
+font-family: "Alliance1Light";
+src: url(/assets/fonts/AllianceNo1-Light.ttf);
+}
+
+@font-face {
+font-family: "Alliance1Regular";
+src: url(/assets/fonts/AllianceNo1-Regular.ttf);
+}
+
+@font-face {
+font-family: "Alliance1Bold";
+src: url(/assets/fonts/AllianceNo1-Bold.ttf);
+}
+
+@font-face {
+font-family: "Alliance1ExtraBold";
+src: url(/assets/fonts/AllianceNo1-ExtraBold.ttf);
+}
+
+@font-face {
+font-family: "Alliance1SemiBold";
+src: url(/assets/fonts/AllianceNo1-SemiBold.ttf);
+}
+
+@font-face {
+  font-family: 'whitney';
+  src: url(/assets/fonts/whitney.ttf);
+} */
+
+/**********************************************
+         Navbar
+**********************************************/
+
+.navbar{
+--bs-navbar-toggler-padding-x: 0;
+background: black;
+}
+
+.navbar-nav{
+background-color: black;
+border-radius: 10px;
+padding-left: 5px;
+}
+
+.navbar-nav .nav-item{
+border-radius: 10px;
+}
+
+.navbar-nav .nav-item:hover{
+background-color: #2125297d;
+}
+
+.nav-link {
+font-family: 'whitney';
+font-size: 13px;
+}
+
+.nav-icon::before {
+margin-bottom: 1px;
+}
+
+.navbar-brand{
+margin-right: 0;
+}
+
+.navbar-collapse .collapse .show  {
+padding-left: 0.5rem;
+}
+/**********************************************
+       End Navbar
+**********************************************/
+
+/**********************************************
+      Landing Page
+**********************************************/
+
+.styled-heading{
+font-family: "Alliance1ExtraBold";
+margin-bottom: 5px;
+color: white;
+}
+
+.styled-text{
+font-family: "Alliance1Light";
+color: gray;
+}
+
+.styled-button{
+font-family: "Alliance1SemiBold";
+color: black;
+}
+
+.fade-in {
+  animation: fadein 1s;
+}
+
+@keyframes fadein {
+  from {
+      opacity: 0;
+      position: relative;
+      transform: translateY(150px);
+  }
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+
+@keyframes fadeSent {
+from {
+      opacity: 0;
+      position: relative;
+      transform: translateX(-150px);
+  }
+  to {
+      opacity: 1;
+      transform: translateX(0);
+  }
+}
+
+@keyframes fadeReceived {
+from {
+      opacity: 0;
+      position: relative;
+      transform: translateX(150px);
+  }
+  to {
+      opacity: 1;
+      transform: translateX(0);
+  }
+}
+
+/**********************************************
+         End Landing Page
+**********************************************/
+
+/**********************************************
+          Chatroom Page
+**********************************************/
+
+.hidden {
+  display: none;
+}
+
+a {
+  color: #128ff2;
+}
+
+.username-page-container {
+  padding: 1% 2%;
+  /*  font-family: "Alliance1Regular"; */
+  overflow-y: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none; 
+}
+
+.username-page-container::-webkit-scrollbar { 
+  display: none;
+}
+
+.event-message, .connecting {
+color: gray;
+}
+
+.event-message .timestamp {
+font-size: .8em;
+}
+
+.chat-message {
+padding: 5px;
+margin-bottom: 15px;
+border-radius: 15px;
+padding-left: 10px; 
+overflow-wrap: break-word;
+color: white;
+}
+
+#chat-page .messageAreaPublic, #chat-page .messageAreaPrivate {
+list-style-type: none;
+  margin: 0;
+   overflow-y: scroll;
+}
+
+#chat-page .messageAreaPublic {
+padding: 0 20px;
+  height: 68vh;
+}
+
+.chat-message {
+list-style-type: none;
+}
+
+.chat-message span{
+font-family: "Alliance1SemiBold";
+color: orange;
+}
+
+#chat-page .chat-message p {
+  font-weight: 300;
+  margin-bottom: 0;
+}
+
+#message, .username, .regular{
+font-family: "Alliance1Regular";
+}
+
+.sender {
+background-color: rgb(47, 49, 52); 
+text-align: right; 
+padding-right: 15px; 
+animation: 0.5s ease 0s 1 normal none running fadeSent;
+}
+
+.receiver {
+padding-left: 15px; 
+background-color: rgb(67, 95, 122); 
+color: white; 
+animation: 0.5s ease 0s 1 normal none running fadeReceived;
+text-align: start;
+}
+
+.sender .timestamp{
+color: white;
+  font-size:.8em;
+}
+
+.receiver .timestamp{
+color: white;
+font-size: .8em;
+}
+
+.chat-container {
+padding-bottom: 20px;
+}
+
+/**********************************************
+        End Chatroom Page
+**********************************************/
+
+/**********************************************
+         Chatrooms Page
+**********************************************/
+
+
+/* .petsAnimals{background-image:url(/assets/images/publicChannels/petsAnimals.jpg);}
+.healthNutrition{background-image:url(/assets/images/publicChannels/healthNutrition.jpg);}
+.anime{background-image:url(/assets/images/publicChannels/anime.jpg)}
+.foodRecipes{background-image:url(/assets/images/publicChannels/foodRecipes.jpg)}
+.videogames{background-image:url(/assets/images/publicChannels/videogames.jpg)}
+.horticulture{background-image:url(/assets/images/publicChannels/horticulture.jpg)}
+.music{background-image:url(/assets/images/publicChannels/music.jpg)}
+.gayPride{background-image:url(/assets/images/publicChannels/gayPride.jpg)}
+.photography{background-image:url(/assets/images/publicChannels/photography.jpg)}
+.sports{background-image:url(/assets/images/publicChannels/sports.jpg)}
+.comedy{background-image:url(/assets/images/publicChannels/comedy.jpg)}
+.veterans{background-image:url(/assets/images/publicChannels/veterans.jpg)}
+.crypto{background-image:url(/assets/images/publicChannels/crypto.jpg)}
+.history{background-image:url(/assets/images/publicChannels/history.jpg)}
+.parenthood{background-image:url(/assets/images/publicChannels/parenthood.jpg)} */
+
+.category-selector{
+margin-bottom: 50px;
+}
+
+.category-selector input{
+margin: 0;
+padding: 0;
+  appearance:none;
+  -moz-appearance:none;
+-webkit-appearance:none;
+}
+
+.category-image{
+cursor:pointer;
+  background-size:cover;
+  background-repeat:no-repeat;
+  display:inline-block;
+  border-radius: 20px;
+  width:200px;height:200px;
+  
+  -webkit-transition: all 100ms ease-in;
+  -moz-transition: all 100ms ease-in;
+  transition: all 100ms ease-in;
+  
+  -webkit-filter: brightness(1) grayscale(1) opacity(.7);
+  -moz-filter: brightness(1) grayscale(1) opacity(.7);
+  filter: brightness(1) grayscale(1) opacity(.7);
+    
+}
+
+.category-selector input:active +.category-image{opacity: .9;}
+.category-selector input:checked +.category-image{
+  -webkit-filter: drop-shadow(5px 5px 5px #18bef9);
+  -moz-filter: drop-shadow(5px 5px 5px #18bef9);
+  filter: drop-shadow(3px 3px 3px #18bef9);
+}
+
+.category-image:hover{
+  transform: scale(1.05);
+  
+  -webkit-filter: brightness(1) grayscale(0) opacity(1);
+  -moz-filter: brightness(1) grayscale(0) opacity(1);
+  filter: brightness(1) grayscale(0) opacity(1);
+}
+
+.label-text:hover{
+display: block;
+}
+
+.chatrooms-submit, .username-submit {
+color: white;
+background-color: #4153fdb0;
+}
+
+.chatrooms-submit:hover, .username-submit:hover{
+background-color: #4153fdb0;
+}
+
+.user-submit {
+color: white;
+background-color: #055160;
+}
+.user-submit:hover{
+background-color: #055160;
+}
+
+.modal {
+height: 100vh;
+}
+
+.modal-dialog {
+  position: absolute;
+  top: 5vh;
+  left: 5vw;
+  width: 100vw;
+  margin: 0;
+}
+
+.modal-content{
+background-color: #212529a3;
+border: none;
+height: 90vh;
+width: 90vw;
+}
+
+.modal-header{
+border-bottom: none;
+background-color: black;
+color: white;
+}
+
+.modal-body{
+height: 80vh;
+}
+
+.modal-body p{
+word-wrap: break-word;
+margin-bottom: 0;
+  font-weight: 300;
+}
+
+
+.modal-footer{
+border-top: none;
+}
+
+.btn-close{
+background-color: white;
+font-size: 14px;
+position: absolute;
+right: 10px;
+top: 10px;
+}
+
+.preview-title {
+margin-block-start: 0;
+  margin-block-end: 0;
+}
+
+.frame {
+background: no-repeat center center;
+  background-size: cover;
+  height: 100%;
+}
+
+.modal-content-row{
+height: 100%;
+overflow: hidden;
+}
+
+ul.preview-page{
+height: 80vh;
+list-style-type: none;
+padding: 0;
+}
+
+.preview-right {
+overflow-y: scroll;
+}
+
+body.modal-open #username-page, body.modal-open .navbar{
+  -webkit-filter: blur(2px);
+  -moz-filter: blur(2px);
+  -o-filter: blur(2px);
+  -ms-filter: blur(2px);
+  filter: blur(2px);
+  opacity: .5;
+}
+
+/**********************************************
+       End Chatrooms Page
+**********************************************/
+
+/**********************************************
+           Friends Page
+**********************************************/
+
+.list-group {
+--bs-list-group-item-padding-x: .5rem;
+}
+
+.tab-form .tab-header {
+display: flex;
+justify-content: center;
+gap: 20px;
+font-size: 16px;
+}
+
+.tab-form .tab-header > div {
+padding: 10px;
+text-align: center;
+color: white;
+cursor: pointer;
+background-color: #383b3da7;
+border-radius: 5px;
+}
+
+.tab-form .tab-header > div:hover {
+  color: white;
+  
+}
+
+.tab-form .tab-header > div.active {
+  color: white;
+  background-color: #0c0cd4b3;
+}
+
+.tab-form .tab-body > div {
+position: absolute;
+width: 100%;
+top: -7000vh;
+opacity: 0;
+transition: opacity 500ms ease-in-out 0ms;
+}
+
+.tab-form .tab-body > div.active {
+position: static;
+opacity: 1;
+transition: opacity 500ms ease-in-out 0ms;
+}
+
+/**********************************************
+         End Friends Page
+**********************************************/
+
+/**********************************************
+         User Channels Page
+**********************************************/
+
+/**********************************************
+       End User Channels Page
+**********************************************/
+
+/**********************************************
+            Dashboard
+**********************************************/
+
+.dashboard-container {
+height: 80vh;
+padding: 0 1.8rem;
+}
+
+#chat-page .messageAreaPrivate {
+padding: 0 20px;
+  height: 68vh;
+}
+
+.chat-container h4 {
+margin-top: 35%;
+}
+
+.dashboard-left {
+background-color: white;
+}
+
+.dashboard-left, .dashboard-right {
+padding-right: 0;
+  padding-left: 0;
+  min-height: 85vh;
+  max-height: 85vh;
+}
+
+.dashboard-left {
+overflow-y: scroll;
+}
+
+.dashboard-right {
+overflow-y: hidden;
+}
+
+.dashboard-contacts {
+list-style-type: none;
+}
+
+.convo {
+padding: 0 1.5rem;
+}
+
+.convo:hover {
+ -webkit-filter: brightness(.8) grayscale(0) opacity(1);
+  -moz-filter: brightness(.8) grayscale(0) opacity(1);
+  filter: brightness(.8) grayscale(0) opacity(1);
+  
+  cursor: pointer;
+}
+
+.convo:nth-child(odd){
+background-color: #e6eaea;
+}
+
+.convo:nth-child(even){
+background-color: white;
+}
+
+.dashboard-contact-info {
+word-wrap: break-word;
+}
+
+.dashboard-header {
+background-color: white;
+color: black;
+font-weight: 300;
+}
+
+.started-convo {
+padding-top: 10px;
+padding-bottom: 5px;
+}
+
+.new-convo {
+padding-top: 20px;
+  padding-bottom: 20px!important;
+}
+
+.dash {
+margin-bottom: 0;
+}
+
+
+/**********************************************
+          End Dashboard
+**********************************************/
+
+/**********************************************
+     Sizing Utility Classes
+**********************************************/
+
+/* Small devices (landscape phones, 576px and up)*/
+@media (min-width: 576px) {
+.w-sm-100 {
+  width:100%!important;
+}
+.w-sm-75 {
+  width:75%!important;
+}
+.w-sm-50 {
+  width:50%!important;
+}
+.w-sm-25 {
+  width:25%!important;
+}
+.h-sm-100 {
+  height:100%!important;
+}
+.h-sm-75 {
+  height:75%!important;
+}
+.h-sm-50 {
+  height:50%!important;
+}
+.h-sm-25 {
+  height:25%!important;
+}
+
+.bg-sm-transparent{
+  background-color: transparent;
+}
+.navbar-nav .nav-item:hover{
+  background-color: transparent;
+}
+
+.modal {
+  --bs-modal-margin: 0;
+  --bs-modal-box-shadow: 0 0.5rem 1remrgba(0, 0, 0, 0.15);
+}
+}
+
+/* Medium devices (tablets, 768px and up)*/
+@media (min-width: 768px) {
+.w-md-100 {
+  width:100%!important;
+}
+.w-md-75 {
+  width:75%!important;
+}
+.w-md-60 {
+  width:60%!important;
+}
+.w-md-50 {
+  width:50%!important;
+}
+.w-md-25 {
+  width:25%!important;
+}
+.w-md-21 {
+  width:21%!important;
+}
+.h-md-100 {
+  height:100%!important;
+}
+.h-md-75 {
+  height:75%!important;
+}
+.h-md-50 {
+  height:50%!important;
+}
+.h-md-25 {
+  height:25%!important;
+}
+}
+
+/* Large devices (desktops, 992px and up)*/
+@media (min-width: 992px) {
+.w-lg-100 {
+  width:100%!important;
+}
+.w-lg-75 {
+  width:75%!important;
+}
+.w-lg-62 {
+  width:62%!important;
+}
+.w-lg-50 {
+  width:50%!important;
+}
+.w-lg-40 {
+  width:40%!important;
+}
+.w-lg-32 {
+  width:32%!important;
+}
+.w-lg-25 {
+  width:25%!important;
+}
+.w-lg-16 {
+  width:16%!important;
+}
+.h-lg-100 {
+  height:100%!important;
+}
+.h-lg-75 {
+  height:75%!important;
+}
+.h-lg-50 {
+  height:50%!important;
+}
+.h-lg-25 {
+  height:25%!important;
+}
+}
+
+/* Extra large devices (large desktops, 1200px and up)*/
+@media (min-width: 1200px) {
+.w-xl-100 {
+  width:100%!important;
+}
+.w-xl-75 {
+  width:75%!important;
+}
+.w-xl-50 {
+  width:50%!important;
+}
+.w-xl-25 {
+  width:25%!important;
+}
+.w-xl-14 {
+  width:14%!important;
+}
+.h-xl-100 {
+  height:100%!important;
+}
+.h-xl-75 {
+  height:75%!important;
+}
+.h-xl-50 {
+  height:50%!important;
+}
+.h-xl-25 {
+  height:25%!important;
+}
+}
+
+@media (min-width: 1400px) {
+.w-xxl-100 {
+  width:100%!important;
+}
+.w-xxl-75 {
+  width:75%!important;
+}
+.w-xxl-50 {
+  width:50%!important;
+}
+.w-xxl-25 {
+  width:25%!important;
+}
+.w-xxl-12 {
+  width:12%!important;
+}
+.h-xxl-100 {
+  height:100%!important;
+}
+.h-xxl-75 {
+  height:75%!important;
+}
+.h-xxl-50 {
+  height:50%!important;
+}
+.h-xxl-25 {
+  height:25%!important;
+}
+}

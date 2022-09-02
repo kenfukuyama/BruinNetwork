@@ -1,7 +1,7 @@
 
 const mongoose = require("mongoose");
 
-mongoose.connect("mongodb://localhost/authors_db", {
+mongoose.connect("mongodb://localhost/bruin_network_db", {
 	useNewUrlParser: true,
 	useUnifiedTopology: true,
 })

@@ -1,4 +1,3 @@
-
 // alert("serach bar acitve")
 $(document).ready(function(){
     $(".live-search-box").on("keyup", function() {

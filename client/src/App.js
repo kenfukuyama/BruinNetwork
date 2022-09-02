@@ -3,8 +3,9 @@ import './App.css';
 
 import Main from './views/Main';
 import Events from './views/Events';
-import DetailAuthor from './views/DetailAuthor';
-import UpdateAuthor from './views/UpdateAuthor';
+import EventForm from './components/EventForm';
+// import DetailAuthor from './views/DetailAuthor';
+// import UpdateAuthor from './views/UpdateAuthor';
 
 function App() {
   return (
@@ -15,8 +16,10 @@ function App() {
 
         {/* // * event routes */}
         <Route element={<Events/>} path="/events"/>
-        <Route element={<DetailAuthor/>} path="/authors/:id"/>
-        <Route element={<UpdateAuthor/>} path="/authors/:id/edit"/>
+        <Route element={<EventForm/>} path="/events/new"/>
+
+        {/* <Route element={<DetailAuthor/>} path="/authors/:id"/> */}
+        {/* <Route element={<UpdateAuthor/>} path="/authors/:id/edit"/> */}
 
         {/* // * chat routes */}
 

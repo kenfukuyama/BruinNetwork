@@ -4,12 +4,15 @@ import './App.css';
 import Main from './views/Main';
 import Events from './views/Events';
 import EventForm from './components/EventForm';
+import NavBar from './components/NavBar';
 // import DetailAuthor from './views/DetailAuthor';
 // import UpdateAuthor from './views/UpdateAuthor';
 
 function App() {
   return (
     <div className="App">
+      <NavBar/>
+      
       <Routes>
         {/* // * main routes */}
         <Route element={<Main/>} path="/"/>

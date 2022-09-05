@@ -20,7 +20,7 @@ const Events = () => {
                 setLoaded(true);
             })
             .catch(err => console.error(err));
-    },[events]);
+    },[]);
 
     return (
         <div>
@@ -40,7 +40,7 @@ const Events = () => {
 
                     <div className="row">
                         <div className="col">
-                            {loaded && <EventList events={events} />}
+                        {loaded && <EventList events={events} />}
                         </div>
                     </div>
                 </div>

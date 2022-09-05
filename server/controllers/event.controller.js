@@ -2,11 +2,14 @@ const { Event } = require('../models/event.model');
 
 module.exports.createEvent = (request, response) => {
     // ! you need to edit this for each Schema
-    const {name, description, eventDate} = request.body;
+    const {name, description, eventDate, startTime, endTime, place} = request.body;
     Event.create({
         name,
         description,
-        eventDate
+        eventDate,
+        startTime,
+        endTime,
+        place
     })
         .then(event => response.json(event))
         .catch(err => response.status(400).json(err));

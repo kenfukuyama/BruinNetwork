@@ -40,41 +40,77 @@ const EventList = ({events}) => {
     
 
     return (
-        <div className="wh-100">
-            <table className="table">
-                <thead>
-                    <tr>
-                        <th>Event Name</th>
-                        <th>Date</th>
-                        <th>Description</th>
-                        <th>Start Time</th>
-                        <th>End Time</th>
-                        <th>Location</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {formattedEvents.map((event, i) =>
-                        <tr key={i}>
-                            <td>{event.name} </td>
-                            <td>{event.eventDate}</td>
-                            <td>{event.description}</td>
-                            <td>{event.startTime}</td>
-                            <td>{event.endTime}</td>
-                            <td>{event.place}</td>
-                            
-                            <td>  
-                                <div className="d-flex justify-content-center gap-3">
+        // <div className="overflow-auto events-show">
+        <div className="container">
+            <div className="events-show container overflow-auto">
+                {formattedEvents.map((event, i) =>
+                    <div className="row event" key={i}>
+                        <div className="card m-2 shadow-lg">
+                            <div className="card-header">
+                                <div className="d-flex align-items-center justify-content-between">
+                                    <div className="event-name">
+                                        <a href="/events/show/{{event.id}}" className="text-decoration-none h5 ">{event.name}</a>
+                                    </div>
+                                    <div className="event-time"> {event.eventDate} at {event.startTime}</div>
                                 </div>
-                            </td>
-                        </tr>
-                    )}
-                </tbody>
-            </table>
+                                <div className="d-flex align-items-center justify-content-end">
+                                    <div className="event-time">{event.place}</div>
+                                </div>
+                            </div>
+                            <div className="card-body">
+                                <div className="d-flex  justify-content-between">
+                                    <div className="">{event.description}  <br /></div>
+                                    <div className="div">
+                                        <i className="bi bi-heart nav-icon"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )}
+            </div>
+
         </div>
+        
     )
 }
     
 export default EventList;
+
+
+
+
+// <table className="table">
+// <thead>
+//     <tr>
+//         <th>Event Name</th>
+//         <th>Date</th>
+//         <th>Description</th>
+//         <th>Start Time</th>
+//         <th>End Time</th>
+//         <th>Location</th>
+//     </tr>
+// </thead>
+// <tbody>
+//     {formattedEvents.map((event, i) =>
+//         <tr key={i}>
+//             <td>{event.name} </td>
+//             <td>{event.eventDate}</td>
+//             <td>{event.description}</td>
+//             <td>{event.startTime}</td>
+//             <td>{event.endTime}</td>
+//             <td>{event.place}</td>
+            
+//             <td>  
+//                 <div className="d-flex justify-content-center gap-3">
+//                 </div>
+//             </td>
+//         </tr>
+//     )}
+// </tbody>
+// </table>
+
+
 
 
 

@@ -3,8 +3,9 @@ import {Link} from 'react-router-dom';
 
 function NavBar() {
     return (
-        <div>
-            <nav className="navbar navbar-expand-sm fixed-top">
+        // <div>
+            <nav className="row navbar navbar-expand-sm fixed-top">
+            {/* <nav className="row navbar navbar-expand-sm"> */}
                 <div className="container-fluid ps-3 pe-4 styled-text">
                     <Link  className="navbar-brand text-white pt-1" to={"/events"}>
                     <svg width="210" height="40" viewBox="0 0 272 47" fill="none" xmlns="http://www.w3.org/2000/svg" className="pt-2">
@@ -62,7 +63,7 @@ function NavBar() {
                 </div>
             </nav>
 
-        </div>
+        // </div>
         
     )
 }

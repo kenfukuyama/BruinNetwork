@@ -1,13 +1,25 @@
 import React from 'react'
 import {Link} from 'react-router-dom';
+import Logout from './Logout';
+// import Cookies from 'universal-cookie';
+// import { useState } from 'react';
+
+import {LoggedinContext} from '../context/LoggedinContext';
+import { useContext } from 'react';
+
 
 function NavBar() {
+    // const cookies = new Cookies();
+    // const [cookies, setCookies] = useState(new Cookies());
+    const {loggedin} = useContext(LoggedinContext);
+    
+
     return (
         // <div>
             <nav className="row navbar navbar-expand-sm fixed-top">
             {/* <nav className="row navbar navbar-expand-sm"> */}
                 <div className="container-fluid ps-3 pe-4 styled-text">
-                    <Link  className="navbar-brand text-white pt-1" to={"/events"}>
+                    <Link  className="navbar-brand text-white pt-1" to={"/"}>
                     <svg width="210" height="40" viewBox="0 0 272 47" fill="none" xmlns="http://www.w3.org/2000/svg" className="pt-2">
                             <g filter="url(#filter0_d_2_41)">
                                 <path d="M7.936 34.096C5.632 31.0667 4.48 26.1813 4.48 19.44C4.48 12.6987 5.632 7.81332 7.936 4.78399C10.24 1.75466 14.0587 0.23999 19.392 0.23999C24.7253 0.23999 28.5653 1.71199 30.912 4.65599L29.504 5.93599C27.6267 3.41866 24.256 2.15999 19.392 2.15999C17.2587 2.15999 15.4667 2.39466 14.016 2.86399C12.5653 3.29066 11.2213 4.12266 9.984 5.35999C8.78933 6.55466 7.89333 8.32532 7.296 10.672C6.69866 12.976 6.4 15.8987 6.4 19.44C6.4 22.9813 6.69866 25.9253 7.296 28.272C7.89333 30.576 8.78933 32.3467 9.984 33.584C11.2213 34.7787 12.5653 35.6107 14.016 36.08C15.4667 36.5067 17.2587 36.72 19.392 36.72C24.256 36.72 27.6267 35.4613 29.504 32.944L30.912 34.224C28.5653 37.168 24.7253 38.64 19.392 38.64C14.0587 38.64 10.24 37.1253 7.936 34.096Z" fill="white" />
@@ -46,19 +58,39 @@ function NavBar() {
 
                     <div className="collapse navbar-collapse" id="navmenu">
 
+                        {/* <ul className="navbar-nav ms-auto bg-sm-transparent"> */}
+
+                    {loggedin ? (<ul className="navbar-nav ms-auto bg-sm-transparent">
+                        <li className="nav-item ps-2">
+                            <Link className="nav-link text-white" to={"/events/new"}><i className="bi bi-plus-circle-fill nav-icon"></i> ADD EVENTS</Link>
+                        </li>
+
+                        <li className="nav-item ps-2">
+                            <a href="/users/friends" className="nav-link text-white"><i className="bi bi-people-fill nav-icon"></i> FRIENDS</a>
+                        </li>
+
+                        <li className="nav-item ps-2">
+                            <a href="/users/dashboard" className="nav-link text-white"><i className="bi bi-chat-dots-fill nav-icon"></i> MESSAGES</a>
+                        </li>
+
+                        <li className="nav-item ps-2">
+                            {/* <a href="/users/dashboard" className="nav-link text-white"><i className="bi bi-box-arrow-left nav-icon"></i> LOGOUT</a> */}
+                            <Logout />
+                        </li>
+                    </ul>
+                    ) : (
                         <ul className="navbar-nav ms-auto bg-sm-transparent">
                             <li className="nav-item ps-2">
-                                <Link className="nav-link text-white" to={"/events/new"}><i className="bi bi-plus-circle-fill nav-icon"></i> ADD EVENTS</Link>
+                                <Link className="nav-link text-white" to={"/login"}><i className="bi bi-door-open-fill nav-icon"></i>LOGIN</Link>
                             </li>
-
                             <li className="nav-item ps-2">
-                                <a href="/users/friends" className="nav-link text-white"><i className="bi bi-people-fill nav-icon"></i> FRIENDS</a>
-                            </li>
-
-                            <li className="nav-item ps-2">
-                                <a href="/users/dashboard" className="nav-link text-white"><i className="bi bi-chat-dots-fill nav-icon"></i> MESSAGES</a>
+                                <Link className="nav-link text-white" to={"/register"}><i className="bi bi-people-fill nav-icon"></i>REGISTER</Link>
                             </li>
                         </ul>
+
+                    )
+
+                    }
                     </div>
                 </div>
             </nav>

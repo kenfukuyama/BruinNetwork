@@ -1,25 +1,54 @@
 
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 // import {Link} from 'react-router-dom';
 import axios from 'axios';
 import EventList from '../components/EventList';
+// import Cookies from 'universal-cookie';
+import { useNavigate } from 'react-router-dom';
+// import jwt from 'jwt-decode';
+import {LoggedinContext} from '../context/LoggedinContext';
 
 
 const Events = () => {
+    // const cookies = new Cookies();
+    const navigate = useNavigate();
+    
     const [events, setEvents] = useState([]);
     const [loaded, setLoaded] = useState(false);
+    const {loggedin} = useContext(LoggedinContext);
 
     // * initial message
     // const [ message, setMessage ] = useState("Loading...")  
 
     // * for people
     useEffect(()=>{
+        // const token = cookies.get('usertoken');
+        // if (!token) {
+        //     navigate('/login');
+        //     return;
+        // }
+        if (!loggedin) {
+            navigate('/login');
+            return;
+        } 
+
         axios.get('http://localhost:8000/api/events')
             .then(res => {
                 setEvents(res.data);
                 setLoaded(true);
             })
             .catch(err => console.error(err));
+
+        // // * this will indreclty take care of users typoonig token manually
+        // const userId = jwt(token).id;
+        // axios.get('http://localhost:8000/api/users/' + userId, { withCredentials: true })
+        //     .then(res => {
+        //         console.log(res.data);
+        //     })
+        //     .catch(err => {
+        //         console.error(err);
+        //     });
+    // eslint-disable-next-line
     },[]);
 
     return (
@@ -68,7 +97,7 @@ const Events = () => {
                                 <label className="form-check-label" htmlFor="sunday">Sunday</label>
                             </div>
                             <div className="d-flex justify-content-between align-items-center m-2 mt-3">
-                                <a href="/events/filters/clear" className="btn btn-warning">Clear</a>
+                                <a href="/events/filters/clear" className="btn btn-secondary">Clear</a>
                                 <input type="submit" value="Apply" className="btn btn-primary" />
                             </div>
                         </form>

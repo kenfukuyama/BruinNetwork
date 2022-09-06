@@ -1,4 +1,6 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
+
 
 
 const Main = () => {
@@ -10,8 +12,13 @@ const Main = () => {
                 <p className="lead styled-text">Connect and chat with Bruins</p>
 
                 <div className="d-flex gap-2">
-                    <a className="btn btn-light btn-lg mt-2" href="/events"><strong>Explore Events</strong> <i className="bi-arrow-right-short"></i></a>
-                    <a className="btn btn-light btn-lg mt-2" href="/chitchat"><strong>Chat with Random Bruins</strong> <i className="bi-arrow-right-short"></i></a>
+                    <Link className="btn btn-light btn-lg mt-2" to={"/events"}><strong>Explore Events</strong> <i className="bi-arrow-right-short"></i></Link>
+                    <Link  className="btn btn-light btn-lg mt-2" to={"/chitchat"}><strong>Chat with Random Bruins</strong> <i className="bi-arrow-right-short"></i></Link>
+                </div>
+
+                <div className="d-flex gap-2">
+                    <Link className="btn btn-light btn-lg mt-2" to={"/login"}><strong>Login</strong> <i className="bi-arrow-right-short"></i></Link>
+                    <Link className="btn btn-light btn-lg mt-2" to={"/register"}><strong>Register</strong> <i className="bi-arrow-right-short"></i></Link>
                 </div>
             </div>   
         </div>

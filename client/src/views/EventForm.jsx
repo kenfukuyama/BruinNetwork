@@ -1,12 +1,27 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Cookies from 'universal-cookie';
+import { useEffect } from 'react';
+
+
 
 
 
 const EventForm = (props) => {
     //keep track of what is being typed via useState hook
+    const cookies = new Cookies();
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const token = cookies.get('usertoken');
+        if (!token) {
+            navigate('/login');
+            return;
+        }
+    // eslint-disable-next-line
+    }, [])
+    
 
     const getToday = () => {
         let MyDate = new Date();

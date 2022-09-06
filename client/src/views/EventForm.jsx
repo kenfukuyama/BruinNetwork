@@ -3,6 +3,8 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 import { useEffect } from 'react';
+import jwt from 'jwt-decode';
+
 
 
 
@@ -36,7 +38,8 @@ const EventForm = (props) => {
         description: "",
         startTime: "18:00",
         endTime: "19:00",
-        place: ""
+        place: "",
+        userId : jwt(cookies.get('usertoken')).id
     }); 
 
 
@@ -54,7 +57,8 @@ const EventForm = (props) => {
             eventDate: event.eventDate,
             startTime: eventStartTimeDate,
             endTime: eventEndTimeDate,
-            place: event.place
+            place: event.place,
+            userId : event.userId
 
         })
             .then(res => {

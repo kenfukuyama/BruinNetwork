@@ -20,10 +20,12 @@ const EventSchema = new mongoose.Schema({
     },
     place: { type: String,
         required: [true, "Place is required"]
+    },
+    creator : {
+        type:mongoose.Schema.Types.ObjectId,
+        ref: 'User'
     }
     // categories: [String]
-
-
 }, { timestamps: true });
 
 module.exports.Event = mongoose.model('Event', EventSchema);

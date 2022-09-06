@@ -1,17 +1,40 @@
 const { Event } = require('../models/event.model');
+const { User } = require('../models/user.model');
+const mongoose = require('mongoose');
 
 module.exports.createEvent = (request, response) => {
     // ! you need to edit this for each Schema
-    const {name, description, eventDate, startTime, endTime, place} = request.body;
+    const {name, description, eventDate, startTime, endTime, place, userId} = request.body;
+    // console.log(userId.length);
+    let tempUserId = mongoose.Types.ObjectId(userId.trim());
     Event.create({
         name,
         description,
         eventDate,
         startTime,
         endTime,
-        place
+        place,
+        creator:tempUserId,
     })
-        .then(event => response.json(event))
+        .then(event =>{ 
+            response.json(event);
+            // console.log(event.id);
+            // User.findById(userId.trim())
+            // .then(user => {
+            //     // console.log(user);
+            //     user.posts.push(event.id);
+            //     console.log(user.posts);
+            //     // User.findOneAndUpdate({_id: userId.trim()}, {posts : [...posts]}, {new:true})
+            //     // .then(res => response.json(res))
+            //     // .catch(err => response.json(err))
+            //     user.confirmPassword = user.password;
+            //     user.save().then(res => response.json(user)).catch(err => response.status(400).json(err));
+            //     // response.json(user);
+            // })
+            // // .catch(err => response.status(400).json(err));
+            
+
+        })
         .catch(err => response.status(400).json(err));
 }
 

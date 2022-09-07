@@ -21,43 +21,58 @@ import jwt from 'jwt-decode';
 import {LoggedinContext} from './context/LoggedinContext';
 import EventFormEdit from './views/EventFormEdit';
 import Chatroom from './views/Chatroom';
-import axios from 'axios';
-import { useEffect } from 'react';
+// import axios from 'axios';
+// import { useEffect } from 'react';
 
 function App() {
   // intialize the loggedin status based on the jwt token
-  const [loggedinInfo, setLoggedinInfo] = useState({
-    loggedin :false,
-    loggedinId : null,
-    loggedinName : null
-  });
 
-  useEffect(() => {
+
+  // useEffect(() => {
     const cookies = new Cookies();
     const token = cookies.get('usertoken');
     let tempLoggedIn = false;
     let tempLggedinId = null;
-    let tempedUsername = null;
+    // let tempedUsername = null;
     if (token) {
       if (jwt(token).id) {
         tempLoggedIn = true;
         tempLggedinId = jwt(token).id;
         // console.log(jwt(token));
-        axios.get('http://localhost:8000/api/users/' + tempLggedinId)
-            .then(res => {
-              // console.log(res);
-              tempedUsername = res.data.username;
-              // console.log(tempedUsername);
-              setLoggedinInfo({
-                loggedin :tempLoggedIn,
-                loggedinId : tempLggedinId,
-                loggedinName : tempedUsername
-              });
-            })
-            .catch(err => console.error(err));
+
+        // setLoggedinInfo({
+        // });
+
+        // axios.get('http://localhost:8000/api/users/' + tempLggedinId)
+        //     .then(res => {
+        //       // console.log(res);
+        //       tempedUsername = res.data.username;
+        //       console.log(tempedUsername);
+        //       setLoggedinInfo({
+        //         loggedin :tempLoggedIn,
+        //         loggedinId : tempLggedinId,
+        //         loggedinName : tempedUsername,
+        //         loadingUser: false
+        //       });
+        //       // setLoggedinInfo({ ...loggedinInfo, loadingUser: false});
+        //     })
+        //     .catch(err => {console.error(err); setLoggedinInfo({
+        //       loggedin :false,
+        //       loggedinId : null,
+        //       loggedinName : null,
+        //       loadingUser: false
+        //     });})
+            // .finally(() => {setLoggedinInfo({ ...loggedinInfo, loadingUser: false})});
       }
     }
-  }, []);
+    
+  // }, []);
+  const [loggedinInfo, setLoggedinInfo] = useState({
+    loggedin :tempLoggedIn,
+    loggedinId : tempLggedinId,
+    loggedinUsername : null,
+    loadingUser: false
+  });
 
 
   // const [loggedinId, setLoggedinId] = useState(tempLggedinId);

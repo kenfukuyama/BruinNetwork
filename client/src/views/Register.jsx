@@ -42,9 +42,10 @@ const Register = () => {
             setLoggedinInfo ({
                 loggedin : true,
                 loggedinId : res.data.user._id,
-                loggedinName : res.data.user.username
+                loggedinUsername : res.data.user.username,
+                loadingUser : false
             })
-            navigate('/events');
+            navigate('/');
 
         })
         .catch(err => console.error(err));

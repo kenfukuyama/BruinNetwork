@@ -17,7 +17,8 @@ const Logout = () => {
             setLoggedinInfo ({
                 loggedin : false,
                 loggedinId : null,
-                loggedinName : null
+                loggedinUsername : null,
+                loadingUser : false
             })
             navigate('/');
 

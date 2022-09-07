@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { LoggedinContext } from '../context/LoggedinContext';
 import { useContext } from 'react';
@@ -12,11 +12,11 @@ import { useContext } from 'react';
 const EventForm = (props) => {
     //keep track of what is being typed via useState hook
     const navigate = useNavigate();
-    const {loggedin, loggedinId} = useContext(LoggedinContext);
+    const {loggedinInfo} = useContext(LoggedinContext);
     const [created, setCreated] = useState(false);
 
     useEffect(() => {
-        if (!loggedin) {
+        if (!loggedinInfo.loggedin) {
             navigate('/login');
             return;
         } 
@@ -38,7 +38,7 @@ const EventForm = (props) => {
         startTime: "18:00",
         endTime: "19:00",
         place: "",
-        userId : loggedinId
+        userId : loggedinInfo.loggedinId
     }); 
 
 
@@ -91,7 +91,7 @@ const EventForm = (props) => {
             startTime: "18:00",
             endTime: "19:00",
             place: "",
-            userId : loggedinId
+            userId : loggedinInfo.loggedinId
         });
         setCreated(false);
     };

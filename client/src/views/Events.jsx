@@ -15,7 +15,7 @@ const Events = () => {
     
     const [events, setEvents] = useState([]);
     const [loaded, setLoaded] = useState(false);
-    const {loggedin} = useContext(LoggedinContext);
+    const {loggedinInfo} = useContext(LoggedinContext);
 
     // * initial message
     // const [ message, setMessage ] = useState("Loading...")  
@@ -27,7 +27,7 @@ const Events = () => {
         //     navigate('/login');
         //     return;
         // }
-        if (!loggedin) {
+        if (!loggedinInfo.loggedin) {
             navigate('/login');
             return;
         } 

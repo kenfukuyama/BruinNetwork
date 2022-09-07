@@ -10,10 +10,9 @@ const EventFormEdit = (props) => {
     //keep track of what is being typed via useState hook
     const {id} = useParams();
     const navigate = useNavigate();
-    const {loggedin, loggedinId} = useContext(LoggedinContext);
+    const {loggedinInfo} = useContext(LoggedinContext);
     const [loading, setLoading] = useState(true);
     const [updated, setUpdated] = useState(false);
-    let existingEvent = {};
 
     const getToday = () => {
         let MyDate = new Date();
@@ -29,12 +28,12 @@ const EventFormEdit = (props) => {
         startTime: "18:00",
         endTime: "19:00",
         place: "",
-        userId : loggedinId
+        userId : loggedinInfo.loggedinId
     }); 
 
 
     useEffect(() => {
-        if (!loggedin) {
+        if (!loggedinInfo.loggedin) {
             navigate('/login');
             return;
         } 

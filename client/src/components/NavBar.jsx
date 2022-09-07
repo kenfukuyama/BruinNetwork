@@ -11,7 +11,7 @@ import { useContext } from 'react';
 function NavBar() {
     // const cookies = new Cookies();
     // const [cookies, setCookies] = useState(new Cookies());
-    const {loggedin} = useContext(LoggedinContext);
+    const {loggedinInfo} = useContext(LoggedinContext);
     
 
     return (
@@ -44,6 +44,10 @@ function NavBar() {
                                 </filter>
                             </defs>
                         </svg>
+
+                        
+
+
                     </Link>
 
 
@@ -60,7 +64,7 @@ function NavBar() {
 
                         {/* <ul className="navbar-nav ms-auto bg-sm-transparent"> */}
 
-                    {loggedin ? (<ul className="navbar-nav ms-auto bg-sm-transparent">
+                    {(loggedinInfo.loggedin) ? (<ul className="navbar-nav ms-auto bg-sm-transparent">
                         <li className="nav-item ps-2">
                             <Link className="nav-link text-white" to={"/events/new"}><i className="bi bi-plus-circle-fill nav-icon"></i> ADD EVENTS</Link>
                         </li>

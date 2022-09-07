@@ -16,10 +16,10 @@ const Main = () => {
                     <Link  className="btn btn-light btn-lg mt-2" to={"/chitchat"}><strong>Chat with Random Bruins</strong> <i className="bi-arrow-right-short"></i></Link>
                 </div>
 
-                <div className="d-flex gap-2">
+                {/* <div className="d-flex gap-2">
                     <Link className="btn btn-light btn-lg mt-2" to={"/login"}><strong>Login</strong> <i className="bi-arrow-right-short"></i></Link>
                     <Link className="btn btn-light btn-lg mt-2" to={"/register"}><strong>Register</strong> <i className="bi-arrow-right-short"></i></Link>
-                </div>
+                </div> */}
             </div>   
         </div>
     );

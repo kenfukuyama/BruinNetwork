@@ -9,7 +9,7 @@ import { LoggedinContext } from '../context/LoggedinContext';
 import EventListEdit from '../components/EventListEdit';
 
 const MyEvents = () => {
-    const {loggedin, loggedinId} = useContext(LoggedinContext);
+    const {loggedinInfo} = useContext(LoggedinContext);
     const navigate = useNavigate();
 
     const [events, setEvents] = useState([]);
@@ -21,21 +21,21 @@ const MyEvents = () => {
     const [chosenLink, setChosenLink] = useState(navLink[0]);
 
     useEffect(() => {
-        if (!loggedin) {
+        if (!loggedinInfo.loggedin) {
             navigate('/login');
             return;
         } 
 
         if (chosenLink === 'postedEvents' ) {
             /// get all the events crated by the user.
-            axios.get('http://localhost:8000/api/events/user/' + loggedinId)
+            axios.get('http://localhost:8000/api/events/user/' + loggedinInfo.loggedinId)
             // axios.get("api/events/user/6317f12d985af7817efe4bc9")
             .then( res => {
                 setEvents(res.data);
             })
             .catch( err => console.log(err))
         }
-    }, [chosenLink, loggedin, loggedinId, navigate])
+    }, [chosenLink, loggedinInfo.loggedin, loggedinInfo.loggedinId, navigate])
 
     
     return (

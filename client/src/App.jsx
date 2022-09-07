@@ -15,32 +15,57 @@ import { useState } from 'react';
 import jwt from 'jwt-decode';
 // import { createContext } from 'react';
 
+
 // for context
 // import AppWrapperComponent from './AppWrapperComponent';
 import {LoggedinContext} from './context/LoggedinContext';
 import EventFormEdit from './views/EventFormEdit';
-
+import Chatroom from './views/Chatroom';
+import axios from 'axios';
+import { useEffect } from 'react';
 
 function App() {
   // intialize the loggedin status based on the jwt token
-  const cookies = new Cookies();
-  const token = cookies.get('usertoken');
-  let tempLoggedIn = false;
-  let tempLggedinId = null;
-  if (token) {
-    if (jwt(token).id) {
-      tempLoggedIn = true;
-      tempLggedinId = jwt(token).id;
-    }
-  }
+  const [loggedinInfo, setLoggedinInfo] = useState({
+    loggedin :false,
+    loggedinId : null,
+    loggedinName : null
+  });
 
-  const [loggedin, setLoggedin] = useState(tempLoggedIn);
-  const [loggedinId, setLoggedinId] = useState(tempLggedinId);
+  useEffect(() => {
+    const cookies = new Cookies();
+    const token = cookies.get('usertoken');
+    let tempLoggedIn = false;
+    let tempLggedinId = null;
+    let tempedUsername = null;
+    if (token) {
+      if (jwt(token).id) {
+        tempLoggedIn = true;
+        tempLggedinId = jwt(token).id;
+        // console.log(jwt(token));
+        axios.get('http://localhost:8000/api/users/' + tempLggedinId)
+            .then(res => {
+              // console.log(res);
+              tempedUsername = res.data.username;
+              // console.log(tempedUsername);
+              setLoggedinInfo({
+                loggedin :tempLoggedIn,
+                loggedinId : tempLggedinId,
+                loggedinName : tempedUsername
+              });
+            })
+            .catch(err => console.error(err));
+      }
+    }
+  }, []);
+
+
+  // const [loggedinId, setLoggedinId] = useState(tempLggedinId);
   // const LoggedinContext = createContext();
 
   return (
     <div className="App container">
-      <LoggedinContext.Provider value={{loggedin, setLoggedin, loggedinId, setLoggedinId}}>
+      <LoggedinContext.Provider value={{loggedinInfo, setLoggedinInfo}}>
         <NavBar/>
         
         <Routes>
@@ -56,8 +81,11 @@ function App() {
           <Route element={<MyEvents/>} path="/myevents"/>
           <Route element={<EventFormEdit/>} path="/events/:id/edit"/>
         
-          {/* <Route element={<UpdateAuthor/>} path="/authors/:id/edit"/> */}
           {/* // * chat routes */}
+          <Route element={<Chatroom/>} path="/chitchat"/>
+
+          
+          
         </Routes>
       </LoggedinContext.Provider>
     </div>

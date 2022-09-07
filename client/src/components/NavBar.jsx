@@ -66,11 +66,11 @@ function NavBar() {
                         </li>
 
                         <li className="nav-item ps-2">
-                            <a href="/users/friends" className="nav-link text-white"><i className="bi bi-people-fill nav-icon"></i> FRIENDS</a>
+                            <Link className="nav-link text-white" to={"/myevents"}><i className="bi bi-calendar2-event-fill nav-icon"></i> MY EVENTS</Link>
                         </li>
 
                         <li className="nav-item ps-2">
-                            <a href="/users/dashboard" className="nav-link text-white"><i className="bi bi-chat-dots-fill nav-icon"></i> MESSAGES</a>
+                            <Link className="nav-link text-white" to={"/users/dashboard"}><i className="bi bi-chat-dots-fill nav-icon"></i> CHATS</Link>
                         </li>
 
                         <li className="nav-item ps-2">
@@ -91,6 +91,7 @@ function NavBar() {
                     )
 
                     }
+
                     </div>
                 </div>
             </nav>

@@ -6,7 +6,7 @@ import { useContext } from 'react';
 
 const Logout = () => {
     const navigate = useNavigate();
-    const {setLoggedin} = useContext(LoggedinContext);
+    const {setLoggedin, setLoggedinId} = useContext(LoggedinContext);
     
     const logout = (e) => {
         // e.preventDefault();
@@ -15,6 +15,7 @@ const Logout = () => {
         .then(res => { 
             console.log(res);
             setLoggedin(false);
+            setLoggedinId(null);
             navigate('/');
 
         })

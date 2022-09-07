@@ -16,6 +16,7 @@ require('dotenv').config(); // this will allow access for all files using proces
 
 
 // app.use(cors()) 
+app.use(cookieParser());
 app.use(cors({credentials: true, origin: 'http://localhost:3000'}));
 app.use(express.json());
 app.use(express.json(), express.urlencoded({ extended: true }));

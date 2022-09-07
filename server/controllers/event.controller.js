@@ -6,7 +6,7 @@ module.exports.createEvent = (request, response) => {
     // ! you need to edit this for each Schema
     const {name, description, eventDate, startTime, endTime, place, userId} = request.body;
     // console.log(userId.length);
-    let tempUserId = mongoose.Types.ObjectId(userId.trim());
+    let tempUserId = mongoose.Types.ObjectId(userId);
     Event.create({
         name,
         description,
@@ -43,6 +43,14 @@ module.exports.getAllEvents = (request, response) => {
         .then(events => response.json(events))
         .catch(err => response.json(err))
 }
+
+
+module.exports.getAllEventsCreatedByUser = (request, response) => {
+    Event.find({creator: request.params.id})
+        .then(events => response.json(events))
+        .catch(err => response.json(err))
+}
+
 
 module.exports.getEvent = (request, response) => {
     Event.findOne({_id:request.params.id})

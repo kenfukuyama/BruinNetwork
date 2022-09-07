@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import Cookies from 'universal-cookie';
+import { Link, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
-import jwt from 'jwt-decode';
-
+import { LoggedinContext } from '../context/LoggedinContext';
+import { useContext } from 'react';
 
 
 
@@ -12,15 +11,15 @@ import jwt from 'jwt-decode';
 
 const EventForm = (props) => {
     //keep track of what is being typed via useState hook
-    const cookies = new Cookies();
     const navigate = useNavigate();
+    const {loggedin, loggedinId} = useContext(LoggedinContext);
+    const [created, setCreated] = useState(false);
 
     useEffect(() => {
-        const token = cookies.get('usertoken');
-        if (!token) {
+        if (!loggedin) {
             navigate('/login');
             return;
-        }
+        } 
     // eslint-disable-next-line
     }, [])
     
@@ -39,7 +38,7 @@ const EventForm = (props) => {
         startTime: "18:00",
         endTime: "19:00",
         place: "",
-        userId : jwt(cookies.get('usertoken')).id
+        userId : loggedinId
     }); 
 
 
@@ -63,15 +62,9 @@ const EventForm = (props) => {
         })
             .then(res => {
                 console.log(res);
-                setEvent({
-                        name : "",
-                    eventDate : getToday(),
-                    description: "",
-                    startTime: "18:00",
-                    endTime: "19:00",
-                    place: ""
-                });
-                navigate("/events");
+
+                setCreated(true);
+                // navigate("/myevents");
 
             })
             .catch(err => console.error(err));
@@ -90,6 +83,18 @@ const EventForm = (props) => {
     }
 
 
+    const refreshComponent = () => {
+        setEvent({
+            name: "",
+            eventDate: getToday(),
+            description: "",
+            startTime: "18:00",
+            endTime: "19:00",
+            place: "",
+            userId : loggedinId
+        });
+        setCreated(false);
+    };
 
 
     return (
@@ -169,8 +174,8 @@ const EventForm = (props) => {
                                 </div>
 
 
-
-                                <input type="submit" className="btn btn-primary" />
+                                {created ? (<div className="div"><p>Event Posted ✓</p> <button className="btn btn-primary" onClick={refreshComponent}>Create Another Event</button></div> ): <input type="submit" className="btn btn-primary" />}
+                                
                             </form>
 
                         </div>

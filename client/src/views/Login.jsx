@@ -11,7 +11,7 @@ import { useContext } from 'react';
 
 
 const Login = (props) => {
-    const {setLoggedin} = useContext(LoggedinContext);
+    const {setLoggedin, setLoggedinId} = useContext(LoggedinContext);
 
     const navigate = useNavigate();
 
@@ -33,6 +33,7 @@ const Login = (props) => {
             console.log(res);
 
             setLoggedin(true);
+            setLoggedinId(jwt(token).id);
             navigate('/events');
 
         })

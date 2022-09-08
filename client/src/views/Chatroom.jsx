@@ -2,7 +2,7 @@ import axios from 'axios';
 import React from 'react'
 import { useContext } from 'react';
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import io from 'socket.io-client';
 import {LoggedinContext} from '../context/LoggedinContext';
 import PropagateLoader from "react-spinners/PropagateLoader";
@@ -10,12 +10,13 @@ import { useRef } from 'react';
 
 
 const Chatroom = () => {
-    const bottomRef = useRef(null);
-    const topRef = useRef(null);
+    // const bottomRef = useRef(null);
+    // const topRef = useRef(null);
     const messageAreaRef = useRef(null);
     const navigate = useNavigate();
 
-    
+    const {roomId} = useParams();
+
     // const [loaded, setLoaded] = useState(false);
     const {loggedinInfo,setLoggedinInfo} = useContext(LoggedinContext);
     const [loading, setLoading] = useState(true);
@@ -23,6 +24,7 @@ const Chatroom = () => {
     // notice that we pass a callback function to initialize the socket
     // we don't need to destructure the 'setSocket' function since we won't be updating the socket state
     const [socket] = useState(() => io(':8000'));
+    // const ioSocket = io;
     const [message, setMessage] = useState({
         content : "",
         username : "ken",
@@ -60,7 +62,22 @@ const Chatroom = () => {
 
 
         // handle join event
-        socket.on('join', data => console.log(data));
+        // socket.on('join', data => console.log(data));
+
+        // io.on("connection", socket => {
+            // socket.on('join', data => console.log(data));
+            // socket.join("some room");
+        // });
+
+
+        // socket.emit('join', "joined from clinet");
+
+        console.log(socket.id);
+        // if (socket.connected) {
+        //     console.log(connected);
+        // }
+
+
 
         socket.on('chat', (data) => {
             // console.log(data);
@@ -86,14 +103,14 @@ const Chatroom = () => {
     // eslint-disable-next-line
     }, [messages]);
 
-    const scrollToTop = () => {
-        // messageAreaRef.current.scrollBottom = messageAreaRef.current.scrollHeight;
-        topRef.current?.scrollIntoView({behavior: 'smooth'});
-    };
-    const scrollToBottom = () => {
-        // messageAreaRef.current.scrollBottom = messageAreaRef.current.scrollHeight;
-        bottomRef.current?.scrollIntoView({behavior: 'smooth'});
-    };
+    // const scrollToTop = () => {
+    //     // messageAreaRef.current.scrollBottom = messageAreaRef.current.scrollHeight;
+    //     topRef.current?.scrollIntoView({behavior: 'smooth'});
+    // };
+    // const scrollToBottom = () => {
+    //     // messageAreaRef.current.scrollBottom = messageAreaRef.current.scrollHeight;
+    //     bottomRef.current?.scrollIntoView({behavior: 'smooth'});
+    // };
 
 
     const sendMessage = (e) => {
@@ -112,7 +129,7 @@ const Chatroom = () => {
 
                 <div className="d-none d-sm-flex justify-content-center align-items-center flex-column">
                 {/*  */}
-                            <h2 id="chatroomName" className="text-center m-0">Chatroom</h2>
+                            <h2 id="chatroomName" className="text-center m-0">{roomId ? roomId : "Default Chatroom"}</h2>
 
                     <p className="text-success mb-1"><span id="number-connected">0</span> Online</p>
                 </div>

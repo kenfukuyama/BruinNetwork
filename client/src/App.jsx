@@ -8,6 +8,7 @@ import NavBar from './components/NavBar';
 import Login from './views/Login';
 import Register from './views/Register';
 import MyEvents from './views/MyEvents';
+import Chatrooms from './views/Chatrooms';
 
 
 import Cookies from 'universal-cookie';
@@ -98,6 +99,8 @@ function App() {
         
           {/* // * chat routes */}
           <Route element={<Chatroom/>} path="/chitchat"/>
+          <Route element={<Chatroom/>} path="/chatroom/:roomId"/>
+          <Route element={<Chatrooms/>} path="/chatrooms"/>
 
           
           

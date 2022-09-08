@@ -42,8 +42,13 @@ io.on("connection", (socket) => {
 
     // listerrs
     socket.on("chat", (data) => {
-        console.log(data);
+        // console.log(data);
         io.emit("chat", data);
+    })
+
+    socket.on("join", (data) => {
+        console.log(data);
+        // io.emit("chat", data);
     })
 
     // ! disconnected

@@ -74,7 +74,7 @@ function NavBar() {
                         </li>
 
                         <li className="nav-item ps-2">
-                            <Link className="nav-link text-white" to={"/users/dashboard"}><i className="bi bi-chat-dots-fill nav-icon"></i> CHATS</Link>
+                            <Link className="nav-link text-white" to={"/chatrooms"}><i className="bi bi-chat-dots-fill nav-icon"></i> CHATS</Link>
                         </li>
 
                         <li className="nav-item ps-2">

@@ -6,8 +6,13 @@ import { useNavigate } from 'react-router-dom';
 import io from 'socket.io-client';
 import {LoggedinContext} from '../context/LoggedinContext';
 import PropagateLoader from "react-spinners/PropagateLoader";
+import { useRef } from 'react';
+
 
 const Chatroom = () => {
+    const bottomRef = useRef(null);
+    const topRef = useRef(null);
+    const messageAreaRef = useRef(null);
     const navigate = useNavigate();
 
     
@@ -60,16 +65,36 @@ const Chatroom = () => {
         socket.on('chat', (data) => {
             // console.log(data);
             setMessages([...messages, data]);
+            // let messageArea = document.querySelector('#message-area');
+            // messageArea.scrollTop = messageArea.bottomRef.current.scrollTop;
+            // bottomRef.current?.innerHTML("hey");
+            // console.log(bottomRef.current.innerHTML);
+            // bottomRef.current.innerHTML() a
+            
         })
+        // bottomRef.current?.scrollIntoView({behavior: 'smooth'});
+        // console.log(bottomRef);
+        // bottomRef.current?.innerHTML = "hello world";
+        messageAreaRef.current.scrollTop = messageAreaRef.current.scrollHeight;
 
-
+        // bottomRef.current?.innerHTML = "hello";
         // note that we're returning a callback function
         // this ensures that the underlying socket will be closed if App is unmounted
         // this would be more critical if we were creating the socket in a subcomponent
         // ! disconnet is acting weird
         // return () => socket.disconnect(true);
     // eslint-disable-next-line
-    }) ;
+    }, [messages]);
+
+    const scrollToTop = () => {
+        // messageAreaRef.current.scrollBottom = messageAreaRef.current.scrollHeight;
+        topRef.current?.scrollIntoView({behavior: 'smooth'});
+    };
+    const scrollToBottom = () => {
+        // messageAreaRef.current.scrollBottom = messageAreaRef.current.scrollHeight;
+        bottomRef.current?.scrollIntoView({behavior: 'smooth'});
+    };
+
 
     const sendMessage = (e) => {
         e.preventDefault();
@@ -86,6 +111,7 @@ const Chatroom = () => {
             <div className="chat-container w-100 w-sm-75 w-lg-62 w-xxl-50 mt-5">
 
                 <div className="d-none d-sm-flex justify-content-center align-items-center flex-column">
+                {/*  */}
                             <h2 id="chatroomName" className="text-center m-0">Chatroom</h2>
 
                     <p className="text-success mb-1"><span id="number-connected">0</span> Online</p>
@@ -93,7 +119,8 @@ const Chatroom = () => {
 
                 {/* <div className="connecting">Connecting...</div> */}
 
-                <ul id="messageArea" className="messageAreaPublic">
+                <ul id="messageArea" className="messageAreaPublic" ref={messageAreaRef}>
+                    {/* <li ref={topRef} className="btn" onClick={scrollToBottom}>Scroll To the Bottom</li> */}
                     {messages && 
                     messages.map((message, i) => {
                         return (
@@ -101,8 +128,12 @@ const Chatroom = () => {
                                 <span>@{message.username}</span>
                                 <p className="mb-0">{message.content}</p>
                             </li>
+                            
+
                         ) 
                     })}
+                    {/* <li ref={bottomRef} className="btn" onClick={scrollToTop}>Scroll To the Top</li> */}
+
                 </ul>
 
 {/* This might throw you an error

@@ -174,7 +174,7 @@ const EventForm = (props) => {
                                 </div>
 
 
-                                {created ? (<div className="div"><p>Event Posted ✓</p> <button className="btn btn-primary" onClick={refreshComponent}>Create Another Event</button></div> ): <input type="submit" className="btn btn-primary" />}
+                                {created ? (<div className="div"><p>✓ Event Posted</p> <button className="btn btn-primary" onClick={refreshComponent}>Create Another Event</button></div> ): <input type="submit" className="btn btn-primary" />}
                                 
                             </form>
 

@@ -185,7 +185,7 @@ const EventFormEdit = (props) => {
 
 
 
-                                    <input type="submit" className="btn btn-primary" value={ updated ? "Updated ✓" : "Update" }/>
+                                    <input type="submit" className="btn btn-primary" value={ updated ? "✓ Updated" : "Update" }/>
                                 </form>
 
                             </div>

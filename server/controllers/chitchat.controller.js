@@ -17,6 +17,26 @@ module.exports.getQueue = (request, response) => {
     response.status(200).json(queueObject);
 }
 
+module.exports.leaveQueue = (request, response) => {
+    console.log(request.body);
+    if (!request.body.userId) {
+        response.status(400).json({msg: "no userId specified"});
+        return;
+    }
+    if (!(request.body.userId in queueObject)) {
+        response.status(400).json({msg: "user not in queue"});
+        return;
+    }
+
+    delete queueObject[request.body.userId];
+    response.status(200).json({msg: "left the queue", ...queueObject});
+}
+
+
+module.exports.getQueue = (request, response) => {
+    response.status(200).json(queueObject);
+}
+
 
 module.exports.checkQueue = (request, response) => {
     console.log("checking queue");
@@ -74,9 +94,11 @@ module.exports.checkQueue = (request, response) => {
             }
         }
         // if you get here you could not find otherusers
-        response.status(200).json({msg: "no avaiable user in the queue right now"});
+        response.status(204).json({msg: "no avaiable user in the queue right now"});
 
         
     }
 
 }
+
+

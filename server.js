@@ -47,22 +47,29 @@ io.on("connection", (socket) => {
     console.log(colors.magenta(`<- user connected: ${socket.id}`));
 
     // emitters
-    socket.emit("join", {type: "JOIN", content: "user joined", username: "someone"});
+    // socket.emit("chat", {type: "JOIN", content: "user joined", username: "someone"});
 
-    // listerrs
+    // ! listeners
+    // * for the chat to spcific room (include join, chat, leave events)
     socket.on("chat", (data) => {
         // console.log(data);
-        io.emit("chat", data);
-    })
 
-    socket.on("join", (data) => {
-        console.log(data);
+        // this emits to all
         // io.emit("chat", data);
+        io.to(data.roomId).emit("chat", data);
     })
 
+    // * for joining the rooms to specific room
+    socket.on("joinRoom", (data) => {
+        // console.log(data);
+        // io.emit("chat", data);
+        socket.join(data.roomId);
+        console.log(socket.rooms);
+    })
+    
     // ! disconnected
     socket.on("disconnect", (reason) => {
-        console.log(colors.red(`-> user disconnected: ${reason}`));
+        console.log(colors.red(`-> user disconnected: ${socket.id} - ${reason}`));
     });
 
 })

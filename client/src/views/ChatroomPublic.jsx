@@ -9,33 +9,26 @@ import PropagateLoader from "react-spinners/PropagateLoader";
 import { useRef } from 'react';
 
 
-const Chatroom = () => {
-    // const bottomRef = useRef(null);
-    // const topRef = useRef(null);
+const ChatroomPublic = () => {
     const messageAreaRef = useRef(null);
     const navigate = useNavigate();
 
     const {roomId} = useParams();
 
-    // const [loaded, setLoaded] = useState(false);
     const {loggedinInfo,setLoggedinInfo} = useContext(LoggedinContext);
     const [loading, setLoading] = useState(true);
 
-    // notice that we pass a callback function to initialize the socket
-    // we don't need to destructure the 'setSocket' function since we won't be updating the socket state
     const [socket] = useState(() => io(':8000'));
-    // const ioSocket = io;
     const [message, setMessage] = useState({
         content : "",
         username : "",
-        type : "CHAT"
+        type : "CHAT",
+        roomId : roomId
     });
     const [messages, setMessages] = useState([]);
 
-
-
-
     useEffect(() => {
+        console.log("runing use Effect chatroomPublic");
         if (!loggedinInfo.loggedin) {
             // ! disconnect socket if you returning
             socket.disconnect(true);
@@ -44,23 +37,25 @@ const Chatroom = () => {
             return;
         } 
 
+        
+        if (roomId) {
+            socket.emit("joinRoom", {roomId: roomId});
+        }
+
 
         if (loading) {
             if (loggedinInfo.loggedinUsername === null) {
                 //we don't want do anything until finishing loading the user
                 axios.get('http://localhost:8000/api/users/' + loggedinInfo.loggedinId)
                     .then(res => {
-                        // console.log(res);
                         let tempedUsername = res.data.username;
-                        // console.log(tempedUsername);
                         // ! this takes care of case when user refreshes, and destroy username
                         setLoggedinInfo({ ...loggedinInfo, loggedinUsername: tempedUsername })
                         setLoading(false);
                         setMessage({ ...message, username: tempedUsername });
                         
                         // * let everyone knows that they joined
-                        // console.log("refresshign");
-                        socket.emit("chat", {content : `${tempedUsername} joined`, username : "", type : "JOIN"});
+                        socket.emit("chat", {content : `${tempedUsername} joined`, username : "", type : "JOIN", roomId : roomId});
 
                     })
                     .finally(() => setLoading(false));
@@ -69,36 +64,10 @@ const Chatroom = () => {
                 setLoading(false)
                 setMessage({ ...message, username: loggedinInfo.loggedinUsername });
                 // * let everyone knows that they joined
-                // console.log("just logged in/register");
-                socket.emit("chat", { content: `${loggedinInfo.loggedinUsername} joined`, username: "", type: "JOIN" });
+                socket.emit("chat", { content: `${loggedinInfo.loggedinUsername} joined`, username: "", type: "JOIN", roomId : roomId });
             }
         }
 
-        // !connetio methosn
-        // if (!socket.connected) {
-        //     socket.connect();
-        // }
-        
-        // we need to set up all of our event listeners
-        // in the useEffect callback function
-
-
-        // ! handle join event
-        // socket.on('join', data => console.log(data));
-
-        // io.on("connection", socket => {
-            // socket.on('join', data => console.log(data));
-            // socket.join("some room");
-        // });
-
-
-        // socket.emit('join', "joined from clinet");
-
-        // ! checking some sockets
-        // console.log(socket.id);
-        // if (socket.connected) {
-        //     console.log(connected);
-        // }
 
 
         // ! handle incomimg messages
@@ -108,13 +77,9 @@ const Chatroom = () => {
 
         })
 
-        // note that we're returning a callback function
-        // this ensures that the underlying socket will be closed if App is unmounted
-        // this would be more critical if we were creating the socket in a subcomponent
-        // ! disconnet is acting weird
-        // return () => socket.disconnect(true);
+        // ! disconnet is acting weired
         return function cleanup() {
-            socket.emit("chat", { content: `${loggedinInfo.loggedinUsername} left`, username: "", type: "LEAVE" });
+            socket.emit("chat", { content: `${loggedinInfo.loggedinUsername} left`, username: "", type: "LEAVE", roomId : roomId });
             socket.disconnect(true);
         }
     // eslint-disable-next-line
@@ -122,34 +87,20 @@ const Chatroom = () => {
 
 
     useEffect(() => {
-            // let messageArea = document.querySelector('#message-area');
-            // messageArea.scrollTop = messageArea.bottomRef.current.scrollTop;
-            // bottomRef.current?.innerHTML("hey");
-            // console.log(bottomRef.current.innerHTML);
-            // bottomRef.current.innerHTML() as
-            // let messageArea = document.querySelector('#message-area');
-            // messageArea.scrollTop = messageArea.bottomRef.current.scrollTop;
-            // bottomRef.current?.innerHTML("hey");
-            // console.log(bottomRef.current.innerHTML);
-            // bottomRef.current.innerHTML() as
         if (!loading) {
             messageAreaRef.current.scrollTop = messageAreaRef.current.scrollHeight;
         }
     }, [messages, loading]);
-    // const scrollToTop = () => {
-    //     // messageAreaRef.current.scrollBottom = messageAreaRef.current.scrollHeight;
-    //     topRef.current?.scrollIntoView({behavior: 'smooth'});
-    // };
-    // const scrollToBottom = () => {
-    //     // messageAreaRef.current.scrollBottom = messageAreaRef.current.scrollHeight;
-    //     bottomRef.current?.scrollIntoView({behavior: 'smooth'});
-    // };
-
 
     const sendMessage = (e) => {
         e.preventDefault();
-        // console.log(message);
 
+        // empty message or white space
+        // console.log(message.content.trim().length);
+        if (message.content.trim().length < 1) {
+            // console.log(message.content.trim().length);
+            return;
+        }
         socket.emit('chat', message);
         setMessage({...message, content: ""});
 
@@ -175,8 +126,6 @@ const Chatroom = () => {
 
                         <p className="text-success mb-1"><span id="number-connected">2</span> Online</p>
                     </div>
-
-                    {/* <div className="connecting">Connecting...</div> */}
 
                     <ul id="messageArea" className="messageAreaPublic" ref={messageAreaRef}>
                         {/* <li ref={topRef} className="btn" onClick={scrollToBottom}>Scroll To the Bottom</li> */}
@@ -234,4 +183,4 @@ const Chatroom = () => {
     }
 }
 
-export default Chatroom;
+export default ChatroomPublic;

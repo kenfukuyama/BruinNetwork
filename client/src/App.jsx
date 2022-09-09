@@ -21,6 +21,7 @@ import jwt from 'jwt-decode';
 // import AppWrapperComponent from './AppWrapperComponent';
 import {LoggedinContext} from './context/LoggedinContext';
 import EventFormEdit from './views/EventFormEdit';
+import ChatroomPublic from './views/ChatroomPublic';
 import Chatroom from './views/Chatroom';
 // import axios from 'axios';
 // import { useEffect } from 'react';
@@ -99,10 +100,9 @@ function App() {
         
           {/* // * chat routes */}
           <Route element={<Chatroom/>} path="/chitchat"/>
-          <Route element={<Chatroom/>} path="/chatroom/:roomId"/>
+          <Route element={<ChatroomPublic/>} path="/chatroom/:roomId"/>
           <Route element={<Chatrooms/>} path="/chatrooms"/>
 
-          
           
         </Routes>
       </LoggedinContext.Provider>

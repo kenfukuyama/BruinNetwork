@@ -48,6 +48,10 @@ const Chatrooms = () => {
                                 <p className="channelNickname">premed</p>
                                 {/* <input type="radio" name="chatroomName" id="${thisChannel.key.channelName}" value="${thisChannel.key.channelName}" checked="checked"> */}
                                 <input type="radio" name="chatroomName" id="premed" value="premed"/>
+
+                                <p className="channelNickname">humanity</p>
+                                {/* <input type="radio" name="chatroomName" id="${thisChannel.key.channelName}" value="${thisChannel.key.channelName}" checked="checked"> */}
+                                <input type="radio" name="chatroomName" id="humanity" value="humanity"/>
                                 {/* <label className="category-image channel bg-primary" htmlFor="engineering" id="previewBtn"></label> */}
                             {/* </div> */}
 

@@ -31,8 +31,9 @@ colors.enable();
 
 
 // Routes for server
-require('./server/routes/event.routes')(app); // This is new
-require('./server/routes/user.routes')(app); // This is new
+require('./server/routes/event.routes')(app); 
+require('./server/routes/user.routes')(app); 
+require('./server/routes/chitchat.routes')(app); 
 
 
 
@@ -40,6 +41,7 @@ require('./server/routes/user.routes')(app); // This is new
 // creating connectioin, as well as socket
 const server = app.listen(port, () => console.log(`Listening on port: ${port}`) );
 const io = require('socket.io')(server, { cors: true });
+
 
 // socket connections
 io.on("connection", (socket) => {

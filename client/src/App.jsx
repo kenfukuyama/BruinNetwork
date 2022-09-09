@@ -22,7 +22,7 @@ import jwt from 'jwt-decode';
 import {LoggedinContext} from './context/LoggedinContext';
 import EventFormEdit from './views/EventFormEdit';
 import ChatroomPublic from './views/ChatroomPublic';
-import Chatroom from './views/Chatroom';
+import ChitchatLobby from './views/ChitchatLobby';
 // import axios from 'axios';
 // import { useEffect } from 'react';
 
@@ -99,7 +99,7 @@ function App() {
           <Route element={<EventFormEdit/>} path="/events/:id/edit"/>
         
           {/* // * chat routes */}
-          <Route element={<Chatroom/>} path="/chitchat"/>
+          <Route element={<ChitchatLobby/>} path="/chitchat"/>
           <Route element={<ChatroomPublic/>} path="/chatroom/:roomId"/>
           <Route element={<Chatrooms/>} path="/chatrooms"/>
 

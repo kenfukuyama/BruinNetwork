@@ -28,10 +28,26 @@ const UserSchema = new mongoose.Schema({
     },
 
     // ! created events
-    events : [
-        {type: mongoose.Schema.Types.ObjectId, ref:'Event'}
-    ],
-    savedEvents: { type: mongoose.Schema.Types.Mixed, default: {} }
+    savedEvents: { type: mongoose.Schema.Types.Mixed, default: {} },
+    // ! optional information
+    major :{
+        type : String,
+        default : ""
+    },
+    year :{
+        type : String,
+        default : ""
+    },
+    bio : {
+        type : String,
+        default : ""
+    },
+    contacts : {
+        type: mongoose.Schema.Types.Mixed
+        , default: [["", true], ["", true], ["", true]]
+    },
+    interests: { type: mongoose.Schema.Types.Mixed, default: {} },
+
 
 }, { timestamps: true, minimize: false });
 

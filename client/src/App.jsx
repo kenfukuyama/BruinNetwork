@@ -16,7 +16,7 @@ import { useState } from 'react';
 import jwt from 'jwt-decode';
 // import { createContext } from 'react';
 
-
+import MyUserAccount from './views/MyUserAccount'
 // for context
 // import AppWrapperComponent from './AppWrapperComponent';
 import {LoggedinContext} from './context/LoggedinContext';
@@ -91,6 +91,9 @@ function App() {
           {/* //* Login and registration */}
           <Route element={<Login/>} path="/login"/>
           <Route element={<Register/>} path="/register"/>
+
+          {/* // User Route */}
+          <Route element={<MyUserAccount/>} path="/users/account"/>
 
           {/* // * event routes */}
           <Route element={<Events/>} path="/events"/>

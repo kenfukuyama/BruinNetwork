@@ -18,9 +18,10 @@ function NavBar() {
         // <div>
             <nav className="row navbar navbar-expand-sm fixed-top">
             {/* <nav className="row navbar navbar-expand-sm"> */}
-                <div className="container-fluid ps-3 pe-4 styled-text">
+                <div className="container-fluid ps-4 pe-4 styled-text">
                     <Link  className="navbar-brand text-white pt-1" to={"/"}>
-                    <svg width="210" height="40" viewBox="0 0 272 47" fill="none" xmlns="http://www.w3.org/2000/svg" className="pt-2">
+                    <h1 className='h2 font-' style={{fontFamily : "Courier New, monospace"}}>BruinEvent</h1>
+                    {/* <svg width="210" height="40" viewBox="0 0 272 47" fill="none" xmlns="http://www.w3.org/2000/svg" className="pt-2">
                             <g filter="url(#filter0_d_2_41)">
                                 <path d="M7.936 34.096C5.632 31.0667 4.48 26.1813 4.48 19.44C4.48 12.6987 5.632 7.81332 7.936 4.78399C10.24 1.75466 14.0587 0.23999 19.392 0.23999C24.7253 0.23999 28.5653 1.71199 30.912 4.65599L29.504 5.93599C27.6267 3.41866 24.256 2.15999 19.392 2.15999C17.2587 2.15999 15.4667 2.39466 14.016 2.86399C12.5653 3.29066 11.2213 4.12266 9.984 5.35999C8.78933 6.55466 7.89333 8.32532 7.296 10.672C6.69866 12.976 6.4 15.8987 6.4 19.44C6.4 22.9813 6.69866 25.9253 7.296 28.272C7.89333 30.576 8.78933 32.3467 9.984 33.584C11.2213 34.7787 12.5653 35.6107 14.016 36.08C15.4667 36.5067 17.2587 36.72 19.392 36.72C24.256 36.72 27.6267 35.4613 29.504 32.944L30.912 34.224C28.5653 37.168 24.7253 38.64 19.392 38.64C14.0587 38.64 10.24 37.1253 7.936 34.096Z" fill="white" />
                                 <path d="M63.495 38H61.575V19.44H42.375V38H40.455V0.87999H42.375V17.52H61.575V0.87999H63.495V38Z" fill="white" />
@@ -43,7 +44,7 @@ function NavBar() {
                                     <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_2_41" result="shape" />
                                 </filter>
                             </defs>
-                        </svg>
+                        </svg> */}
 
                         
 
@@ -75,6 +76,10 @@ function NavBar() {
 
                         <li className="nav-item ps-2">
                             <Link className="nav-link text-white" to={"/chatrooms"}><i className="bi bi-chat-dots-fill nav-icon"></i> CHATS</Link>
+                        </li>
+
+                        <li className="nav-item ps-2">
+                            <Link className="nav-link text-white" to={"/users/account"}><i className="bi bi-person-circle  nav-icon"></i>ACCOUNT</Link>
                         </li>
 
                         <li className="nav-item ps-2">

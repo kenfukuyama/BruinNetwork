@@ -10,15 +10,35 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 
-import {Switch, FormGroup, FormControlLabel } from '@material-ui/core';
+import {
+    Switch,
+    FormGroup,
+    FormControlLabel,
+} from '@material-ui/core';
+
+import IconButton from '@mui/material/IconButton';
+import Chip from '@mui/material/Chip';
+import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
+
+import { createTheme, ThemeProvider} from '@mui/material/styles';
+
+
 
 const MyUserAccount = () => {
     const [loading, setLoading] = useState(true);
     const [user, setUser] = useState(null);
     const [updated, setUpdated] = useState(false);
     const { loggedinInfo } = useContext(LoggedinContext);
+    const [interest, setInterest] = useState("");
     const navigate = useNavigate();
 
+    const theme = createTheme({
+        palette: {
+            white: {
+                main: '#ffffff',
+            }
+        }
+    });
 
 
 
@@ -28,6 +48,8 @@ const MyUserAccount = () => {
             return;
         }
 
+
+
         axios.get('http://localhost:8000/api/users/' + loggedinInfo.loggedinId)
             .then(res => {
                 console.log(res.data);
@@ -35,7 +57,7 @@ const MyUserAccount = () => {
                 setLoading(false);
             })
 
-    }, [])
+    }, [loggedinInfo.loggedin, loggedinInfo.loggedinId, navigate])
 
 
     const updateUser = (e) => {
@@ -67,14 +89,27 @@ const MyUserAccount = () => {
         setUser({ ...user, contacts : tempContacts});
     }
 
+    const handleInterestSubmit = (e) => {
+        // TODO only allows up to 7 interests
+        let obj = {};
+        obj[interest] = 1;
+        let tempUser = { ...user, interests: { ...user.interests, ...obj } };
+        setUser(tempUser);
+        setInterest("");
+    }
 
-    // if (loading) {
-    //     return (
-    //         <div className="container vh-100">
-    //             <DotLoader size={100} color="white" loading={loading} cssOverride={{display: "block", position : "fixed", bottom: "5%", right : "10%"}} />
-    //         </div>
-    //     )
-    // }
+    const deleteInterest = (e, value) => {
+        let tempInterest = JSON.parse(JSON.stringify(user.interests));
+        delete tempInterest[value];
+        let tempUser = { ...user, interests: tempInterest };
+        setUser(tempUser);
+    }
+
+
+
+
+
+
     return (
         <div>
             <div className="container">
@@ -167,20 +202,36 @@ const MyUserAccount = () => {
                                                 </FormGroup>
                                             </div>
                                         </div>
+
                                     </div>
 
+                                    
+                                    <div className="mb-3">
+                                        <label className="form-label text-white">Interests</label><br />
+                                        <div className="d-flex justify-content-center gap-3">
+                                            <input type="text"
+                                                className="form-control mb-1 w-25"
+                                                value = {interest}
+                                                onChange={e => setInterest(e.target.value)}
+                                            />
+                                            <ThemeProvider theme={theme}>
+                                                <IconButton color="primary" aria-label="add to interest" onClick={handleInterestSubmit}>
+                                                    <PlaylistAddIcon fontSize="medium"/>
+                                                </IconButton>
+                                            </ThemeProvider>
+                                        </div>
+                                    </div>
 
-                                    {/* // TODO fix interest */}
-                                    {/* <div className="mb-2">
-                                        <label className="form-label text-white">interests</label><br />
-                                        <textarea
-                                            placeholder='interests'
-                                            name="interests"
-                                            value={user.interests}
-                                            onChange={handleChange}
-                                            className="form-control" />
-                                    </div> */}
+                                    <div className="d-flex gap-2 mb-3">
+                                        {
+                                            Object.keys(user.interests).map((interest, i) =>{
+                                                return <Chip label={interest} color="success" onDelete={(e) => deleteInterest(e, interest)} key={i}/>
+                                            })
+                                        }
+                                    </div>
                                     <button className="btn btn-primary w-25" onClick={updateUser}>{updated ? "✓ Updated" : "Update"}</button>
+
+
                             </div>
                         </div>
                     )}

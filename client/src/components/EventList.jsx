@@ -85,7 +85,7 @@ const EventList = ({events}) => {
             // console.log(res);
 
         };
-    }, [events]);
+    }, [events, loggedinInfo.loggedinId]);
 
 
     const formatEvents = (paramEvents) => {

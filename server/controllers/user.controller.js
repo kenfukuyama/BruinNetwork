@@ -1,4 +1,5 @@
 const { User } = require('../models/user.model');
+const { Event } = require('../models/event.model');
 const bcrypt = require('bcrypt');
 
 
@@ -26,16 +27,36 @@ module.exports.getUser = (request, response) => {
 }
 
 
+module.exports.getSavedEvents = (request, response) => {
+    // console.log(request.params.id);
+    User.find({_id:request.params.id})
+    .then(users => {
+        // let user = users[0].savedEvents;
+        // console.log(Object.keys(user));
+        let savedEvents = Object.keys(users[0].savedEvents);
+        return (Event.find({_id : {$in: savedEvents}}))
+        // response.status(200).json(users)
+    })
+    .then(events => response.status(200).json(events))
+    .catch(err => response.status(400).json(err))
+    // response.status(500).json({msg: "found saved events"})
+
+}
+
+
 module.exports.updateUser = (request, response) => {
-    console.log(request.body);
+    // console.log(request.body);
     if (request.params.id !== request.body._id) {
         response.status(404).json({msg : "unauthorized"});
+        return;
     }
     User.findOneAndUpdate({_id: request.params.id}, request.body, {new:true})
         .then(updatedUser => response.json({msg: "updated" ,...updatedUser}))
         .catch(err => response.json(err))
     // response.status(200).json({msg: "updated"});
 }
+
+
 
 // module.exports.deleteUser = (request, response) => {
 //     User.deleteOne({ _id: request.params.id })

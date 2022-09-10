@@ -8,6 +8,8 @@ import EventsNavMenu from '../components/EventsNavMenu';
 import { LoggedinContext } from '../context/LoggedinContext';
 import EventListEdit from '../components/EventListEdit';
 
+import SavedEventsList from '../components/SavedEventsList';
+
 const MyEvents = () => {
     const {loggedinInfo} = useContext(LoggedinContext);
     const navigate = useNavigate();
@@ -35,6 +37,17 @@ const MyEvents = () => {
             })
             .catch( err => console.log(err))
         }
+
+        
+        if (chosenLink === 'savedEvents' ) {
+            /// get all the events crated by the user.
+            axios.get('http://localhost:8000/api/users/' + loggedinInfo.loggedinId + "/saved-events")
+            // axios.get("api/events/user/6317f12d985af7817efe4bc9")
+            .then( res => {
+                setEvents(res.data);
+            })
+            .catch( err => console.log(err))
+        }
     }, [chosenLink, loggedinInfo.loggedin, loggedinInfo.loggedinId, navigate])
 
     
@@ -45,11 +58,8 @@ const MyEvents = () => {
             {/* // ! main content */}
             <div className="col-10">
                 <h3 className="text-white">{navLink[chosenLink]}</h3> <hr/>
-                <EventListEdit events={events}/>
-
-
-
-
+                
+                {chosenLink === "postedEvents" ? <EventListEdit events={events}/> : <SavedEventsList events={events}/>}
                 
             </div>
             <EventsNavMenu setChosenLink={setChosenLink}/>

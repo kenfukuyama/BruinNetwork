@@ -5,8 +5,6 @@ import { useNavigate } from 'react-router-dom';
 
 const EventList = ({events}) => {
     const navigate = useNavigate();
-
-
     const [formattedEvents, SetFormattedEvents] = useState([]);
 
     useEffect(() => {
@@ -29,7 +27,6 @@ const EventList = ({events}) => {
         // ? this will run twice, once the events is initialized and second time when it's fetched?? Why???? Three more times when submitted???
         // console.log("running eventList useEffect")
     }, [events]);
-
 
 
     const deleteEvent = (e, id) => {

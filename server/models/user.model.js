@@ -30,8 +30,10 @@ const UserSchema = new mongoose.Schema({
     // ! created events
     events : [
         {type: mongoose.Schema.Types.ObjectId, ref:'Event'}
-    ]
-}, { timestamps: true });
+    ],
+    savedEvents: { type: mongoose.Schema.Types.Mixed, default: {} }
+
+}, { timestamps: true, minimize: false });
 
 
 // add this after UserSchema is defined
@@ -56,6 +58,8 @@ UserSchema.pre('save', function (next) {
             next();
         });
 });
+
+
 
 module.exports.User = mongoose.model('User', UserSchema);
 

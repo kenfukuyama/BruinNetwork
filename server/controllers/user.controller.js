@@ -26,17 +26,25 @@ module.exports.getUser = (request, response) => {
 }
 
 
-// module.exports.updateUser = (request, response) => {
-//     User.findOneAndUpdate({_id: request.params.id}, request.body, {new:true})
-//         .then(updatedUser => response.json(updatedUser))
-//         .catch(err => response.json(err))
-// }
+module.exports.updateUser = (request, response) => {
+    console.log(request.body);
+    if (request.params.id !== request.body._id) {
+        response.status(404).json({msg : "unauthorized"});
+    }
+    User.findOneAndUpdate({_id: request.params.id}, request.body, {new:true})
+        .then(updatedUser => response.json({msg: "updated" ,...updatedUser}))
+        .catch(err => response.json(err))
+    // response.status(200).json({msg: "updated"});
+}
 
 // module.exports.deleteUser = (request, response) => {
 //     User.deleteOne({ _id: request.params.id })
 //         .then(deleteConfirmation => response.json(deleteConfirmation))
 //         .catch(err => response.json(err))
 // }
+
+
+
 
 // login
 module.exports.login = async (req, res) => {

@@ -60,6 +60,7 @@ module.exports.getEvent = (request, response) => {
 
 
 module.exports.updateEvent = (request, response) => {
+    // console.log(request.body);
     Event.findOneAndUpdate({_id: request.params.id}, request.body, {new:true})
         .then(updatedEvent => response.json(updatedEvent))
         .catch(err => response.json(err))

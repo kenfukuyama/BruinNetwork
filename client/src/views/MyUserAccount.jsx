@@ -206,7 +206,7 @@ const MyUserAccount = () => {
 
                                         <div className="mb-2">
                                             <label className="form-label text-white">Year</label><br />
-                                            <select className='form-control' onChange={handleYearChange} defaultValue = {user.year[0] == -1 || !user.year  ? -1 : user.year[0]}>
+                                            <select className='form-control' onChange={handleYearChange} defaultValue = {user.year[0] === "-1" || !user.year  ? -1 : user.year[0]}>
                                                 {/* { user.year[0] == -1 || !user.year ? 
                                                 <>
                                                     <option value="-1">Choose Your Year</option>

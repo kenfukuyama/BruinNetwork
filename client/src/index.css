@@ -29,6 +29,7 @@ body {
 /* background: rgb(0,59,89); */
   /* background: linear-gradient(0deg, rgba(69,59,89,1) 4%, rgba(38,49,66,1) 13%, rgba(0,0,0,1) 39%); */
   background: linear-gradient(0deg, rgb(36, 61, 132) 4%, rgb(43, 61, 87) 13%, rgba(0,0,0,1) 39%);
+  /* background: linear-gradient(0deg,  rgba(0,0,0,1) 4%, rgb(43, 61, 87) 13%, rgb(36, 61, 132) 39%); */
 }
 
 /* @font-face {
@@ -781,4 +782,11 @@ margin-bottom: 0;
   /* background-color: #afa; */
   height: 85vh;
 
+}
+
+
+
+#btnCollapse {
+  outline : none;
+  box-shadow: none;
 }

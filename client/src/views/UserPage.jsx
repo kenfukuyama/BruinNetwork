@@ -13,6 +13,9 @@ import { useRef } from 'react';
 import ScaleLoader from 'react-spinners/ScaleLoader';
 
 import Chip from '@mui/material/Chip';
+import Collapsible from 'react-collapsible';
+
+
 
 const UserPage = (props) => {
     //keep track of what is being typed via useState hook
@@ -22,6 +25,7 @@ const UserPage = (props) => {
     const [loading, setLoading] = useState(true);
     const [friendshipLoading, setFriendshipLoading] = useState(true);
     const [friendshipStatus, setfriendshipStatus] = useState(1);
+    const [userSavedEvents, setUserSavedEvents] = useState(null);
 
     const user = useRef(null);
     // const friendshipStatus = useRef(1);
@@ -52,7 +56,7 @@ const UserPage = (props) => {
                     }
                 }
 
-                console.log( publicContacts.current)
+                // console.log( publicContacts.current)
                 // setOtherUser(res.data);
                 // console.log(otherUser);
                 // setOtherUserLoading(false);
@@ -91,8 +95,19 @@ const UserPage = (props) => {
             .catch (err => {})
             .finally(() => setFriendshipLoading(false));
 
+            if (userSavedEvents === null) {
+                /// get all the events crated by the user.
+                axios.get('http://localhost:8000/api/users/' + id + "/saved-events")
+                // axios.get("api/events/user/6317f12d985af7817efe4bc9")
+                .then( res => {
+                    setUserSavedEvents(formatEvents(res.data));
+                    // console.log(userSavedEvents.current);
+                })
+                .catch( err => console.log(err))
+            }
 
-    }, [loggedinInfo.loggedin, id, navigate, loggedinInfo.loggedinId])
+
+    }, [loggedinInfo.loggedin, id, navigate, loggedinInfo.loggedinId, userSavedEvents])
 
 
     const connect = () => {
@@ -103,6 +118,41 @@ const UserPage = (props) => {
         axios.post('http://localhost:8000/api/friendships/disconnect', {requesterId:loggedinInfo.loggedinId, recipientId: id})
     }
 
+
+    // saved events handler
+    // const getSavedEvents = () => {
+    //     // only make a api when it does not exist yet
+    //     if (userSavedEvents === null) {
+    //         /// get all the events crated by the user.
+    //         axios.get('http://localhost:8000/api/users/' + user.current._id + "/saved-events")
+    //         // axios.get("api/events/user/6317f12d985af7817efe4bc9")
+    //         .then( res => {
+    //             setUserSavedEvents(formatEvents(res.data));
+    //             // console.log(userSavedEvents.current);
+    //         })
+    //         .catch( err => console.log(err))
+
+    //     }
+    // }
+
+
+    const formatEvents = (paramEvents) => {
+        let tempFormattedEvents = paramEvents.map((event, i) => {
+            if (event.startTime && event.endTime && event.eventDate) {
+                return {...event, 
+                    eventDate: new Date(event.eventDate).toLocaleDateString("en-US", { weekday: 'long', month: 'long', day: 'numeric' }),
+                    startTime: new Date(event.startTime).toLocaleTimeString('en', { timeStyle: 'short', hour12: false, timeZone: 'America/Los_Angeles' }),
+                    endTime: new Date(event.endTime).toLocaleTimeString('en', { timeStyle: 'short', hour12: false, timeZone: 'America/Los_Angeles' }),
+                    liked : (event._id in user.current.savedEvents)
+                };
+            }
+            else {
+                return {...event};
+            }
+        });
+        return tempFormattedEvents;
+
+    } 
 
 
 
@@ -291,6 +341,51 @@ const UserPage = (props) => {
                                     {/* <p className="my-4 pb-1">52 comments</p>
                                                 <button type="button" className="btn btn-success btn-rounded btn-block btn-lg"><i
                                                     className="far fa-clock me-2"></i>Book now</button> */}
+                                    
+
+
+                                    {friendshipStatus === 2 
+                                                ? <Collapsible trigger={<button className="btn pb-0 mb-0 btn-outline-info">
+                                                    <p className="mb-1">See Saved Events <i className="bi bi-chevron-down"></i></p>
+                                                </button>
+                                                } triggerWhenOpen={<button className="btn pb-0 mb-0" id="btnCollapse">
+                                                    <p className="text-muted mb-1"><i className="bi bi-chevron-up"></i></p>
+                                                </button>}>
+
+                                                    {userSavedEvents && userSavedEvents.map((event, i) =>
+                                                        <div className="row event" key={i}>
+                                                            <div className="card m-2 shadow-lg">
+                                                                <div className="card-header">
+                                                                    <div className="d-flex align-items-center justify-content-between">
+                                                                        <div className="event-name">
+                                                                            <a href="/events/show/{{event.id}}" className="text-decoration-none h5 ">{event.name}</a>
+                                                                        </div>
+                                                                        <div className="event-time"> {event.eventDate} at {event.startTime}</div>
+                                                                    </div>
+                                                                    <div className="d-flex align-items-center justify-content-end">
+                                                                        <div className="event-time">{event.place}</div>
+                                                                    </div>
+                                                                </div>
+                                                                <div className="card-body">
+                                                                    <div className="d-flex  justify-content-between">
+                                                                        <div className="">{event.description}  <br /></div>
+                                                                        <div className="d-flex gap-1">
+                                                                            {/* <i className={`bi bi-bookmark${event.liked ? "-fill" : ""} nav-icon`} onClick={(e) => toggleLiked(e, i)}></i> */}
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    )}
+
+                                                </Collapsible> 
+                                                : <>
+                                                    <p  className="text-muted mb-1">Connect to See Saved Events</p>
+                                                </>
+                                    }
+
+
+
                                 </div>
                             </div>
                             )}

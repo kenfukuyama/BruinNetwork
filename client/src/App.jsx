@@ -22,7 +22,9 @@ import MyUserAccount from './views/MyUserAccount'
 import {LoggedinContext} from './context/LoggedinContext';
 import EventFormEdit from './views/EventFormEdit';
 import ChatroomPublic from './views/ChatroomPublic';
+import Chitchat from './views/Chitchat';
 import ChitchatLobby from './views/ChitchatLobby';
+import UserPage from './views/UserPage';
 // import axios from 'axios';
 // import { useEffect } from 'react';
 
@@ -94,6 +96,7 @@ function App() {
 
           {/* // User Route */}
           <Route element={<MyUserAccount/>} path="/users/account"/>
+          <Route element={<UserPage/>} path="/users/:id"/>
 
           {/* // * event routes */}
           <Route element={<Events/>} path="/events"/>
@@ -104,6 +107,7 @@ function App() {
           {/* // * chat routes */}
           <Route element={<ChitchatLobby/>} path="/chitchat"/>
           <Route element={<ChatroomPublic/>} path="/chatroom/:roomId"/>
+          <Route element={<Chitchat/>} path="/chitchat/:roomId"/>
           <Route element={<Chatrooms/>} path="/chatrooms"/>
 
           

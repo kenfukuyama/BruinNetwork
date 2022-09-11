@@ -49,7 +49,7 @@ const ChitchatLobby = () => {
                             console.log(res.data[loggedinInfo.loggedinId].roomId);
                             let roomId = res.data[loggedinInfo.loggedinId].roomId; 
                             setConnecting(false);
-                            navigate(`/chatroom/${roomId}`)
+                            navigate(`/chitchat/${roomId}`)
                         }
                         
                     })

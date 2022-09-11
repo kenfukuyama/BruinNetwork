@@ -9,7 +9,7 @@ const Main = () => {
         <div className="container">
             <div className="d-flex vh-100 align-items-center justify-content-center flex-column fade-in">
                 <h3 className="display-3 styled-heading">BruinNetwork</h3>
-                <p className="lead styled-text">Connect and chat with Bruins</p>
+                <p className="lead styled-text" style={{fontFamily : "Courier New, monospace"}}>Meet and Connect with Bruins</p>
 
                 <div className="d-flex gap-2">
                     <Link className="btn btn-light btn-lg mt-2" to={"/events"}><strong>Explore Events</strong> <i className="bi-arrow-right-short"></i></Link>

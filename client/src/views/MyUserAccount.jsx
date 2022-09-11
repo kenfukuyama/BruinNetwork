@@ -52,7 +52,7 @@ const MyUserAccount = () => {
 
         axios.get('http://localhost:8000/api/users/' + loggedinInfo.loggedinId)
             .then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 setUser(res.data);
                 setLoading(false);
             })
@@ -111,130 +111,132 @@ const MyUserAccount = () => {
 
 
     return (
-        <div>
-            <div className="container">
-                <div className="d-flex vh-100 align-items-center justify-content-center flex-column fade-in">   
-                    {!user ? 
-                    (<ScaleLoader size={100} color="white" loading={loading} cssOverride={{ display: "block", position: "fixed", bottom: "5%", right: "10%" }} />)
-                    : 
-                    (
-                        <div className="card bg-transparent">
-                            <h4 className="card-header p-4 text-white">{user.nickname} <em><small>(@{user.username})</small></em></h4>
-                            <div className="card-body">
-                                    <div className="mb-2">
-                                        <label className="form-label text-white">nickname</label><br />
-                                        <input
-                                            type="text"
-                                            placeholder='nickname'
-                                            name="nickname"
-                                            value={user.nickname}
-                                            onChange={handleChange}
-                                            className="form-control" />
-                                    </div>
-                                    <div className="mb-2">
-                                        <label className="form-label text-white">year</label><br />
-                                        <input
-                                            type="text"
-                                            placeholder='year'
-                                            name="year"
-                                            value={user.year}
-                                            onChange={handleChange}
-                                            className="form-control" />
-                                    </div>
-                                    <div className="mb-2">
-                                        <label className="form-label text-white">major</label><br />
-                                        <input
-                                            type="text"
-                                            placeholder='major'
-                                            name="major"
-                                            value={user.major}
-                                            onChange={handleChange}
-                                            className="form-control" />
-                                    </div>
-
-                                    <div className="mb-2">
-                                        <label className="form-label text-white">bio</label><br />
-                                        <textarea
-                                            placeholder='Bio'
-                                            name="bio"
-                                            value={user.bio}
-                                            onChange={handleChange}
-                                            className="form-control" />
-                                    </div>
-
-                                    <div className="d-flex gap-3">
-                                        <div className="mb-3">
-                                            <label className="form-label text-white">Contact 1</label><br />
+        <div className="vh-100">
+            <div className="container py-5 fade-in align-items-center">
+                <div className="row d-flex justify-content-center align-items-center">
+                    <div className="col col-md-9 col-lg-7 col-xl-5">
+                        {!user ?
+                            (<ScaleLoader size={100} color="white" loading={loading} cssOverride={{ display: "block", position: "fixed", bottom: "5%", right: "10%" }} />)
+                            :
+                            (
+                                <div className="card bg-transparent">
+                                    <h4 className="card-header p-4 text-white">{user.nickname} <em><small>(@{user.username})</small></em></h4>
+                                    <div className="card-body">
+                                        <div className="mb-2">
+                                            <label className="form-label text-white">nickname</label><br />
                                             <input
                                                 type="text"
-                                                value={user.contacts[0][0]}
-                                                onChange={(e) => (handleContact(e, 0))}
-                                                className="form-control mb-1" />
-                                            <div className="d-flex justify-content-center">
-                                                <FormGroup>
-                                                    <FormControlLabel  control={<Switch checked={user.contacts[0][1]}  size="small" onChange={e => handleContactVisiblity(e, 0)}/>}  label={user.contacts[0][1] ? "Public" : "Friends Only"} labelPlacement="bottom"/>
-                                                </FormGroup>
-                                            </div>
+                                                placeholder='nickname'
+                                                name="nickname"
+                                                value={user.nickname}
+                                                onChange={handleChange}
+                                                className="form-control" />
                                         </div>
-                                        <div className="mb-3">
-                                            <label className="form-label text-white">Contact 2</label><br />
+                                        <div className="mb-2">
+                                            <label className="form-label text-white">year</label><br />
                                             <input
                                                 type="text"
-                                                value={user.contacts[1][0]}
-                                                onChange={(e) => (handleContact(e, 1))}
-                                                className="form-control mb-1" />
-                                            <div className="d-flex justify-content-center">
-                                                <FormGroup>
-                                                    <FormControlLabel  control={<Switch checked={user.contacts[1][1]} size="small" onChange={e => handleContactVisiblity(e, 1)}/>} label={user.contacts[1][1] ? "Public" : "Friends Only"} labelPlacement="bottom"/>
-                                                </FormGroup>
-                                            </div>
+                                                placeholder='year'
+                                                name="year"
+                                                value={user.year}
+                                                onChange={handleChange}
+                                                className="form-control" />
                                         </div>
-                                        <div className="mb-3">
-                                            <label className="form-label text-white">Contact 3</label><br />
+                                        <div className="mb-2">
+                                            <label className="form-label text-white">major</label><br />
                                             <input
                                                 type="text"
-                                                value={user.contacts[2][0]}
-                                                onChange={(e) => (handleContact(e, 2))}
-                                                className="form-control mb-1" />
-                                            <div className="d-flex justify-content-center">
-                                                <FormGroup>
-                                                    <FormControlLabel  control={<Switch checked={user.contacts[2][1]}  size="small" onChange={e => handleContactVisiblity(e, 2)}/>}  label={user.contacts[2][1] ? "Public" : "Friends Only"} labelPlacement="bottom"/>
-                                                </FormGroup>
+                                                placeholder='major'
+                                                name="major"
+                                                value={user.major}
+                                                onChange={handleChange}
+                                                className="form-control" />
+                                        </div>
+
+                                        <div className="mb-2">
+                                            <label className="form-label text-white">bio</label><br />
+                                            <textarea
+                                                placeholder='Bio'
+                                                name="bio"
+                                                value={user.bio}
+                                                onChange={handleChange}
+                                                className="form-control" />
+                                        </div>
+
+                                        <div className="d-flex gap-3 justify-content-center">
+                                            <div className="mb-3">
+                                                <label className="form-label text-white">Contact 1</label><br />
+                                                <input
+                                                    type="text"
+                                                    value={user.contacts[0][0]}
+                                                    onChange={(e) => (handleContact(e, 0))}
+                                                    className="form-control mb-1" />
+                                                <div className="d-flex justify-content-center">
+                                                    <FormGroup>
+                                                        <FormControlLabel control={<Switch checked={user.contacts[0][1]} size="small" onChange={e => handleContactVisiblity(e, 0)} />} label={user.contacts[0][1] ? "Public" : "Friends Only"} labelPlacement="bottom" />
+                                                    </FormGroup>
+                                                </div>
+                                            </div>
+                                            <div className="mb-3">
+                                                <label className="form-label text-white">Contact 2</label><br />
+                                                <input
+                                                    type="text"
+                                                    value={user.contacts[1][0]}
+                                                    onChange={(e) => (handleContact(e, 1))}
+                                                    className="form-control mb-1" />
+                                                <div className="d-flex justify-content-center">
+                                                    <FormGroup>
+                                                        <FormControlLabel control={<Switch checked={user.contacts[1][1]} size="small" onChange={e => handleContactVisiblity(e, 1)} />} label={user.contacts[1][1] ? "Public" : "Friends Only"} labelPlacement="bottom" />
+                                                    </FormGroup>
+                                                </div>
+                                            </div>
+                                            <div className="mb-3">
+                                                <label className="form-label text-white">Contact 3</label><br />
+                                                <input
+                                                    type="text"
+                                                    value={user.contacts[2][0]}
+                                                    onChange={(e) => (handleContact(e, 2))}
+                                                    className="form-control mb-1" />
+                                                <div className="d-flex justify-content-center">
+                                                    <FormGroup>
+                                                        <FormControlLabel control={<Switch checked={user.contacts[2][1]} size="small" onChange={e => handleContactVisiblity(e, 2)} />} label={user.contacts[2][1] ? "Public" : "Friends Only"} labelPlacement="bottom" />
+                                                    </FormGroup>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+
+                                        <div className="mb-3">
+                                            <label className="form-label text-white">Interests</label><br />
+                                            <div className="d-flex justify-content-center gap-3">
+                                                <input type="text"
+                                                    className="form-control mb-1 w-25"
+                                                    value={interest}
+                                                    onChange={e => setInterest(e.target.value)}
+                                                />
+                                                <ThemeProvider theme={theme}>
+                                                    <IconButton color="white" aria-label="add to interest" onClick={handleInterestSubmit}>
+                                                        <PlaylistAddIcon fontSize="medium" />
+                                                    </IconButton>
+                                                </ThemeProvider>
                                             </div>
                                         </div>
 
-                                    </div>
-
-                                    
-                                    <div className="mb-3">
-                                        <label className="form-label text-white">Interests</label><br />
-                                        <div className="d-flex justify-content-center gap-3">
-                                            <input type="text"
-                                                className="form-control mb-1 w-25"
-                                                value = {interest}
-                                                onChange={e => setInterest(e.target.value)}
-                                            />
-                                            <ThemeProvider theme={theme}>
-                                                <IconButton color="primary" aria-label="add to interest" onClick={handleInterestSubmit}>
-                                                    <PlaylistAddIcon fontSize="medium"/>
-                                                </IconButton>
-                                            </ThemeProvider>
+                                        <div className="d-flex gap-2 mb-3 w-100 flex-wrap">
+                                            {
+                                                Object.keys(user.interests).map((interest, i) => {
+                                                    return <Chip label={interest} color="success" onDelete={(e) => deleteInterest(e, interest)} key={i} />
+                                                })
+                                            }
                                         </div>
+                                        <button className="btn btn-primary w-25" onClick={updateUser}>{updated ? "✓ Updated" : "Update"}</button>
+
+
                                     </div>
-
-                                    <div className="d-flex gap-2 mb-3">
-                                        {
-                                            Object.keys(user.interests).map((interest, i) =>{
-                                                return <Chip label={interest} color="success" onDelete={(e) => deleteInterest(e, interest)} key={i}/>
-                                            })
-                                        }
-                                    </div>
-                                    <button className="btn btn-primary w-25" onClick={updateUser}>{updated ? "✓ Updated" : "Update"}</button>
-
-
-                            </div>
-                        </div>
-                    )}
+                                </div>
+                            )}
+                    </div>
                 </div>
 
             </div>

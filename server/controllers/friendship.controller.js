@@ -56,3 +56,21 @@ module.exports.disconnect = (request, response) => {
     })
     .catch(err => response.status(400).json(err));
 }
+
+module.exports.findFriendship = (request, response) => {
+    const {requesterId, recipientId} = request.body;
+    let tempUserId1 = mongoose.Types.ObjectId(requesterId);
+    let tempUserId2 = mongoose.Types.ObjectId(recipientId);
+
+    // first see if the friendship exists
+    Friendship.find({requester : {$in: [tempUserId1, tempUserId2]}, recipient : {$in: [tempUserId1, tempUserId2]} })
+    .then(friendship => {
+        if (friendship.length > 0) {
+            response.status(200).json(friendship[0]);
+        }
+        else {
+            response.status(204).json({});
+        }
+    })
+    .catch(err => response.status(400).json(err));
+}

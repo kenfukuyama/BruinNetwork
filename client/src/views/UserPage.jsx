@@ -14,13 +14,17 @@ import ScaleLoader from 'react-spinners/ScaleLoader';
 
 import Chip from '@mui/material/Chip';
 
-const EventForm = (props) => {
+const UserPage = (props) => {
     //keep track of what is being typed via useState hook
     const navigate = useNavigate();
     const { loggedinInfo } = useContext(LoggedinContext);
     const { id } = useParams();
     const [loading, setLoading] = useState(true);
+    const [friendshipLoading, setFriendshipLoading] = useState(true);
+    const [friendshipStatus, setfriendshipStatus] = useState(1);
+
     const user = useRef(null);
+    // const friendshipStatus = useRef(1);
     const publicContacts = useRef([]);
     // const [created, setCreated] = useState(false);
 
@@ -36,10 +40,11 @@ const EventForm = (props) => {
 
 
                 for (let i = 0; i <  res.data.contacts.length; i++) {
-                    if (res.data.contacts[i][1]) {
+                    if (res.data.contacts[i][1] && (res.data.contacts[i][0])) {
                         (publicContacts.current).push((res.data.contacts[i][0]));
                     }
                 }
+
                 console.log( publicContacts.current)
                 // setOtherUser(res.data);
                 // console.log(otherUser);
@@ -48,8 +53,50 @@ const EventForm = (props) => {
             })
             .finally(() => setLoading(false));
 
+        
+        axios.post('http://localhost:8000/api/friendships/', {requesterId:loggedinInfo.loggedinId, recipientId: id})
+            .then(res => {
+                if (res.status === 200) {
+                    
+                    
+                    if (res.data.isApproved) {
+                        // * they are friends
+                        console.log("they are friends");
+                        setfriendshipStatus(2);
+                    }
+                    else if (res.data.recipient === loggedinInfo.loggedinId) {
+                        console.log("you have request");
+                        setfriendshipStatus(3);
+                    }
+                    else {
+                        console.log("you sent the request");
+                        setfriendshipStatus(4);
+                    }
+                    // console.log(friendshipStatus.current);
+                }
+                else {
+                    console.log("not found");
+                    setfriendshipStatus(1);
+                }
+                // console.log(friendshipStatus.current);
+                setFriendshipLoading(false);
+            })
+            .catch (err => {})
+            .finally(() => setFriendshipLoading(false));
 
-    }, [loggedinInfo.loggedin, id, navigate])
+
+    }, [loggedinInfo.loggedin, id, navigate, loggedinInfo.loggedinId])
+
+
+    const connect = () => {
+        axios.post('http://localhost:8000/api/friendships/connect', {requesterId:loggedinInfo.loggedinId, recipientId: id})
+    }
+
+    const disconnect = () => {
+        axios.post('http://localhost:8000/api/friendships/disconnect', {requesterId:loggedinInfo.loggedinId, recipientId: id})
+    }
+
+
 
 
     return (
@@ -93,9 +140,34 @@ const EventForm = (props) => {
                                             </div>
                                         </div>
                                         <div className="">
-                                            <button className='btn btn-primary'>
-                                                connect
-                                            </button>
+
+                                            { friendshipLoading ? <></> : <>
+                                                { friendshipStatus === 1 ?
+                                                    <button className='btn btn-primary' onClick={(e) => {connect(); setfriendshipStatus(4);}}>Connect</button>
+                                                            : <>
+                                                                {friendshipStatus === 2 ?
+                                                                    <div className="d-flex confirmation gap-2">
+                                                                        <button className='btn btn-success' style={{pointerEvents : "none"}}><i className="bi bi-person-check-fill"/>Friends</button>
+                                                                        <button className='btn btn-secondary'  onClick={(e) => {disconnect(); setfriendshipStatus(1);}}><i className="bi bi-person-dash"/></button>
+                                                                    </div>
+                                                                    : <>
+                                                                    {
+                                                                        friendshipStatus === 3 ?
+                                                                            <div className="d-flex confirmation gap-2">
+                                                                                    <button className='btn btn-primary' onClick={(e) => {connect(); setfriendshipStatus(2);}}>Confirm</button> 
+                                                                                    <button className='btn btn-secondary' onClick={(e) => {disconnect(); setfriendshipStatus(1);}}><i className="bi bi-person-x"/></button>
+                                                                            </div>
+                                                                            : <button className='btn btn-secondary'  onClick={(e) => {disconnect(); setfriendshipStatus(1);}}>Pending</button>
+                                                                    }
+                                                                    
+                                                                    </>
+                                                                }
+                                                            </>
+
+                                                }
+                                            </>}
+                                            
+                                            
                                         </div>
                                     </div>
                                     {/* <hr/> */}
@@ -148,7 +220,6 @@ const EventForm = (props) => {
                                             </div> : <p></p>
                                         }
 
-
                                     </div>
                                     <hr className="mt-0 mb-4" />
                                     <div className="pt-1 d-flex justify-content-around flex-wrap" >
@@ -161,10 +232,12 @@ const EventForm = (props) => {
                                             <p className="text-muted">123 456 789</p>
                                         </div> */}
 
-                                    
+
                                         {
-                                            publicContacts.current.length > 0 ?
-                                                publicContacts.current.map((contact, i) => {
+                                            friendshipStatus === 2 ? 
+                                            <> {
+                                                user.current.contacts.length > 0 ?
+                                                user.current.contacts.map((contact, i) => {
                                                     return (<div className="mb-3" key={i}>
                                                                 <h6 className="text-muted">Contact {i + 1}</h6>
                                                                 <p>{contact}</p>
@@ -173,7 +246,24 @@ const EventForm = (props) => {
                                                     <p className="text-muted">No information yet</p>
                                                     </div>
 
+                                            }</> : <>
+                                                {
+                                                    publicContacts.current.length > 0 ?
+                                                        publicContacts.current.map((contact, i) => {
+                                                            return (<div className="mb-3" key={i}>
+                                                                        <h6 className="text-muted">Contact {i + 1}</h6>
+                                                                        <p>{contact}</p>
+                                                                    </div>)
+                                                        }) : <div className="mb-3">
+                                                            <p className="text-muted">No information yet</p>
+                                                            </div>
+
+                                                }
+                                        
+                                        </>
+
                                         }
+                                    
                                     </div>
 
                                     <h6 className="text-muted ms-3" style={{textAlign: "left"}} >Interests</h6>
@@ -205,4 +295,4 @@ const EventForm = (props) => {
     )
 }
 
-export default EventForm;
+export default UserPage;

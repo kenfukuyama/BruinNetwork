@@ -157,7 +157,8 @@ const Chitchat = () => {
                             </div>
                         </div>
                         <div className="">
-                            <a href={`/users/${otherUser._id}`} className="btn btn-outline-primary" rel="noreferrer" target="_blank">View Profile</a>
+                            {/* <a href={`/users/${otherUser._id}`} className="btn btn-outline-primary" rel="noreferrer" target="_blank">View Profile</a> */}
+                            <button className="btn btn-outline-primary" onClick={e => window.open(`/users/${otherUser._id}`)}>View Profile</button>
                         </div>
                     </div>
                         {/* <p className="text-success mb-1"><span id="number-connected">2</span> Online</p> */}

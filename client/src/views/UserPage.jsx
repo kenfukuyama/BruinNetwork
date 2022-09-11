@@ -26,6 +26,7 @@ const UserPage = (props) => {
     const user = useRef(null);
     // const friendshipStatus = useRef(1);
     const publicContacts = useRef([]);
+    const privateContacts = useRef([]);
     // const [created, setCreated] = useState(false);
 
     useEffect(() => {
@@ -42,6 +43,12 @@ const UserPage = (props) => {
                 for (let i = 0; i <  res.data.contacts.length; i++) {
                     if (res.data.contacts[i][1] && (res.data.contacts[i][0])) {
                         (publicContacts.current).push((res.data.contacts[i][0]));
+                    }
+                }
+
+                for (let i = 0; i < res.data.contacts.length; i++) {
+                    if (res.data.contacts[i][0]) {
+                        (privateContacts.current).push((res.data.contacts[i][0]));
                     }
                 }
 
@@ -176,7 +183,7 @@ const UserPage = (props) => {
                                             <p className="text-muted mb-0">Year</p>
                                         </div>
                                         <div className="col-sm-9">
-                                            <p className={`mb-0 ${user.current.year ? "" : "text-muted"}`}>{user.current.year ?  user.current.year : "No information yet"}</p>
+                                            <p className={`mb-0 ${user.current.year.length > 1 && user.current.year[1] ? "" : "text-muted"}`}>{user.current.year.length > 1 && user.current.year[1] ? user.current.year[1] : "No information yet"}</p>
 
                                         </div>
                                     </div>
@@ -186,7 +193,7 @@ const UserPage = (props) => {
                                             <p className="text-muted mb-0">Major</p>
                                         </div>
                                         <div className="col-sm-9">
-                                            <p className={`mb-0 ${user.current.year ? "" : "text-muted"}`}>{user.current.major ?  user.current.major : "No information yet"}</p>
+                                            <p className={`mb-0 ${user.current.major ? "" : "text-muted"}`}>{user.current.major ?  user.current.major : "No information yet"}</p>
                                         </div>
                                     </div>
 
@@ -199,7 +206,7 @@ const UserPage = (props) => {
                                     <hr className="mt-0 mb-4" />
                                     <div className="row pt-1">
                                         <div className="mb-3">
-                                            <p className={`${user.current.year ? "" : "text-muted"}`}>{user.current.bio ?  user.current.bio : "No information yet"}</p>
+                                            <p className={`${user.current.bio ? "" : "text-muted"}`}>{user.current.bio ?  user.current.bio : "No information yet"}</p>
                                         </div>
                                     </div>
 
@@ -236,17 +243,19 @@ const UserPage = (props) => {
                                         {
                                             friendshipStatus === 2 ? 
                                             <> {
-                                                user.current.contacts.length > 0 ?
-                                                user.current.contacts.map((contact, i) => {
-                                                    return (<div className="mb-3" key={i}>
-                                                                <h6 className="text-muted">Contact {i + 1}</h6>
-                                                                <p>{contact}</p>
-                                                            </div>)
-                                                }) : <div className="mb-3">
-                                                    <p className="text-muted">No information yet</p>
-                                                    </div>
+                                                privateContacts.current.length > 0 ?
+                                                    privateContacts.current.map((contact, i) => {
+                                                        return (<div className="mb-3" key={i}>
+                                                                    <h6 className="text-muted">Contact {i + 1}</h6>
+                                                                    <p>{contact}</p>
+                                                                </div>)
+                                                    }) : <div className="mb-3">
+                                                        <p className="text-muted">No information yet</p>
+                                                        </div>
 
-                                            }</> : <>
+                                                }
+
+                                            </> : <>
                                                 {
                                                     publicContacts.current.length > 0 ?
                                                         publicContacts.current.map((contact, i) => {

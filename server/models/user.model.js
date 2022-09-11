@@ -34,9 +34,8 @@ const UserSchema = new mongoose.Schema({
         type : String,
         default : ""
     },
-    year :{
-        type : String,
-        default : ""
+    year :{ type: mongoose.Schema.Types.Mixed, 
+        default: ["-1", "" ]
     },
     bio : {
         type : String,

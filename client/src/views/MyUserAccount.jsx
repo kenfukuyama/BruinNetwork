@@ -36,6 +36,7 @@ const MyUserAccount = () => {
     const [interest, setInterest] = useState("");
     const navigate = useNavigate();
 
+    // # extrea configuration
     const theme = createTheme({
         palette: {
             white: {
@@ -44,6 +45,19 @@ const MyUserAccount = () => {
         }
     });
 
+    // # array for years
+    const yearChoices = [
+                        "1st - Freshman", 
+                        "2nd - Sophemore",
+                        "3rd - Junior",
+                        "4th - Senior",
+                        "Grudate - Master",
+                        "Graduate - PhD",
+                        "Medical Student",
+                        "Law Student",
+                        "Professor",
+                        "Faculty",
+                        "Other"]
 
 
     useEffect(() => {
@@ -73,10 +87,27 @@ const MyUserAccount = () => {
                     .catch(err => { console.error(err) });
     }
 
+
+    // ! handle input change
     const handleChange = (e) => {
         setUser({ ...user, [e.target.name]: e.target.value });
     }
 
+    const handleYearChange = (e) => {
+
+        // selected -1;
+        let yearArr;
+        if (e.target.value < 0) {
+            // return;
+            yearArr = ["-1", "" ]
+
+        } else {
+            yearArr = [e.target.value, yearChoices[e.target.value]];
+        }
+        console.log(e.target.value);
+        // obj[e.target.value] = yearChoices[e.target.value];
+        setUser({...user, year : yearArr})
+    }
 
     const handleContact = (e, i) => {
         // deep copy
@@ -86,6 +117,7 @@ const MyUserAccount = () => {
         tempContacts[i][0] = e.target.value;
         setUser({ ...user, contacts : tempContacts});
     }
+
 
     const handleContactVisiblity = (e, i)  => {
         let tempContacts = JSON.parse(JSON.stringify(user.contacts)); 
@@ -125,7 +157,7 @@ const MyUserAccount = () => {
                             (
                                 <div className="card bg-transparent text-white">
                                     {/* <h4 className="card-header p-4 text-white">{user.nickname} <em><small>(@{user.username})</small></em></h4> */}
-                                    <div className="d-flex align-items-center mb-4 justify-content-center">
+                                    <div className="d-flex align-items-center mb-4 justify-content-between">
                                         <div className="d-flex userName  align-items-center">
                                             <div className="">
                                                 {/* <img src=""
@@ -144,6 +176,10 @@ const MyUserAccount = () => {
                                                 </div>
                                             </div>
                                         </div>
+
+                                        <button className="btn btn-outline-info" onClick = {(e) => (navigate(`/users/${loggedinInfo.loggedinId}`))}>
+                                            View Your Profile
+                                        </button>
                                     </div>
 
                                     <div className="card-body">
@@ -157,16 +193,50 @@ const MyUserAccount = () => {
                                                 onChange={handleChange}
                                                 className="form-control" />
                                         </div>
-                                        <div className="mb-2">
+                                        {/* <div className="mb-2">
                                             <label className="form-label text-white">Year</label><br />
                                             <input
                                                 type="text"
                                                 placeholder='year'
                                                 name="year"
-                                                value={user.year}
+                                                value={user.year.length > 0 ? yearChoices[user.year[0]] : ""}
                                                 onChange={handleChange}
                                                 className="form-control" />
+                                        </div> */}
+
+                                        <div className="mb-2">
+                                            <label className="form-label text-white">Year</label><br />
+                                            <select className='form-control' onChange={handleYearChange} defaultValue = {user.year[0] == -1 || !user.year  ? -1 : user.year[0]}>
+                                                {/* { user.year[0] == -1 || !user.year ? 
+                                                <>
+                                                    <option value="-1">Choose Your Year</option>
+                                                    { yearChoices.map((year, i) => {
+                                                    return <option key={i} value={i}>{year}</option>
+                                                    })}
+                                                {/* <option value={-1}> No selected yet</option> */}
+                                                {/* </> : 
+                                                <>
+                                                { yearChoices.map((year, i) => {
+                                                    return <option key={i} value={i}>{year}</option>
+                                                })}
+                                                </>}   */}
+                                                
+                                                {/* { yearChoices.map((year, i) => {
+                                                    return <option key={i} value={i}>{year}</option>
+                                                })} */}
+
+
+                                                    <option value="-1">Choose Your Year</option>
+                                                    { yearChoices.map((year, i) => {
+                                                    return <option key={i} value={i}>{year}</option>
+                                                    })}
+
+
+
+                                            </select>
                                         </div>
+
+
                                         <div className="mb-2">
                                             <label className="form-label text-white">Major</label><br />
                                             <input

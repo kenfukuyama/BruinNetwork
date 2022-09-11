@@ -28,6 +28,7 @@ const UserPage = (props) => {
     const [userSavedEvents, setUserSavedEvents] = useState(null);
 
     const user = useRef(null);
+    const loggedinUser = useRef(null);
     // const friendshipStatus = useRef(1);
     const publicContacts = useRef([]);
     const privateContacts = useRef([]);
@@ -64,6 +65,14 @@ const UserPage = (props) => {
             })
             .finally(() => setLoading(false));
 
+
+        axios.get('http://localhost:8000/api/users/' + loggedinInfo.loggedinId)
+            .then(res => {
+                loggedinUser.current = res.data;
+                setLoading(false);
+            })
+            .finally(() => setLoading(false));
+
         
         axios.post('http://localhost:8000/api/friendships/', {requesterId:loggedinInfo.loggedinId, recipientId: id})
             .then(res => {
@@ -95,19 +104,28 @@ const UserPage = (props) => {
             .catch (err => {})
             .finally(() => setFriendshipLoading(false));
 
-            if (userSavedEvents === null) {
-                /// get all the events crated by the user.
-                axios.get('http://localhost:8000/api/users/' + id + "/saved-events")
-                // axios.get("api/events/user/6317f12d985af7817efe4bc9")
-                .then( res => {
-                    setUserSavedEvents(formatEvents(res.data));
-                    // console.log(userSavedEvents.current);
-                })
-                .catch( err => console.log(err))
-            }
+            /// get all the events crated by the user.
+            axios.get('http://localhost:8000/api/users/' + id + "/saved-events")
+            // axios.get("api/events/user/6317f12d985af7817efe4bc9")
+            .then( res => {
+                setUserSavedEvents(formatEvents(res.data));
+                // console.log(userSavedEvents.current);
+            })
+            .catch( err => console.log(err))
 
+            //!  dismoutn return
+            return () => { 
+                if (loggedinUser.current) {
+                    axios.put('http://localhost:8000/api/users/' + loggedinInfo.loggedinId, loggedinUser.current)
+                        .then(res => {
+                            console.log(res.data);
+                        })
+                        .catch(err => { console.error(err) });
+                }
+                
+            };
 
-    }, [loggedinInfo.loggedin, id, navigate, loggedinInfo.loggedinId, userSavedEvents])
+    }, [loggedinInfo.loggedin, id, navigate, loggedinInfo.loggedinId])
 
 
     const connect = () => {
@@ -120,20 +138,18 @@ const UserPage = (props) => {
 
 
     // saved events handler
-    // const getSavedEvents = () => {
-    //     // only make a api when it does not exist yet
-    //     if (userSavedEvents === null) {
-    //         /// get all the events crated by the user.
-    //         axios.get('http://localhost:8000/api/users/' + user.current._id + "/saved-events")
-    //         // axios.get("api/events/user/6317f12d985af7817efe4bc9")
-    //         .then( res => {
-    //             setUserSavedEvents(formatEvents(res.data));
-    //             // console.log(userSavedEvents.current);
-    //         })
-    //         .catch( err => console.log(err))
+    const getSavedEvents = () => {
+        // only make a api when it does not exist yet
+            /// get all the events crated by the user.
+        axios.get('http://localhost:8000/api/users/' + user.current._id + "/saved-events")
+        // axios.get("api/events/user/6317f12d985af7817efe4bc9")
+        .then( res => {
+            setUserSavedEvents(formatEvents(res.data));
+            // console.log(userSavedEvents.current);
+        })
+        .catch( err => console.log(err))
 
-    //     }
-    // }
+    }
 
 
     const formatEvents = (paramEvents) => {
@@ -143,7 +159,7 @@ const UserPage = (props) => {
                     eventDate: new Date(event.eventDate).toLocaleDateString("en-US", { weekday: 'long', month: 'long', day: 'numeric' }),
                     startTime: new Date(event.startTime).toLocaleTimeString('en', { timeStyle: 'short', hour12: false, timeZone: 'America/Los_Angeles' }),
                     endTime: new Date(event.endTime).toLocaleTimeString('en', { timeStyle: 'short', hour12: false, timeZone: 'America/Los_Angeles' }),
-                    liked : (event._id in user.current.savedEvents)
+                    liked : (event._id in loggedinUser.current.savedEvents)
                 };
             }
             else {
@@ -153,6 +169,35 @@ const UserPage = (props) => {
         return tempFormattedEvents;
 
     } 
+
+    const toggleLiked = (e, i) => {
+        // console.log(i);
+        let tempEvents = userSavedEvents.map((eachEvent, idx) => {
+            if (idx === i) {
+                // not liked
+                if (!eachEvent.liked) {
+                    console.log("add to user event list");
+                    let obj = {};
+                    obj[eachEvent._id] = eachEvent.name;
+                    loggedinUser.current = {...loggedinUser.current, savedEvents: {...loggedinUser.current.savedEvents, ...obj}};
+                }
+                else {
+                    console.log("remove it from the list");
+                    delete loggedinUser.current.savedEvents[eachEvent._id];
+                }
+                eachEvent.liked = !eachEvent.liked;
+            }
+            return eachEvent;
+        })
+        if (loggedinUser.current) {
+            axios.put('http://localhost:8000/api/users/' + loggedinInfo.loggedinId, loggedinUser.current)
+                .then(res => {
+                    console.log(res.data);
+                })
+                .catch(err => { console.error(err) });
+        }
+        setUserSavedEvents(tempEvents);
+    };
 
 
 
@@ -345,7 +390,7 @@ const UserPage = (props) => {
 
 
                                     {friendshipStatus === 2 
-                                                ? <Collapsible trigger={<button className="btn pb-0 mb-0 btn-outline-info">
+                                                ? <Collapsible trigger={<button className="btn pb-0 mb-0 btn-outline-info" onClick={getSavedEvents}>
                                                     <p className="mb-1">See Saved Events <i className="bi bi-chevron-down"></i></p>
                                                 </button>
                                                 } triggerWhenOpen={<button className="btn pb-0 mb-0" id="btnCollapse">
@@ -370,7 +415,7 @@ const UserPage = (props) => {
                                                                     <div className="d-flex  justify-content-between">
                                                                         <div className="">{event.description}  <br /></div>
                                                                         <div className="d-flex gap-1">
-                                                                            {/* <i className={`bi bi-bookmark${event.liked ? "-fill" : ""} nav-icon`} onClick={(e) => toggleLiked(e, i)}></i> */}
+                                                                            <i className={`bi bi-bookmark${event.liked ? "-fill" : ""} nav-icon`} onClick={(e) => toggleLiked(e, i)}></i>
                                                                         </div>
                                                                     </div>
                                                                 </div>

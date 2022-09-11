@@ -76,6 +76,15 @@ const SavedEventsList = ({events}) => {
             }
             return eachEvent;
         })
+        // * guard against user refreshing
+        //  * updated this so it won't rely on the dismount functions
+        if (user.current) {
+            axios.put('http://localhost:8000/api/users/' + loggedinInfo.loggedinId, user.current)
+                .then(res => {
+                    console.log(res.data);
+                })
+                .catch(err => { console.error(err) });
+        }
         SetFormattedEvents(tempEvents);
     };
 

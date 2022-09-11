@@ -138,6 +138,14 @@ const EventList = ({events}) => {
             }
             return eachEvent;
         })
+        // * guard against user refreshing
+        if (user.current) {
+            axios.put('http://localhost:8000/api/users/' + loggedinInfo.loggedinId, user.current)
+                .then(res => {
+                    console.log(res.data);
+                })
+                .catch(err => { console.error(err) });
+        }
         SetFormattedEvents(tempEvents);
 
         // tempEvents.liked = !tempEvents.liked;

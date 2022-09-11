@@ -42,6 +42,10 @@ const UserSchema = new mongoose.Schema({
         type : String,
         default : ""
     },
+    instagramUsername :{
+        type : String,
+        default : ""
+    },
     contacts : {
         type: mongoose.Schema.Types.Mixed
         , default: [["", true], ["", true], ["", true]]

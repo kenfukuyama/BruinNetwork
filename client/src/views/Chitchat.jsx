@@ -7,7 +7,9 @@ import io from 'socket.io-client';
 import {LoggedinContext} from '../context/LoggedinContext';
 import PropagateLoader from "react-spinners/PropagateLoader";
 import { useRef } from 'react';
-
+import Avatar from '@mui/material/Avatar';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import {blue} from '@mui/material/colors';
 
 const Chitchat = () => {
     const messageAreaRef = useRef(null);
@@ -133,13 +135,33 @@ const Chitchat = () => {
             <div id="chat-page" className="d-flex align-items-center justify-content-center vh-100 w-100 styled-text text-white">
                 <div className="chat-container w-100 w-sm-75 w-lg-62 w-xxl-50 mt-5">
 
-                    <div className="d-sm-flex justify-content-center align-items-center flex-column mb-5 btn text-white">
                         {/*  */}
-                        <h2 id="chatroomName" className="text-center m-0">{otherUser ? `${otherUser.nickname}`: "Chitchat"} <em><small>{otherUser ? `(@${otherUser.username})`: ""}</small></em></h2>
-                        <a href={`/users/${otherUser.id}`} className="btn btn-primary" target="_blank">Go to other user's page</a>
+                        {/* <h2 id="chatroomName" className="text-center m-0">{otherUser ? `${otherUser.nickname}`: "Chitchat"} <em><small>{otherUser ? `(@${otherUser.username})`: ""}</small></em></h2> */}
+                    <div className="d-flex align-items-center mb-4 justify-content-between">
+                        <div className="d-flex userName align-items-center">
+                            <div className="">
+                                {/* <img src=""
+                                                            alt="Generic placeholder image" className="img-fluid rounded-circle border border-dark border-3"
+                                                        style={{width: "70px"}}/> */}
+                                <Avatar sx={{ bgcolor: blue[500] }}>
+                                    <AccountCircleIcon />
+                                </Avatar>
+                            </div>
+                            <div className="d-flex flex-column ms-3 justify-content-end align-items-center mt-2">
+                                <div className="text-wrap">
+                                    <h4 className="text-wrap mb-0">{otherUser ? `${otherUser.nickname}`: "Chitchat"}</h4>
+                                </div>
+                                <div className="">
+                                    <p className="mb-0">{otherUser ? `(@${otherUser.username})`: ""}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="">
+                            <a href={`/users/${otherUser._id}`} className="btn btn-outline-primary" rel="noreferrer" target="_blank">View Profile</a>
+                        </div>
+                    </div>
                         {/* <p className="text-success mb-1"><span id="number-connected">2</span> Online</p> */}
                         {/* <hr/> */}
-                    </div>
 
                     <ul id="messageArea" className="messageAreaPublic" ref={messageAreaRef}>
                         {/* <li ref={topRef} className="btn" onClick={scrollToBottom}>Scroll To the Bottom</li> */}

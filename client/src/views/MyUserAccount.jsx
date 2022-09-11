@@ -9,6 +9,10 @@ import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
+import Avatar from '@mui/material/Avatar';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import {blue} from '@mui/material/colors';
+
 
 import {
     Switch,
@@ -113,14 +117,35 @@ const MyUserAccount = () => {
     return (
         <div className="vh-100">
             <div className="container py-5 fade-in align-items-center">
-                <div className="row d-flex justify-content-center align-items-center">
+                <div className="row d-flex justify-content-center align-items-center mt-4">
                     <div className="col col-md-9 col-lg-7 col-xl-5">
                         {!user ?
                             (<ScaleLoader size={100} color="white" loading={loading} cssOverride={{ display: "block", position: "fixed", bottom: "5%", right: "10%" }} />)
                             :
                             (
-                                <div className="card bg-transparent">
-                                    <h4 className="card-header p-4 text-white">{user.nickname} <em><small>(@{user.username})</small></em></h4>
+                                <div className="card bg-transparent text-white">
+                                    {/* <h4 className="card-header p-4 text-white">{user.nickname} <em><small>(@{user.username})</small></em></h4> */}
+                                    <div className="d-flex align-items-center mb-4 justify-content-center">
+                                        <div className="d-flex userName  align-items-center">
+                                            <div className="">
+                                                {/* <img src=""
+                                                            alt="Generic placeholder image" className="img-fluid rounded-circle border border-dark border-3"
+                                                        style={{width: "70px"}}/> */}
+                                                <Avatar sx={{ bgcolor: blue[500] }}>
+                                                    <AccountCircleIcon />
+                                                </Avatar>
+                                            </div>
+                                            <div className="d-flex flex-column ms-3">
+                                                <div className="">
+                                                    <h4 className="mb-0">{user.nickname} </h4>
+                                                </div>
+                                                <div className="">
+                                                    <p className="mb-0">@{user.username}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <div className="card-body">
                                         <div className="mb-2">
                                             <label className="form-label text-white">nickname</label><br />
@@ -211,7 +236,7 @@ const MyUserAccount = () => {
                                             <label className="form-label text-white">Interests</label><br />
                                             <div className="d-flex justify-content-center gap-3">
                                                 <input type="text"
-                                                    className="form-control mb-1 w-25"
+                                                    className="form-control mb-1 w-50"
                                                     value={interest}
                                                     onChange={e => setInterest(e.target.value)}
                                                 />

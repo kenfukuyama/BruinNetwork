@@ -34,6 +34,7 @@ colors.enable();
 require('./server/routes/event.routes')(app); 
 require('./server/routes/user.routes')(app); 
 require('./server/routes/chitchat.routes')(app); 
+require('./server/routes/friendship.routes')(app); 
 
 
 

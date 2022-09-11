@@ -12,9 +12,7 @@ import { blue } from '@mui/material/colors';
 import { useRef } from 'react';
 import ScaleLoader from 'react-spinners/ScaleLoader';
 
-import IconButton from '@mui/material/IconButton';
 import Chip from '@mui/material/Chip';
-import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
 
 const EventForm = (props) => {
     //keep track of what is being typed via useState hook

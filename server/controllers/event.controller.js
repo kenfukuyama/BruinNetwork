@@ -48,7 +48,7 @@ module.exports.getAllEvents = (request, response) => {
 module.exports.getAllEventsCreatedByUser = (request, response) => {
     Event.find({creator: request.params.id})
         .then(events => response.json(events))
-        .catch(err => response.json(err))
+    .catch(err => response.json(err))
 }
 
 

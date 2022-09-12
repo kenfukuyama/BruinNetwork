@@ -5,6 +5,10 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* height : 100vh; */
+  /* so it won't scroll  */
+  overflow-y: hidden;
+
 }
 
 code {
@@ -803,4 +807,13 @@ margin-bottom: 0;
 #navButton {
   pointer-events: none;
   border-radius: 50px;
+}
+
+.card-border-radius {
+  border-radius: 13px;
+}
+
+.user-list-button {
+  padding-top: 0px;
+  padding-bottom: 0px;
 }

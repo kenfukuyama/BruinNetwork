@@ -20,7 +20,7 @@ function NavBar() {
             {/* <nav className="row navbar navbar-expand-sm"> */}
                 <div className="container-fluid ps-4 pe-4 styled-text">
                     <Link  className="navbar-brand text-white pt-1" to={"/"}>
-                    <h1 className='h2 font-' style={{fontFamily : "Courier New, monospace"}}>BruinNetwork</h1>
+                    <h1 className='h2 mb-0' style={{fontFamily : "Courier New, monospace"}}>BruinNetwork</h1>
                     {/* <svg width="210" height="40" viewBox="0 0 272 47" fill="none" xmlns="http://www.w3.org/2000/svg" className="pt-2">
                             <g filter="url(#filter0_d_2_41)">
                                 <path d="M7.936 34.096C5.632 31.0667 4.48 26.1813 4.48 19.44C4.48 12.6987 5.632 7.81332 7.936 4.78399C10.24 1.75466 14.0587 0.23999 19.392 0.23999C24.7253 0.23999 28.5653 1.71199 30.912 4.65599L29.504 5.93599C27.6267 3.41866 24.256 2.15999 19.392 2.15999C17.2587 2.15999 15.4667 2.39466 14.016 2.86399C12.5653 3.29066 11.2213 4.12266 9.984 5.35999C8.78933 6.55466 7.89333 8.32532 7.296 10.672C6.69866 12.976 6.4 15.8987 6.4 19.44C6.4 22.9813 6.69866 25.9253 7.296 28.272C7.89333 30.576 8.78933 32.3467 9.984 33.584C11.2213 34.7787 12.5653 35.6107 14.016 36.08C15.4667 36.5067 17.2587 36.72 19.392 36.72C24.256 36.72 27.6267 35.4613 29.504 32.944L30.912 34.224C28.5653 37.168 24.7253 38.64 19.392 38.64C14.0587 38.64 10.24 37.1253 7.936 34.096Z" fill="white" />
@@ -72,10 +72,10 @@ function NavBar() {
 
                         <li className="nav-item ps-2">
                             <div className="btn-group">
-                                <button className="btn bg-transparent dropdown-toggle nav-link text-white" data-bs-toggle="dropdown" aria-expanded="false">
+                                <button className="py-0 btn bg-transparent dropdown-toggle nav-link text-white" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i className="bi bi-calendar2-event-fill nav-icon"></i>  EVENTS
                                 </button>
-                                <ul className="dropdown-menu bg-transparent">
+                                <ul className="dropdown-menu" style={{backgroundColor : "#000"}}>
                                     <li><Link className="btn text-white" to={"/events"}><i className="bi bi-search nav-icon"></i> Explore </Link></li>
                                     <li><Link className="btn text-white" to={"/myevents/saved"}><i className="bi bi-bookmark-fill nav-icon"></i> Saved Events</Link></li>
                                     <li><Link className="btn text-white" to={"/myevents/posted"}><i className="bi bi-person-lines-fill nav-icon"></i> My Events</Link></li>
@@ -95,10 +95,10 @@ function NavBar() {
 
                         <li className="nav-item ps-2">
                             <div className="btn-group">
-                                <button className="btn bg-transparent dropdown-toggle nav-link text-white" data-bs-toggle="dropdown" aria-expanded="false">
+                                <button className="py-0 btn bg-transparent dropdown-toggle nav-link text-white" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i className="bi bi-chat-dots-fill nav-icon"></i> CHATS
                                 </button>
-                                <ul className="dropdown-menu bg-transparent">
+                                <ul className="dropdown-menu" style={{backgroundColor : "#000"}}>
                                     <li><Link className="btn text-white" to={"/chitchat"}><i className="bi bi-shuffle nav-icon"></i> Chitchat </Link></li>
                                     <li><Link className="btn text-white" to={"/chatrooms"}><i className="bi bi bi-person-badge nav-icon"></i> Chatrooms </Link></li>
                                 </ul>
@@ -108,10 +108,10 @@ function NavBar() {
 
                         <li className="nav-item ps-2">
                             <div className="btn-group">
-                                <button className="btn bg-transparent dropdown-toggle nav-link text-white" data-bs-toggle="dropdown" aria-expanded="false">
+                                <button className="py-0 btn bg-transparent dropdown-toggle nav-link text-white" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i className="bi bi-person-circle  nav-icon"></i> ACCOUNT
                                 </button>
-                                <ul className="dropdown-menu bg-transparent">
+                                <ul className="dropdown-menu" style={{backgroundColor : "#000"}}>
                                     <li><Link className="btn text-white" to={"/users/friends"}><i className="bi bi-people-fill nav-icon"></i> Friends </Link></li>
                                     <li><Link className="btn text-white" to={"/users/friends/pending"}><i className="bi bi-bell-fill nav-icon"></i> Requests </Link></li>
                                     <li><Link className="btn text-white" to={"/users"}><i className="bi bi-binoculars-fill nav-icon"></i> Discover </Link></li>

@@ -92,7 +92,7 @@ const SavedEventsList = ({events}) => {
         <>
                     {formattedEvents.map((event, i) =>
                     <div className="" key={i}>
-                        <div className="card m-2 shadow-lg">
+                        <div className="card m-2 shadow-lg card-border-radius">
                             <div className="card-header">
                                 <div className="d-flex align-items-center justify-content-between">
                                     <div className="event-name">

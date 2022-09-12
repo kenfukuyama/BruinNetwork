@@ -101,7 +101,7 @@ const EventForm = (props) => {
         <div>
             <div className="container">
                 <div className="d-flex vh-100 align-items-center justify-content-center flex-column fade-in">
-                    <div className="card bg-transparent">
+                    <div className="card bg-transparent text-white">
                         <h4 className="card-header p-4">About Your Event</h4>
                         <div className="card-body">
                             <form onSubmit={createEvent}>

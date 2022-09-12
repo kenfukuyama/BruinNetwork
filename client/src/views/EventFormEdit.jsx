@@ -106,7 +106,7 @@ const EventFormEdit = (props) => {
                     
                     <div className="d-flex vh-100 align-items-center justify-content-center flex-column fade-in">
                         
-                        <div className="card bg-transparent">
+                        <div className="card bg-transparent text-white">
                             {/* <div className= {loading ? "" : "d-none"}>
                                 <p>Updated</p>
                             </div> */}

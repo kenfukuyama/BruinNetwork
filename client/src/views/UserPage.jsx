@@ -235,12 +235,12 @@ const UserPage = (props) => {
             <div className="vh-100">
                 <div className="container py-5 h-100 fade-in">
                     <div className="row d-flex justify-content-center align-items-center h-100">
-                        <div className="col col-md-9 col-lg-7 col-xl-5">
+                        <div className="col col-md-9 col-lg-8 col-xl-8">
                         {!user.current ?
                             (<ScaleLoader size={100} color="white" loading={loading} cssOverride={{ display: "block", position: "fixed", bottom: "5%", right: "10%" }} />)
                             :
                             (
-                            <div className="card" style={{ borderRadius: "15px", backgroundColor: "#ffffff" }}>
+                            <div className="fade-in card" style={{ borderRadius: "15px", backgroundColor: "#ffffff" , overflowY : "scroll", maxHeight: "93vh"}}>
                                 <div className="card-body p-4 text-black">
                                     {/* <div>
                                                 <h6 className="mb-4">Exquisite hand henna tattoo</h6>
@@ -433,7 +433,7 @@ const UserPage = (props) => {
 
                                                     {userSavedEvents && userSavedEvents.map((event, i) =>
                                                         <div className="row event" key={i}>
-                                                            <div className="card m-2 shadow-lg">
+                                                            <div className="card m-2 shadow-lg card-border-radius">
                                                                 <div className="card-header">
                                                                     <div className="d-flex align-items-center justify-content-between">
                                                                         <div className="event-name">

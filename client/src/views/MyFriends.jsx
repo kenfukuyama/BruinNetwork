@@ -58,13 +58,13 @@ const MyFriends = () => {
         <div className="vh-100">
             <div className="container py-5 h-100">
                 <div className="row d-flex justify-content-center align-items-center h-100">
-                    <div className="col col-md-9 col-lg-7 col-xl-5">
+                    <div className="col col-md-9 col-lg-8 col-xl-8">
                         {loading ?
                             (<ScaleLoader size={100} color="white" loading={loading} cssOverride={{ display: "block", position: "fixed", bottom: "5%", right: "10%" }} />)
                             :
                             (
-                                <div className="card" style={{ borderRadius: "15px", backgroundColor: "#ffffff"}}>
-                                    <div className="card-body p-4 text-black">
+                                <div className="card fade-in px-2" style={{ borderRadius: "15px", backgroundColor: "rgba(25, 138, 209, 0.55)", overflowY : "scroll" , height: "93vh"}}>
+                                    <div className="p-4 text-black" >
                                         <div className="d-flex justify-content-center">
                                             <div className="input-group search-bar p-4 w-md-75 w-lg-100">
                                                 <input type="text" className="form-control rounded live-search-box regular" placeholder="Search People" aria-label="Search People"
@@ -74,7 +74,7 @@ const MyFriends = () => {
                                         </div>
                                         <FriendsNavigation inviationCounts={inviationCounts}/>
                                     </div>
-                                    <div className="d-flex align-item-center justify-content-center">
+                                    <div className="d-flex align-item-center justify-content-center mb-3">
                                         <Button color="success"variant="contained" id="navButton" startIcon={<PeopleAltIcon />}>Friends</Button>
                                     </div>
 
@@ -95,7 +95,7 @@ const MyFriends = () => {
 
                                                         }
                                                     >
-                                                        <ListItemButton  sx={{py : 3}} onClick={() => {nav(`/users/${user._id}`)}}>
+                                                        <ListItemButton  sx={{py : 2}} onClick={() => {nav(`/users/${user._id}`)}}>
                                                             <ListItemAvatar>
                                                                 <Avatar sx={{ bgcolor: blue[500] }}>
                                                                     <AccountCircleIcon />

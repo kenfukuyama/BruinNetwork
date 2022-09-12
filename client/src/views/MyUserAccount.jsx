@@ -14,6 +14,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import {blue} from '@mui/material/colors';
 
 
+
 import {
     Switch,
     FormGroup,
@@ -35,6 +36,8 @@ const MyUserAccount = () => {
     const { loggedinInfo } = useContext(LoggedinContext);
     const [interest, setInterest] = useState("");
     const navigate = useNavigate();
+
+    const [green, setGreen] = useState("");
 
     // # extrea configuration
     const theme = createTheme({
@@ -70,6 +73,7 @@ const MyUserAccount = () => {
             .then(res => {
                 // console.log(res.data);
                 setUser(res.data);
+                setGreen("success");
             })
             .finally(() => {setLoading(false)});
 
@@ -125,6 +129,10 @@ const MyUserAccount = () => {
 
     const handleInterestSubmit = (e) => {
         // TODO only allows up to 7 interests
+
+        if (!interest) {
+            return;
+        }
         let obj = {};
         obj[interest] = 1;
         let tempUser = { ...user, interests: { ...user.interests, ...obj } };
@@ -144,11 +152,11 @@ const MyUserAccount = () => {
             <div className="container py-5 align-items-center">
                 <div className="row d-flex justify-content-center align-items-center mt-4">
                     <div className="col col-md-9 col-lg-7 col-xl-5">
-                        {!user || loading?
+                        {!user || loading || !green ?
                             (<ScaleLoader size={100} color="white" loading={loading} cssOverride={{ display: "block", position: "fixed", bottom: "5%", right: "10%" }} />)
                             :
                             (
-                                <div className="card bg-transparent text-white">
+                                <div className="card bg-transparent text-white fade-in" style={{overflowY : "scroll", maxHeight: "93vh"}}>
                                     {/* <h4 className="card-header p-4 text-white">{user.nickname} <em><small>(@{user.username})</small></em></h4> */}
                                     <div className="d-flex align-items-center mb-4 justify-content-between">
                                         <div className="d-flex userName  align-items-center">
@@ -333,7 +341,7 @@ const MyUserAccount = () => {
                                                     onChange={e => setInterest(e.target.value)}
                                                 />
                                                 <ThemeProvider theme={theme}>
-                                                    <IconButton color="white" aria-label="add to interest" onClick={handleInterestSubmit}>
+                                                    <IconButton color="primary" aria-label="add to interest" onClick={handleInterestSubmit}>
                                                         <PlaylistAddIcon fontSize="medium" />
                                                     </IconButton>
                                                 </ThemeProvider>
@@ -343,7 +351,7 @@ const MyUserAccount = () => {
                                         <div className="d-flex gap-2 mb-3 w-100 flex-wrap">
                                             {
                                                 Object.keys(user.interests).map((interest, i) => {
-                                                    return <Chip label={interest} color="success" onDelete={(e) => deleteInterest(e, interest)} key={i} />
+                                                    return <Chip label={interest} sx = {{bgcolor : blue[100]}} onDelete={(e) => deleteInterest(e, interest)} key={i} />
                                                 })
                                             }
                                         </div>

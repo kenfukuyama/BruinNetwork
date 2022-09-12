@@ -25,6 +25,9 @@ import ChatroomPublic from './views/ChatroomPublic';
 import Chitchat from './views/Chitchat';
 import ChitchatLobby from './views/ChitchatLobby';
 import UserPage from './views/UserPage';
+
+import MyFriends from './views/MyFriends';
+
 // import axios from 'axios';
 // import { useEffect } from 'react';
 
@@ -94,9 +97,11 @@ function App() {
           <Route element={<Login/>} path="/login"/>
           <Route element={<Register/>} path="/register"/>
 
-          {/* // User Route */}
+          {/* // * User Route */}
           <Route element={<MyUserAccount/>} path="/users/account"/>
+          <Route element={<MyFriends/>} path="/users/friends"/>
           <Route element={<UserPage/>} path="/users/:id"/>
+          
 
           {/* // * event routes */}
           <Route element={<Events/>} path="/events"/>

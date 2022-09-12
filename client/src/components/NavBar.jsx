@@ -79,6 +79,10 @@ function NavBar() {
                         </li>
 
                         <li className="nav-item ps-2">
+                            <Link className="nav-link text-white" to={"/users/friends"}><i className="bi bi-people-fill nav-icon"></i> FRIENDS</Link>
+                        </li>
+
+                        <li className="nav-item ps-2">
                             <Link className="nav-link text-white" to={"/users/account"}><i className="bi bi-person-circle  nav-icon"></i>ACCOUNT</Link>
                         </li>
 

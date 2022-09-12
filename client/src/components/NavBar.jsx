@@ -66,10 +66,61 @@ function NavBar() {
                         {/* <ul className="navbar-nav ms-auto bg-sm-transparent"> */}
 
                     {(loggedinInfo.loggedin) ? (<ul className="navbar-nav ms-auto bg-sm-transparent">
-                        <li className="nav-item ps-2">
+                        {/* <li className="nav-item ps-2">
                             <Link className="nav-link text-white" to={"/events/new"}><i className="bi bi-plus-circle-fill nav-icon"></i> ADD EVENTS</Link>
+                        </li> */}
+
+                        <li className="nav-item ps-2">
+                            <div className="btn-group">
+                                <button className="btn bg-transparent dropdown-toggle nav-link text-white" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i className="bi bi-calendar2-event-fill nav-icon"></i>  EVENTS
+                                </button>
+                                <ul className="dropdown-menu">
+                                    <li><Link className="btn text-white" to={"/events"}><i className="bi bi-search nav-icon"></i> Explore </Link></li>
+                                    <li><Link className="btn text-white" to={"/myevents"}><i className="bi bi-bookmark-fill nav-icon"></i> Saved Events</Link></li>
+                                    <li><Link className="btn text-white" to={"/myevents"}><i className="bi bi-person-lines-fill nav-icon"></i> My Events</Link></li>
+                                    <li><Link className="btn text-white" to={"/events/new"}><i className="bi bi-file-plus nav-icon"></i> Add an Event</Link></li>
+                                    {/* <li><a className="dropdown-item" href="/users/dashboard/myevents">My Events</a></li>
+                                    <li><hr className="dropdown-divider"/></li>
+                                    <li><a className="dropdown-item" href="/users/dashboard/groups">Groups</a></li>
+                                    <li><a className="dropdown-item" href="/users/dashboard/friends">Friends</a></li> */}
+                                    {/* <li><hr className="dropdown-divider"/></li>
+                                    <li><a className="dropdown-item" href="/users/dashboard/account">Account</a></li>
+                                    <li><a className="dropdown-item" href="/users/dashboard/site-settings">Site Settings</a></li>
+                                    <li><hr className="dropdown-divider"/></li>
+                                    <li><a className="dropdown-item btn" href="/users/dashboard/support" >Contact Support</a></li> */}
+                                </ul>
+                            </div>
                         </li>
 
+                        <li className="nav-item ps-2">
+                            <div className="btn-group">
+                                <button className="btn bg-transparent dropdown-toggle nav-link text-white" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i className="bi bi-chat-dots-fill nav-icon"></i> CHATS
+                                </button>
+                                <ul className="dropdown-menu">
+                                    <li><Link className="btn text-white" to={"/chitchat"}><i className="bi bi-shuffle nav-icon"></i> Chitchat </Link></li>
+                                    <li><Link className="btn text-white" to={"/chatrooms"}><i className="bi bi bi-person-badge nav-icon"></i> Chatrooms </Link></li>
+                                </ul>
+                            </div>
+                        </li>
+
+
+                        <li className="nav-item ps-2">
+                            <div className="btn-group">
+                                <button className="btn bg-transparent dropdown-toggle nav-link text-white" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i className="bi bi-person-circle  nav-icon"></i> ACCOUNT
+                                </button>
+                                <ul className="dropdown-menu">
+                                    <li><Link className="btn text-white" to={"/users/friends"}><i className="bi bi-people-fill nav-icon"></i> Friends </Link></li>
+                                    <li><Link className="btn text-white" to={"/users/friends/pending"}><i className="bi bi-bell-fill nav-icon"></i> Requests </Link></li>
+                                    <li><Link className="btn text-white" to={"/users"}><i className="bi bi-binoculars-fill nav-icon"></i> Discover </Link></li>
+                                    <li><Link className="btn text-white" to={"/users/account"}><i className="bi bi-person-circle nav-icon"></i> My Profile </Link></li>
+                                    <Logout />
+                                </ul>
+                            </div>
+                        </li>
+{/* 
                         <li className="nav-item ps-2">
                             <Link className="nav-link text-white" to={"/myevents"}><i className="bi bi-calendar2-event-fill nav-icon"></i> MY EVENTS</Link>
                         </li>
@@ -83,21 +134,21 @@ function NavBar() {
                         </li>
 
                         <li className="nav-item ps-2">
-                            <Link className="nav-link text-white" to={"/users/account"}><i className="bi bi-person-circle  nav-icon"></i>ACCOUNT</Link>
-                        </li>
+                            <Link className="nav-link text-white" to={"/users/account"}><i className="bi bi-person-circle  nav-icon"></i> ACCOUNT</Link>
+                        </li> */}
 
-                        <li className="nav-item ps-2">
+                        {/* <li className="nav-item ps-2"> */}
                             {/* <a href="/users/dashboard" className="nav-link text-white"><i className="bi bi-box-arrow-left nav-icon"></i> LOGOUT</a> */}
-                            <Logout />
-                        </li>
+                            {/* <Logout /> */}
+                        {/* </li> */}
                     </ul>
                     ) : (
                         <ul className="navbar-nav ms-auto bg-sm-transparent">
                             <li className="nav-item ps-2">
-                                <Link className="nav-link text-white" to={"/login"}><i className="bi bi-door-open-fill nav-icon"></i>LOGIN</Link>
+                                <Link className="nav-link text-white" to={"/login"}><i className="bi bi-door-open-fill nav-icon"></i> LOGIN</Link>
                             </li>
                             <li className="nav-item ps-2">
-                                <Link className="nav-link text-white" to={"/register"}><i className="bi bi-people-fill nav-icon"></i>REGISTER</Link>
+                                <Link className="nav-link text-white" to={"/register"}><i className="bi bi-people-fill nav-icon"></i> REGISTER</Link>
                             </li>
                         </ul>
 

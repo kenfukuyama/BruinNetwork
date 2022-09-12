@@ -27,7 +27,7 @@ const Logout = () => {
     }
 
     return (
-        <button className="btn nav-link text-white" onClick={logout}><i className="bi bi-box-arrow-left nav-icon"></i>Logout</button>
+        <button className="btn text-white" onClick={logout}><i className="bi bi-box-arrow-left nav-icon"></i> Logout</button>
     )
 
 

@@ -1,11 +1,17 @@
 import axios from 'axios';
-import React from 'react'
+import React, { useContext } from 'react'
 import { useRef } from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 
 import ScaleLoader from 'react-spinners/ScaleLoader';
 import FriendsNavigation from '../components/FriendsNavigation';
+
+
+import Button from '@mui/material/Button';
+import ExploreIcon from '@mui/icons-material/Explore';
+
+import {LoggedinContext} from '../context/LoggedinContext';
 
 // user list
 import List from '@mui/material/List';
@@ -19,11 +25,15 @@ import { blue } from '@mui/material/colors';
 import { useNavigate } from 'react-router-dom';
 
 
+
+
 const Users = () => {
     const nav = useNavigate();
     const [loading, setLoading] = useState(true);
+    const {loggedinInfo} = useContext(LoggedinContext);
     // const [users, setUsers] = useState(true);
     const users = useRef(null);
+    const [inviationCounts, setInviationCounts] = useState(0);
 
     useEffect(() => {
         axios.get('http://localhost:8000/api/users', {withCredentials: true})
@@ -32,6 +42,12 @@ const Users = () => {
             users.current = res.data;
         })
         .finally(() => {setLoading(false);});
+
+        axios.post("http://localhost:8000/api/friendships/waiting", {userId : loggedinInfo.loggedinId})
+        .then(res => {
+            setInviationCounts(res.data.length); 
+        })
+
         
     }, [])
 
@@ -55,8 +71,12 @@ const Users = () => {
                                                 <button type="button" className="btn btn-primary"><i className="bi bi-search"></i></button>
                                             </div>
                                         </div>
-                                        <FriendsNavigation/>
+                                        <FriendsNavigation inviationCounts={inviationCounts}/>
                                     </div>
+                                    <div className="d-flex align-item-center justify-content-center">
+                                        <Button variant="contained" id="navButton" startIcon={<ExploreIcon />}>Explore People</Button>
+                                    </div>
+
                                     <div className="d-flex justify-content-center flex-wrap">
                                         <List dense sx={{ width: '100%', bgcolor: 'background.paper', borderRadius: "15px"}}>
                                             {users.current.map((user, i) => {

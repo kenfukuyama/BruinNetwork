@@ -17,6 +17,7 @@ import Collapsible from 'react-collapsible';
 
 
 
+
 const UserPage = (props) => {
     //keep track of what is being typed via useState hook
     const navigate = useNavigate();

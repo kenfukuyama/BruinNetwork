@@ -785,7 +785,6 @@ margin-bottom: 0;
 }
 
 
-
 #btnCollapse {
   outline : none;
   box-shadow: none;
@@ -794,4 +793,14 @@ margin-bottom: 0;
 
 #profile-major-year-text {
   text-align: right;
+}
+
+#profile-major-year-text-notification {
+  text-align: right;
+  vertical-align: middle;
+}
+
+#navButton {
+  pointer-events: none;
+  border-radius: 50px;
 }

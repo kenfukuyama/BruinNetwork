@@ -117,8 +117,8 @@ const EventForm = (props) => {
                                 </div>
                                 <div className="mb-2">
                                     <label className="form-label">Description</label><br />
-                                    <input
-                                        type="text"
+                                    <textarea
+                                        placeholder='Description'
                                         name="description"
                                         value={event.description}
                                         onChange={handleChange}
@@ -163,10 +163,11 @@ const EventForm = (props) => {
                                         required/>
                                 </div>
 
-                                <div className="mb-2">
+                                <div className="mb-3">
                                     <label className="form-label">Location</label><br />
                                     <input
                                         type="text"
+                                        placeholder='Location'
                                         name="place"
                                         value={event.place}
                                         onChange={handleChange}
@@ -174,7 +175,7 @@ const EventForm = (props) => {
                                 </div>
 
 
-                                {created ? (<div className="div"><p>✓ Event Posted</p> <button className="btn btn-primary" onClick={refreshComponent}>Create Another Event</button></div> ): <input type="submit" className="btn btn-primary" />}
+                                {created ? (<div className="div"><p>✓ Event Posted</p> <button className="btn btn-outline-info" onClick={refreshComponent}>Create Another Event</button></div> ): <input type="submit" className="btn btn-outline-primary" />}
                                 
                             </form>
 

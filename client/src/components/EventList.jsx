@@ -43,7 +43,7 @@ const EventList = ({events}) => {
         //we don't want do anything until finishing loading the user
         axios.get('http://localhost:8000/api/users/' + loggedinInfo.loggedinId)
             .then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 user.current = res.data;
                 SetFormattedEvents(formatEvents(events));
                 // let tempedUsername = res.data.username;
@@ -53,17 +53,17 @@ const EventList = ({events}) => {
 
         
         // ? this will run twice, once the events is initialized and second time when it's fetched?? Why???? Three more times when submitted???
-        console.log("running eventList useEffect")
+        // console.log("running eventList useEffect")
 
         return () => {
-            console.log("clean up firing");
-            console.log(user.current);
+            // console.log("clean up firing");
+            // console.log(user.current);
             // // console.log(formattedEvents);
             // // console.log(formattedEvents.filter(eachEvent => eachEvent.liked));
 
             axios.put('http://localhost:8000/api/users/' + loggedinInfo.loggedinId, user.current)
             .then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 user.current = res.data;
                 // let tempedUsername = res.data.username;
                 // ! this takes care of case when user refreshes, and destroy username
@@ -109,12 +109,12 @@ const EventList = ({events}) => {
     } 
 
     const toggleLiked = (e, i) => {
-        console.log(i);
+        // console.log(i);
         let tempEvents = formattedEvents.map((eachEvent, idx) => {
             if (idx === i) {
                 // not liked
                 if (!eachEvent.liked) {
-                    console.log("add to user event list");
+                    // console.log("add to user event list");
                     let obj = {};
 
                     obj[eachEvent._id] = eachEvent.name;
@@ -122,7 +122,7 @@ const EventList = ({events}) => {
 
                 }
                 else {
-                    console.log("remove it from the list");
+                    // console.log("remove it from the list");
                     // delete user.savedEvents[eachEvent._id];
                     // const {}
 
@@ -142,9 +142,9 @@ const EventList = ({events}) => {
         if (user.current) {
             axios.put('http://localhost:8000/api/users/' + loggedinInfo.loggedinId, user.current)
                 .then(res => {
-                    console.log(res.data);
+                    // console.log(res.data);
                 })
-                .catch(err => { console.error(err) });
+                .catch(err => {});
         }
         SetFormattedEvents(tempEvents);
 
@@ -156,36 +156,36 @@ const EventList = ({events}) => {
 
     return (
         // <div className="overflow-auto events-show">
-        <div className="container">
-            <div className="events-show container overflow-auto">
-                {formattedEvents.map((event, i) =>
-                    <div className="row event" key={i}>
-                        <div className="card m-2 shadow-lg">
-                            <div className="card-header">
-                                <div className="d-flex align-items-center justify-content-between">
-                                    <div className="event-name">
-                                        <a href="/events/show/{{event.id}}" className="text-decoration-none h5 ">{event.name}</a>
-                                    </div>
-                                    <div className="event-time"> {event.eventDate} at {event.startTime}</div>
+        <>
+            {formattedEvents.map((event, i) =>
+                <div className="" key={i}>
+                    <div className="card m-2 shadow-lg">
+                        <div className="card-header">
+                            <div className="d-flex align-items-center justify-content-between">
+                                <div className="event-name">
+                                    <a href="/events/show/{{event.id}}" className="text-decoration-none h5 ">{event.name}</a>
                                 </div>
-                                <div className="d-flex align-items-center justify-content-end">
-                                    <div className="event-time">{event.place}</div>
-                                </div>
+                                <div className="event-time"> {event.eventDate} at {event.startTime}</div>
                             </div>
-                            <div className="card-body">
-                                <div className="d-flex  justify-content-between">
-                                    <div className="">{event.description}  <br /></div>
-                                    <div className="div">
-                                        <i className={`bi bi-bookmark${event.liked ? "-fill" : "" } nav-icon`} onClick={(e) => toggleLiked(e, i)}></i>
-                                    </div> 
+                            <div className="d-flex align-items-center justify-content-end">
+                                <div className="event-time">{event.place}</div>
+                            </div>
+                        </div>
+                        <div className="card-body">
+                            <div className="d-flex  justify-content-between">
+                                <div className="">{event.description}  <br /></div>
+                                <div className="div">
+                                    <i className={`bi bi-bookmark${event.liked ? "-fill" : ""} nav-icon`} onClick={(e) => toggleLiked(e, i)}></i>
                                 </div>
                             </div>
                         </div>
                     </div>
-                )}
-            </div>
+                </div>
+            )}
+        </>
 
-        </div>
+
+
         
     )
 }

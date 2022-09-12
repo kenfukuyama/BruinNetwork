@@ -127,8 +127,7 @@ const EventFormEdit = (props) => {
                                     </div>
                                     <div className="mb-2">
                                         <label className="form-label">Description</label><br />
-                                        <input
-                                            type="text"
+                                        <textarea
                                             name="description"
                                             value={event.description}
                                             onChange={handleChange}
@@ -173,7 +172,7 @@ const EventFormEdit = (props) => {
                                             required />
                                     </div>
 
-                                    <div className="mb-2">
+                                    <div className="mb-3">
                                         <label className="form-label">Location</label><br />
                                         <input
                                             type="text"
@@ -185,7 +184,7 @@ const EventFormEdit = (props) => {
 
 
 
-                                    <input type="submit" className="btn btn-primary" value={ updated ? "✓ Updated" : "Update" }/>
+                                    <input type="submit" className="btn btn-outline-primary" value={ updated ? "✓ Updated" : "Update" }/>
                                 </form>
 
                             </div>

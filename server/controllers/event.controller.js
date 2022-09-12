@@ -44,6 +44,15 @@ module.exports.getAllEvents = (request, response) => {
         .catch(err => response.json(err))
 }
 
+module.exports.getAllEventsCurrent = (request, response) => {
+    let date = new Date();
+    date.setUTCHours(0, 0, 0, 0);
+    // console.log(date);
+    Event.find({eventDate : {$gte : date}})
+        .then(events => response.json(events))
+        .catch(err => response.json(err))
+}
+
 
 module.exports.getAllEventsCreatedByUser = (request, response) => {
     Event.find({creator: request.params.id})

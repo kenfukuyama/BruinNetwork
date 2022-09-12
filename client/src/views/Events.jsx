@@ -32,7 +32,7 @@ const Events = () => {
             return;
         } 
 
-        axios.get('http://localhost:8000/api/events')
+        axios.get('http://localhost:8000/api/events/current')
             .then(res => {
                 setEvents(res.data);
                 setLoaded(true);

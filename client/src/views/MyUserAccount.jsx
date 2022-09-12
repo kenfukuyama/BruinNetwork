@@ -66,14 +66,12 @@ const MyUserAccount = () => {
             return;
         }
 
-
-
         axios.get('http://localhost:8000/api/users/' + loggedinInfo.loggedinId)
             .then(res => {
                 // console.log(res.data);
                 setUser(res.data);
-                setLoading(false);
             })
+            .finally(() => {setLoading(false)});
 
     }, [loggedinInfo.loggedin, loggedinInfo.loggedinId, navigate])
 
@@ -141,17 +139,12 @@ const MyUserAccount = () => {
         setUser(tempUser);
     }
 
-
-
-
-
-
     return (
         <div className="vh-100">
-            <div className="container py-5 fade-in align-items-center">
+            <div className="container py-5 align-items-center">
                 <div className="row d-flex justify-content-center align-items-center mt-4">
                     <div className="col col-md-9 col-lg-7 col-xl-5">
-                        {!user ?
+                        {!user || loading?
                             (<ScaleLoader size={100} color="white" loading={loading} cssOverride={{ display: "block", position: "fixed", bottom: "5%", right: "10%" }} />)
                             :
                             (

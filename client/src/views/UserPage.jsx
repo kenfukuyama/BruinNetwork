@@ -27,6 +27,7 @@ const UserPage = (props) => {
     const [friendshipLoading, setFriendshipLoading] = useState(true);
     const [friendshipStatus, setfriendshipStatus] = useState(1);
     const [userSavedEvents, setUserSavedEvents] = useState(null);
+    const [friendCount, setFriendCount] = useState(200);
 
     const user = useRef(null);
     const loggedinUser = useRef(null);
@@ -110,9 +111,18 @@ const UserPage = (props) => {
             // axios.get("api/events/user/6317f12d985af7817efe4bc9")
             .then( res => {
                 setUserSavedEvents(formatEvents(res.data));
-                // console.log(userSavedEvents.current);
+                // console.log(userSavedEvents.current
             })
             .catch( err => console.log(err))
+
+
+            axios.post("http://localhost:8000/api/friendships/approved", {userId : id})
+            .then(res => {
+                setFriendCount(res.data.length);
+            })
+
+
+
 
             //!  dismoutn return
             return () => { 
@@ -142,13 +152,17 @@ const UserPage = (props) => {
     const getSavedEvents = () => {
         // only make a api when it does not exist yet
             /// get all the events crated by the user.
-        axios.get('http://localhost:8000/api/users/' + user.current._id + "/saved-events")
-        // axios.get("api/events/user/6317f12d985af7817efe4bc9")
-        .then( res => {
-            setUserSavedEvents(formatEvents(res.data));
-            // console.log(userSavedEvents.current);
-        })
-        .catch( err => console.log(err))
+
+        if (userSavedEvents === null) {
+            axios.get('http://localhost:8000/api/users/' + user.current._id + "/saved-events")
+            // axios.get("api/events/user/6317f12d985af7817efe4bc9")
+            .then( res => {
+                setUserSavedEvents(formatEvents(res.data));
+                // console.log(userSavedEvents.current);
+            })
+            .catch( err => console.log(err));
+        }
+
 
     }
 
@@ -387,6 +401,12 @@ const UserPage = (props) => {
                                     {/* <p className="my-4 pb-1">52 comments</p>
                                                 <button type="button" className="btn btn-success btn-rounded btn-block btn-lg"><i
                                                     className="far fa-clock me-2"></i>Book now</button> */}
+
+
+                                    { 
+                                        friendCount > 1 ? <button className="text-muted btn mb-2" onClick={() => navigate(`/users/friends/${id}`)}>{friendCount} Friends <i className='bi bi-people-fill nav-icon'></i></button> : ""
+                                    }
+
                                     
 
 
@@ -429,9 +449,6 @@ const UserPage = (props) => {
                                                     <p  className="text-muted mb-1">Connect to See Saved Events</p>
                                                 </>
                                     }
-
-
-
                                 </div>
                             </div>
                             )}

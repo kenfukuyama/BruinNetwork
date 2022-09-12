@@ -17,17 +17,17 @@ module.exports.connect = (request, response) => {
             // friendship[0].isApproved = true;
             if (tempUserId1.equals(friendship[0].recipient)) {
                 // * you make the api call but you are recipent
-                console.log("some one send me the request i am trying to approve");
+                // console.log("some one send me the request i am trying to approve");
                 return Friendship.findOneAndUpdate({_id: friendship[0]._id}, {isApproved: true}, {new:true})
             } else {
                 // * do nohthing you sending it twice
-                console.log(tempUserId1);
-                console.log(friendship[0].recipient);
+                // console.log(tempUserId1);
+                // console.log(friendship[0].recipient);
                 return Promise.reject({msg : "sending friendship multiple times"});
             }
         }
         else {
-            console.log("need to create friendship");
+            // console.log("need to create friendship");
             return Friendship.create({requester : tempUserId1, recipient : tempUserId2})
         }
         // response.status(200).json(users)

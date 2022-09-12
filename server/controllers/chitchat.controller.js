@@ -18,7 +18,7 @@ module.exports.getQueue = (request, response) => {
 }
 
 module.exports.leaveQueue = (request, response) => {
-    console.log(request.body);
+    // console.log(request.body);
     if (!request.body.userId) {
         response.status(400).json({msg: "no userId specified"});
         return;
@@ -39,10 +39,10 @@ module.exports.getQueue = (request, response) => {
 
 
 module.exports.checkQueue = (request, response) => {
-    console.log("checking queue");
+    // console.log("checking queue");
     // console.log(request.body);
     let userId = request.body.userId;
-    console.log(userId);
+    // console.log(userId);
     
 
     if (!(userId in queueObject)) {
@@ -58,7 +58,7 @@ module.exports.checkQueue = (request, response) => {
 
     if (queueObject[userId].otherUserId !== null) {
         // remove it from the queu
-        console.log("they already have a match");
+        // console.log("they already have a match");
         let resObj = {};
         resObj[userId] = {otherUserId:queueObject[userId].otherUserId, roomId: queueObject[userId].roomId};
 
@@ -69,11 +69,11 @@ module.exports.checkQueue = (request, response) => {
     }
 
     if (queueObject[userId].otherUserId === null) {
-        console.log("they don't have a match yet");
+        // console.log("they don't have a match yet");
         for (let iterateUserId in queueObject) {
             if (iterateUserId !== userId && queueObject[iterateUserId].otherUserId === null) {
                 // crated a connection
-                console.log("found the match");
+                // console.log("found the match");
                 let combinedRoomId = userId + iterateUserId;
                 // setting for other users
                 queueObject[iterateUserId].otherUserId = userId;

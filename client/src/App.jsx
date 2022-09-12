@@ -29,6 +29,7 @@ import UserPage from './views/UserPage';
 import MyFriends from './views/MyFriends';
 import Users from './views/Users';
 import MyFriendsPending from './views/MyFriendsPending';
+import UserFriendsPage from './views/UserFriendsPage';
 
 // import axios from 'axios';
 // import { useEffect } from 'react';
@@ -102,7 +103,8 @@ function App() {
           {/* // * Other users route */}
           <Route element={<Users/>} path="/users"/>
           <Route element={<UserPage/>} path="/users/:id"/>
-
+          <Route element={<UserFriendsPage/>} path="/users/friends/:id"/>
+ 
           {/* // * My User Route */}
           <Route element={<MyUserAccount/>} path="/users/account"/>
           <Route element={<MyFriends/>} path="/users/friends"/>

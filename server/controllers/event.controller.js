@@ -1,5 +1,5 @@
 const { Event } = require('../models/event.model');
-const { User } = require('../models/user.model');
+// const { User } = require('../models/user.model');
 const mongoose = require('mongoose');
 
 module.exports.createEvent = (request, response) => {

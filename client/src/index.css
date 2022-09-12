@@ -790,3 +790,8 @@ margin-bottom: 0;
   outline : none;
   box-shadow: none;
 }
+
+
+#profile-major-year-text {
+  text-align: right;
+}

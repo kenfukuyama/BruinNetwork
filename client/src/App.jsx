@@ -27,6 +27,8 @@ import ChitchatLobby from './views/ChitchatLobby';
 import UserPage from './views/UserPage';
 
 import MyFriends from './views/MyFriends';
+import Users from './views/Users';
+import MyFriendsPending from './views/MyFriendsPending';
 
 // import axios from 'axios';
 // import { useEffect } from 'react';
@@ -97,11 +99,14 @@ function App() {
           <Route element={<Login/>} path="/login"/>
           <Route element={<Register/>} path="/register"/>
 
-          {/* // * User Route */}
+          {/* // * Other users route */}
+          <Route element={<Users/>} path="/users"/>
+          <Route element={<UserPage/>} path="/users/:id"/>
+
+          {/* // * My User Route */}
           <Route element={<MyUserAccount/>} path="/users/account"/>
           <Route element={<MyFriends/>} path="/users/friends"/>
-          <Route element={<UserPage/>} path="/users/:id"/>
-          
+          <Route element={<MyFriendsPending/>} path="/users/friends/pending"/>
 
           {/* // * event routes */}
           <Route element={<Events/>} path="/events"/>
@@ -114,7 +119,6 @@ function App() {
           <Route element={<ChatroomPublic/>} path="/chatroom/:roomId"/>
           <Route element={<Chitchat/>} path="/chitchat/:roomId"/>
           <Route element={<Chatrooms/>} path="/chatrooms"/>
-
           
         </Routes>
       </LoggedinContext.Provider>

@@ -2,16 +2,10 @@ import React from 'react'
 import { useState } from 'react';
 
 import ScaleLoader from 'react-spinners/ScaleLoader';
-// import IconButton from '@mui/material/IconButton';
-
-// import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
-// import Diversity2Icon from '@mui/icons-material/Diversity2';
-// import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
-
 
 import FriendsNavigation from '../components/FriendsNavigation';
 
-const MyFriends = () => {
+const MyFriendsPending = () => {
     const [loading, setLoading] = useState(true);
     const [user, setUser] = useState(true);
 
@@ -36,6 +30,10 @@ const MyFriends = () => {
                                         <FriendsNavigation/>
                                     </div>
 
+
+
+
+
                                 </div>
                             )}
 
@@ -46,4 +44,4 @@ const MyFriends = () => {
     )
 }
 
-export default MyFriends;
+export default MyFriendsPending;

@@ -8,7 +8,8 @@ module.exports = app => {
     app.get('/api/users/:id', Users.getUser);
     app.get('/api/users/:id/saved-events', Users.getSavedEvents);
     app.put('/api/users/:id', Users.updateUser);
-    // app.get("/api/users", authenticate, Users.getAll);
-    
+    app.get("/api/users", authenticate, Users.getAll);
+    // app.get("/api/users", Users.getAll);
+
     app.get("/api/logout", Users.logout);
 }

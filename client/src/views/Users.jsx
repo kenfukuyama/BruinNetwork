@@ -70,7 +70,7 @@ const Users = () => {
                                                             //     edge="end"
                                                             //     inputProps={{ 'aria-labelledby': labelId }}
                                                             // />
-                                                                <p id="profile-major-year-text" className="mb-0 text-right pe-3">{user.year[1]} <br/><em class="text-muted">{user.major}</em></p>
+                                                                <p id="profile-major-year-text" className="mb-0 text-right pe-3">{user.year[1]} <br/><em className="text-muted">{user.major}</em></p>
 
                                                         }
                                                     >
@@ -80,7 +80,7 @@ const Users = () => {
                                                                     <AccountCircleIcon />
                                                                 </Avatar>
                                                             </ListItemAvatar>
-                                                            <ListItemText id={labelId} primary={<h6 className="mb-0">{user.nickname}<em class="text-muted"> (@{user.username})</em></h6>} />
+                                                            <ListItemText id={labelId} primary={<h6 className="mb-0">{user.nickname}<em className="text-muted"> (@{user.username})</em></h6>} />
                                                         </ListItemButton>
                                                     </ListItem>
                                                 );

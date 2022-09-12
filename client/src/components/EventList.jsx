@@ -91,8 +91,12 @@ const EventList = ({events}) => {
     const formatEvents = (paramEvents) => {
         let tempFormattedEvents = paramEvents.map((event, i) => {
             if (event.startTime && event.endTime && event.eventDate) {
+                // if (event._id === "###") {
+                    // console.log(event.eventDate);
+                    // console.log( new Date(event.eventDate).toLocaleDateString("en", { weekday: 'long', month: 'long', day: 'numeric', timeZone: 'UTC'}));
+                // }
                 return {...event, 
-                    eventDate: new Date(event.eventDate).toLocaleDateString("en-US", { weekday: 'long', month: 'long', day: 'numeric' }),
+                    eventDate: new Date(event.eventDate).toLocaleDateString("en", { weekday: 'long', month: 'long', day: 'numeric', timeZone: 'UTC' }),
                     startTime: new Date(event.startTime).toLocaleTimeString('en', { timeStyle: 'short', hour12: false, timeZone: 'America/Los_Angeles' }),
                     endTime: new Date(event.endTime).toLocaleTimeString('en', { timeStyle: 'short', hour12: false, timeZone: 'America/Los_Angeles' }),
                     liked : (event._id in user.current.savedEvents)

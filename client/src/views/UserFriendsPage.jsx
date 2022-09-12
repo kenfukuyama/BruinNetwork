@@ -27,8 +27,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import Button from '@mui/material/Button';
 
-import FriendsNavigation from '../components/FriendsNavigation';
-
 const UserFriendsPage = () => {
     const nav = useNavigate();
     const [loading, setLoading] = useState(true);
@@ -51,7 +49,7 @@ const UserFriendsPage = () => {
         })
         .finally(() => {setLoading(false);})
 
-    }, [loggedinInfo.loggedinId]);
+    }, [loggedinInfo.loggedinId, id]);
 
     return (
         <div className="vh-100">

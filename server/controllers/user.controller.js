@@ -34,7 +34,7 @@ module.exports.getSavedEvents = (request, response) => {
         // let user = users[0].savedEvents;
         // console.log(Object.keys(user));
         let savedEvents = Object.keys(users[0].savedEvents);
-        console.log(savedEvents);
+        // console.log(savedEvents);
         return (Event.find({_id : {$in: savedEvents}}))
         // response.status(200).json(users)
     })

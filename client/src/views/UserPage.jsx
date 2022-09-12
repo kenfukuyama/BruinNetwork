@@ -26,7 +26,7 @@ const UserPage = (props) => {
     const [loading, setLoading] = useState(true);
     const [friendshipLoading, setFriendshipLoading] = useState(true);
     const [friendshipStatus, setfriendshipStatus] = useState(1);
-    const [userSavedEvents, setUserSavedEvents] = useState(null);
+    const [userSavedEvents, setUserSavedEvents] = useState([]);
     const [friendCount, setFriendCount] = useState(200);
 
     const user = useRef(null);
@@ -106,15 +106,6 @@ const UserPage = (props) => {
             .catch (err => {})
             .finally(() => setFriendshipLoading(false));
 
-            /// get all the events crated by the user.
-            axios.get('http://localhost:8000/api/users/' + id + "/saved-events")
-            // axios.get("api/events/user/6317f12d985af7817efe4bc9")
-            .then( res => {
-                setUserSavedEvents(formatEvents(res.data));
-                // console.log(userSavedEvents.current
-            })
-            .catch( err => console.log(err))
-
 
             axios.post("http://localhost:8000/api/friendships/approved", {userId : id})
             .then(res => {
@@ -137,6 +128,23 @@ const UserPage = (props) => {
             };
 
     }, [loggedinInfo.loggedin, id, navigate, loggedinInfo.loggedinId])
+
+
+    useEffect(() => {
+        /// get all the events crated by the user.
+        axios.get('http://localhost:8000/api/users/' + id + "/saved-events")
+        // axios.get("api/events/user/6317f12d985af7817efe4bc9")
+        .then( res => {
+            // console.log("running this");
+            // console.log(res.data);
+            setUserSavedEvents(formatEvents(res.data));
+            // console.log(userSavedEvents.current
+        })
+        // .catch( err => console.log(err))s
+
+     // eslint-disable-next-line
+    }, [user.current, id])
+
 
 
     const connect = () => {
@@ -168,6 +176,10 @@ const UserPage = (props) => {
 
 
     const formatEvents = (paramEvents) => {
+        if (loggedinUser.current === null) {
+            return;
+        }
+
         let tempFormattedEvents = paramEvents.map((event, i) => {
             if (event.startTime && event.endTime && event.eventDate) {
                 return {...event, 
@@ -258,7 +270,8 @@ const UserPage = (props) => {
                                         </div>
                                         <div className="">
 
-                                            { friendshipLoading ? <></> : <>
+                                            { friendshipLoading || loggedinInfo.loggedinId === id ? <></> : 
+                                            <>
                                                 { friendshipStatus === 1 ?
                                                     <button className='btn btn-primary' onClick={(e) => {connect(); setfriendshipStatus(4);}}>Connect</button>
                                                             : <>

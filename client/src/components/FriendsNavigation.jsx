@@ -30,4 +30,4 @@ const FriendsNavigation = ({inviationCounts}) => {
     )
 }
 
-export default FriendsNavigation
+export default FriendsNavigation;

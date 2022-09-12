@@ -48,10 +48,11 @@ const EventList = ({events}) => {
 
     return (
         // <div className="overflow-auto events-show">
-        <div className="container">
-            <div className="events-show container overflow-auto">
+        // <div className="container">
+        //     <div className="events-show container overflow-auto">
+            <>              
                 {formattedEvents.map((event, i) =>
-                    <div className="row event" key={i}>
+                    <div className="" key={i}>
                         <div className="card m-2 shadow-lg">
                             <div className="card-header">
                                 <div className="d-flex align-items-center justify-content-between">
@@ -68,17 +69,19 @@ const EventList = ({events}) => {
                                 <div className="d-flex  justify-content-between">
                                     <div className="">{event.description}  <br /></div>
                                     <div className="d-flex gap-1">
-                                        <button className="btn" onClick={(e) => {directToEditPage(e, event._id)}}><i className="bi bi-pencil-square text-primary"></i></button>
-                                        <button  className="btn" onClick={(e) => deleteEvent(e, event._id)}><i className="bi bi-trash-fill text-danger"></i></button>
+                                        <button className="btn" onClick={(e) => { directToEditPage(e, event._id) }}><i className="bi bi-pencil-square text-primary"></i></button>
+                                        <button className="btn" onClick={(e) => deleteEvent(e, event._id)}><i className="bi bi-trash-fill text-danger"></i></button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 )}
-            </div>
+            </>
 
-        </div>
+        //     </div>
+
+        // </div>
         
     )
 }

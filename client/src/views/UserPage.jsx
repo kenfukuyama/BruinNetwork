@@ -423,7 +423,7 @@ const UserPage = (props) => {
                                     
 
 
-                                    {friendshipStatus === 2 
+                                    {friendshipStatus === 2 || loggedinInfo.loggedinId === id 
                                                 ? <Collapsible trigger={<button className="btn pb-0 mb-0 btn-outline-info" onClick={getSavedEvents}>
                                                     <p className="mb-1">See Saved Events <i className="bi bi-chevron-down"></i></p>
                                                 </button>

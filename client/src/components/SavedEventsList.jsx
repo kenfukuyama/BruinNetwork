@@ -89,10 +89,9 @@ const SavedEventsList = ({events}) => {
     };
 
     return (
-        <div className="container">
-            <div className="events-show container overflow-auto">
-                {formattedEvents.map((event, i) =>
-                    <div className="row event" key={i}>
+        <>
+                    {formattedEvents.map((event, i) =>
+                    <div className="" key={i}>
                         <div className="card m-2 shadow-lg">
                             <div className="card-header">
                                 <div className="d-flex align-items-center justify-content-between">
@@ -116,9 +115,10 @@ const SavedEventsList = ({events}) => {
                         </div>
                     </div>
                 )}
-            </div>
+        </>
 
-        </div>
+
+
     )
 }
 

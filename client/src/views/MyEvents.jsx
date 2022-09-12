@@ -53,18 +53,18 @@ const MyEvents = () => {
     
     return (
 
-<div className="container pt-4 fade-in vh-100">
-        <div className="row w-100 mt-5">
-            {/* // ! main content */}
-            <div className="col-10">
-                <h3 className="text-white">{navLink[chosenLink]}</h3> <hr/>
-                
-                {chosenLink === "postedEvents" ? <EventListEdit events={events}/> : <SavedEventsList events={events}/>}
-                
+        <div className="container pt-4 fade-in vh-100">
+            <div className="row w-100 mt-5">
+                {/* // ! main content */}
+                <div className="col-10">
+                    <h3 className="text-white">{navLink[chosenLink]}</h3> <hr />
+
+                    {chosenLink === "postedEvents" ? <EventListEdit events={events} /> : <SavedEventsList events={events} />}
+
+                </div>
+                <EventsNavMenu setChosenLink={setChosenLink} />
             </div>
-            <EventsNavMenu setChosenLink={setChosenLink}/>
         </div>
-    </div>
 
     )
 }

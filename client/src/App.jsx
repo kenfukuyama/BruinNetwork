@@ -7,7 +7,8 @@ import EventForm from './views/EventForm';
 import NavBar from './components/NavBar';
 import Login from './views/Login';
 import Register from './views/Register';
-import MyEvents from './views/MyEvents';
+import MyPostedEvents from './views/MyPostedEvents';
+import MySavedEvents  from './views/MySavedEvents';
 import Chatrooms from './views/Chatrooms';
 
 
@@ -113,7 +114,8 @@ function App() {
           {/* // * event routes */}
           <Route element={<Events/>} path="/events"/>
           <Route element={<EventForm/>} path="/events/new"/>
-          <Route element={<MyEvents/>} path="/myevents"/>
+          <Route element={<MySavedEvents/>} path="/myevents/saved"/>
+          <Route element={<MyPostedEvents/>} path="/myevents/posted"/>
           <Route element={<EventFormEdit/>} path="/events/:id/edit"/>
         
           {/* // * chat routes */}

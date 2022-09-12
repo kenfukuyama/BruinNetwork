@@ -36,7 +36,7 @@ const Events = () => {
         axios.get('http://localhost:8000/api/events/current')
             .then(res => {
                 setEvents(res.data);
-                setLoading(true);
+                setLoading(false);
             })
             .catch(err => console.error(err));
 
@@ -59,7 +59,7 @@ const Events = () => {
             <div className="container py-5 h-100">
                 <div className="row d-flex justify-content-center align-items-center h-100">
                     <div className="col col-md-10 col-lg-8 col-xl-8">
-                    {!events || !loading ?
+                    {!events || loading ?
                             (<ScaleLoader size={100} color="white" loading={!loading} cssOverride={{ display: "block", position: "fixed", bottom: "5%", right: "10%" }} />)
                             :
                             <div className="card" style={{ borderRadius: "15px", backgroundColor: "#ffffff" }}>
@@ -72,7 +72,7 @@ const Events = () => {
                                     
 
                                 </div>
-                                {loading && <EventList events={events} />}
+                                {events && <EventList events={events} />}
                             </div>
                     }
                     </div>

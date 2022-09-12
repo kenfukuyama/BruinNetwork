@@ -16,7 +16,7 @@ function NavBar() {
 
     return (
         // <div>
-            <nav className="row navbar navbar-expand-sm fixed-top">
+            <nav className="row navbar navbar-expand-sm fixed-top bg-transparent">
             {/* <nav className="row navbar navbar-expand-sm"> */}
                 <div className="container-fluid ps-4 pe-4 styled-text">
                     <Link  className="navbar-brand text-white pt-1" to={"/"}>
@@ -75,10 +75,10 @@ function NavBar() {
                                 <button className="btn bg-transparent dropdown-toggle nav-link text-white" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i className="bi bi-calendar2-event-fill nav-icon"></i>  EVENTS
                                 </button>
-                                <ul className="dropdown-menu">
+                                <ul className="dropdown-menu bg-transparent">
                                     <li><Link className="btn text-white" to={"/events"}><i className="bi bi-search nav-icon"></i> Explore </Link></li>
-                                    <li><Link className="btn text-white" to={"/myevents"}><i className="bi bi-bookmark-fill nav-icon"></i> Saved Events</Link></li>
-                                    <li><Link className="btn text-white" to={"/myevents"}><i className="bi bi-person-lines-fill nav-icon"></i> My Events</Link></li>
+                                    <li><Link className="btn text-white" to={"/myevents/saved"}><i className="bi bi-bookmark-fill nav-icon"></i> Saved Events</Link></li>
+                                    <li><Link className="btn text-white" to={"/myevents/posted"}><i className="bi bi-person-lines-fill nav-icon"></i> My Events</Link></li>
                                     <li><Link className="btn text-white" to={"/events/new"}><i className="bi bi-file-plus nav-icon"></i> Add an Event</Link></li>
                                     {/* <li><a className="dropdown-item" href="/users/dashboard/myevents">My Events</a></li>
                                     <li><hr className="dropdown-divider"/></li>
@@ -98,7 +98,7 @@ function NavBar() {
                                 <button className="btn bg-transparent dropdown-toggle nav-link text-white" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i className="bi bi-chat-dots-fill nav-icon"></i> CHATS
                                 </button>
-                                <ul className="dropdown-menu">
+                                <ul className="dropdown-menu bg-transparent">
                                     <li><Link className="btn text-white" to={"/chitchat"}><i className="bi bi-shuffle nav-icon"></i> Chitchat </Link></li>
                                     <li><Link className="btn text-white" to={"/chatrooms"}><i className="bi bi bi-person-badge nav-icon"></i> Chatrooms </Link></li>
                                 </ul>
@@ -111,7 +111,7 @@ function NavBar() {
                                 <button className="btn bg-transparent dropdown-toggle nav-link text-white" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i className="bi bi-person-circle  nav-icon"></i> ACCOUNT
                                 </button>
-                                <ul className="dropdown-menu">
+                                <ul className="dropdown-menu bg-transparent">
                                     <li><Link className="btn text-white" to={"/users/friends"}><i className="bi bi-people-fill nav-icon"></i> Friends </Link></li>
                                     <li><Link className="btn text-white" to={"/users/friends/pending"}><i className="bi bi-bell-fill nav-icon"></i> Requests </Link></li>
                                     <li><Link className="btn text-white" to={"/users"}><i className="bi bi-binoculars-fill nav-icon"></i> Discover </Link></li>

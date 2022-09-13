@@ -103,7 +103,7 @@ function ChitchatPopUp() {
                         closeTimeoutMS={1000}
                         
                                 >
-                        <div className="w-100">
+                        <div className="d-flex justify-content-center align-items-center">
                             <div className="w-100">
 
                         {!otherUser ?  <></> : 

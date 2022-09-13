@@ -85,8 +85,11 @@ function App() {
     loggedinUsername : null,
     loadingUser: false,
     isInQueue : false,
+    timeOutId : null,
     chitchatRoom : null
   });
+
+  const [chitchatRoomId, setChitchatRoomId] = useState([false, null]);
 
 
   // const [loggedinId, setLoggedinId] = useState(tempLggedinId);
@@ -94,7 +97,7 @@ function App() {
 
   return (
     <div className="App container">
-      <LoggedinContext.Provider value={{loggedinInfo, setLoggedinInfo}}>
+      <LoggedinContext.Provider value={{loggedinInfo, setLoggedinInfo, chitchatRoomId, setChitchatRoomId}}>
         <NavBar/>
         <ChitchatPopUp/>
         

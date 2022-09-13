@@ -1,5 +1,11 @@
 let queueObject = require('../data/chitchatQueue');
 
+// extra files
+const colors =  require('colors');
+colors.enable();
+
+
+
 module.exports.joinQueue = (request, response) => {
     // console.log(request.body);
     if (!request.body.userId) {
@@ -7,7 +13,7 @@ module.exports.joinQueue = (request, response) => {
         return;
     }
     let obj = {};
-    obj[request.body.userId] = {otherUserId :null, roomId: null};
+    obj[request.body.userId] = {otherUserId :null, roomId: null, timestamp : new Date()};
     queueObject = {...queueObject, ...obj};
     response.status(200).json({msg: "joined the queue", ...queueObject});
 }
@@ -24,7 +30,7 @@ module.exports.leaveQueue = (request, response) => {
         return;
     }
     if (!(request.body.userId in queueObject)) {
-        response.status(400).json({msg: "user not in queue"});
+        response.status(204).json({msg: "user not in queue"});
         return;
     }
 
@@ -46,7 +52,12 @@ module.exports.checkQueue = (request, response) => {
     
 
     if (!(userId in queueObject)) {
-        response.status(400).json({msg: "user not in queue"});
+        // response.status(400).json({msg: "user not in queue"});
+        // return;
+        let obj = {};
+        obj[request.body.userId] = {otherUserId :null, roomId: null, timestamp : new Date()};
+        queueObject = {...queueObject, ...obj};
+        response.status(201).json({msg: "joined the queue", ...queueObject});
         return;
     }
 
@@ -101,4 +112,23 @@ module.exports.checkQueue = (request, response) => {
 
 }
 
+// * functions to clear and check the queue
+setInterval(() => {
+    // remove users after 3 minutes
+    console.log(colors.cyan(queueObject));
 
+
+    // ! clear the queue frequecy
+    let removeIntervalInMS= 120 * 1000;
+    let now = new Date();
+
+    for (let iterateUserId in queueObject) {
+        // console.log((now - (queueObject[iterateUserId].timestamp.getTime())) / 1000);
+
+        // you have queus that's over the limit
+        if ((now - (queueObject[iterateUserId].timestamp.getTime())) > removeIntervalInMS ) {
+            delete queueObject[iterateUserId];
+        }
+    }
+
+}, 5000);

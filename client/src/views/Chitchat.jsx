@@ -132,7 +132,7 @@ const Chitchat = () => {
     else {
         return (
 
-            <div id="chat-page" className="d-flex align-items-center justify-content-center vh-100 w-100 styled-text text-white">
+            <div id="chat-page" className="d-flex align-items-center justify-content-center vh-100 w-100 styled-text text-whit fade-in">
                 <div className="chat-container w-100 w-sm-75 w-lg-62 w-xxl-50 mt-5">
 
                         {/*  */}

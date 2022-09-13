@@ -74,7 +74,7 @@ const Chatrooms = () => {
                                             {rooms.map((room, i) => {
                                                 const labelId = `checkbox-list-secondary-label-${i}`;
                                                 return (
-                                                    <ListItem sx={{ px: 2 }}s
+                                                    <ListItem sx={{ px: 2 }}
                                                         key={i}>
                                                         <ListItemButton sx={{ py: 3 }} onClick={(e) => {setRoomSelection(i)}} >
                                                             <ListItemAvatar>

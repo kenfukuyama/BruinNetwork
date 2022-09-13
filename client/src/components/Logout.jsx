@@ -6,7 +6,7 @@ import { useContext } from 'react';
 
 const Logout = () => {
     const navigate = useNavigate();
-    const {setLoggedinInfo, loggedinInfo} = useContext(LoggedinContext);
+    const {setLoggedinInfo} = useContext(LoggedinContext);
     
     const logout = (e) => {
         // e.preventDefault();
@@ -14,11 +14,15 @@ const Logout = () => {
         axios.get('http://localhost:8000/api/logout', {withCredentials: true} )
         .then(res => { 
             console.log(res);
-            setLoggedinInfo ({ ...loggedinInfo,
+            // clears everythig
+            setLoggedinInfo ({
                 loggedin : false,
                 loggedinId : null,
                 loggedinUsername : null,
-                loadingUser : false
+                loadingUser: false,
+                isInQueue : false,
+                timeOutId : null,
+                chitchatRoom : null
             })
             navigate('/');
 

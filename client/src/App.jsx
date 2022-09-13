@@ -10,6 +10,7 @@ import Register from './views/Register';
 import MyPostedEvents from './views/MyPostedEvents';
 import MySavedEvents  from './views/MySavedEvents';
 import Chatrooms from './views/Chatrooms';
+import ChitchatPopUp from './components/ChitchatPopUp';
 
 
 import Cookies from 'universal-cookie';
@@ -82,7 +83,9 @@ function App() {
     loggedin :tempLoggedIn,
     loggedinId : tempLggedinId,
     loggedinUsername : null,
-    loadingUser: false
+    loadingUser: false,
+    isInQueue : false,
+    chitchatRoom : null
   });
 
 
@@ -93,6 +96,7 @@ function App() {
     <div className="App container">
       <LoggedinContext.Provider value={{loggedinInfo, setLoggedinInfo}}>
         <NavBar/>
+        <ChitchatPopUp/>
         
         <Routes>
           {/* // * main routes */}

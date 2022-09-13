@@ -11,7 +11,7 @@ import {LoggedinContext} from '../context/LoggedinContext';
 import { useContext } from 'react';
 
 const Register = () => {
-    const {setLoggedinInfo} = useContext(LoggedinContext);
+    const {setLoggedinInfo, loggedinInfo} = useContext(LoggedinContext);
     const navigate = useNavigate();
     const [user, setUser] = useState({
         username: "",
@@ -39,7 +39,7 @@ const Register = () => {
 
             // setLoggedin(true);
             // setLoggedinId(jwt(token).id);
-            setLoggedinInfo ({
+            setLoggedinInfo ({ ...loggedinInfo,
                 loggedin : true,
                 loggedinId : res.data.user._id,
                 loggedinUsername : res.data.user.username,

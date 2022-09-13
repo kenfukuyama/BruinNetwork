@@ -12,9 +12,10 @@ import RingLoader from 'react-spinners/RingLoader';
 import { useNavigate } from 'react-router-dom';
 
 const ChitchatLobby = () => {
-    const [connecting, setConnecting] = useState(false);
+    
     const interval = useRef(null);
-    const {loggedinInfo} = useContext(LoggedinContext);
+    const {loggedinInfo, setLoggedinInfo} = useContext(LoggedinContext);
+    const [connecting, setConnecting] = useState(loggedinInfo.isInQueue);
     const navigate = useNavigate();
 
 
@@ -48,9 +49,18 @@ const ChitchatLobby = () => {
                         if (res.status === 200) {
                             console.log(res.data[loggedinInfo.loggedinId].roomId);
                             let roomId = res.data[loggedinInfo.loggedinId].roomId; 
+
+                            // do everything we need to enter the chatroom and popups
                             setConnecting(false);
                             clearInterval(interval.current);
-                            navigate(`/chitchat/${roomId}`)
+                            setLoggedinInfo ({ ...loggedinInfo, isInQueue : false});
+                            // let otherUserId = roomId.replace(loggedinInfo.loggedinId, "");
+                            setLoggedinInfo ({ ...loggedinInfo, chitchatRoom :  roomId});
+                            // alert("you entering the chat");
+                            // if (confirm("Do you want to enter the chat")) {
+                            // navigate(`/chitchat/${roomId}`);
+                            // }
+
                         }
                         
                     })
@@ -65,15 +75,17 @@ const ChitchatLobby = () => {
         }
 
         return function cleanup() {
-            console.log("running dismout clean up");
+            // console.log("running dismout clean up");
             // clearInterval(interval.current);
         }
+    // eslint-disable-next-line
     }, [connecting, navigate, loggedinInfo.loggedinId])
 
 
 
     const enterWaitingRoom = (e) => {
         setConnecting(true);
+        setLoggedinInfo ({ ...loggedinInfo, isInQueue : true});
         axios.post('http://localhost:8000/api/chitchat/join-queue', {
             userId: loggedinInfo.loggedinId
         })
@@ -85,6 +97,7 @@ const ChitchatLobby = () => {
 
     const exitWaitingRoom = (e) => {
         setConnecting(false);
+        setLoggedinInfo ({ ...loggedinInfo, isInQueue : false});
         // ? axios.delete is not working somehow
         axios.post('http://localhost:8000/api/chitchat/leave-queue', {
             userId: loggedinInfo.loggedinId

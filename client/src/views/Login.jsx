@@ -11,7 +11,7 @@ import { useContext } from 'react';
 
 
 const Login = (props) => {
-    const {setLoggedinInfo} = useContext(LoggedinContext);
+    const {setLoggedinInfo, loggedinInfo} = useContext(LoggedinContext);
 
     const navigate = useNavigate();
 
@@ -34,7 +34,7 @@ const Login = (props) => {
 
             // setLoggedin(true);
             // setLoggedinId(jwt(token).id);
-            setLoggedinInfo ({
+            setLoggedinInfo ({ ...loggedinInfo,
                 loggedin : true,
                 loggedinId : res.data.user._id,
                 loggedinUsername : res.data.user.username,

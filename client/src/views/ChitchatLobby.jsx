@@ -49,6 +49,7 @@ const ChitchatLobby = () => {
                             console.log(res.data[loggedinInfo.loggedinId].roomId);
                             let roomId = res.data[loggedinInfo.loggedinId].roomId; 
                             setConnecting(false);
+                            clearInterval(interval.current);
                             navigate(`/chitchat/${roomId}`)
                         }
                         
@@ -64,7 +65,8 @@ const ChitchatLobby = () => {
         }
 
         return function cleanup() {
-            clearInterval(interval.current);
+            console.log("running dismout clean up");
+            // clearInterval(interval.current);
         }
     }, [connecting, navigate, loggedinInfo.loggedinId])
 

@@ -22,7 +22,7 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { blue } from '@mui/material/colors';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 
 
@@ -32,14 +32,19 @@ const Users = () => {
     const [loading, setLoading] = useState(true);
     const {loggedinInfo} = useContext(LoggedinContext);
     // const [users, setUsers] = useState(true);
-    const users = useRef(null);
+    const usersRef = useRef(null);
+
+    const [users, setUsers] = useState(null);
+
     const [inviationCounts, setInviationCounts] = useState(0);
+    const [query, setQuery] = useState("");
 
     useEffect(() => {
         axios.get('http://localhost:8000/api/users', {withCredentials: true})
         .then((res) => {
             // console.log(res.data);
-            users.current = res.data;
+            usersRef.current = res.data;
+            setUsers(res.data);
         })
         .finally(() => {setLoading(false);});
 
@@ -52,13 +57,25 @@ const Users = () => {
     }, [loggedinInfo.loggedinId])
 
 
+    
+    const search = (e) => {
+        setQuery(e.target.value);
+        let query = e.target.value.toString().toLowerCase();
+        setUsers(usersRef.current.filter(user => {
+            let target = user.username.toString().toLowerCase();
+            let target1 = user.nickname.toString().toLowerCase();
+            let target2 = user.year[1].toString().toLowerCase();
+            let target3 = user.major.toString().toLowerCase();
+            return (target.includes(query) || target1.includes(query) || target2.includes(query) || target3.includes(query));
+        }));
+    }
 
     return (
         <div className="vh-100">
             <div className="container py-5 h-100">
                 <div className="row d-flex justify-content-center align-items-center h-100">
                     <div className="col col-md-9 col-lg-8 col-xl-8">
-                        {!users.current ?
+                        {!users ?
                             (<ScaleLoader size={100} color="white" loading={loading} cssOverride={{ display: "block", position: "fixed", bottom: "5%", right: "10%" }} />)
                             :
                             (
@@ -66,8 +83,14 @@ const Users = () => {
                                     <div className="p-4 text-black" >
                                         <div className="d-flex justify-content-center">
                                             <div className="input-group search-bar p-4 w-md-75 w-lg-100">
-                                                <input type="text" className="form-control rounded live-search-box regular" placeholder="Search People" aria-label="Search People"
-                                                    aria-describedby="search-addon" />
+                                                <input type="text" 
+                                                    className="form-control rounded live-search-box regular" 
+                                                    placeholder="Search People" 
+                                                    aria-label="Search People"
+                                                    aria-describedby="search-addon" 
+                                                    onChange={e => {search(e)}}
+                                                    value={query}
+                                                    />
                                                 <button type="button" className="btn btn-primary"><i className="bi bi-search"></i></button>
                                             </div>
                                         </div>
@@ -79,10 +102,10 @@ const Users = () => {
 
                                     <div className="d-flex justify-content-center flex-wrap">
                                         <List dense sx={{ width: '100%', bgcolor: 'background.paper', borderRadius: "15px"}}>
-                                            {users.current.map((user, i) => {
+                                            {users.map((user, i) => {
                                                 const labelId = `checkbox-list-secondary-label-${i}`;
                                                 return ( 
-                                                    <ListItem sx={{px : 2}}
+                                                    <ListItem className="live-search-list" sx={{px : 2}}
                                                         key={i}
                                                         disablePadding
                                                         secondaryAction={
@@ -94,7 +117,7 @@ const Users = () => {
 
                                                         }
                                                     >
-                                                        <ListItemButton  sx={{py : 2}} onClick={() => {nav(`/users/${user._id}`)}}>
+                                                        <ListItemButton   sx={{py : 2}} onClick={() => {nav(`/users/${user._id}`)}}>
                                                             <ListItemAvatar>
                                                                 <Avatar sx={{ bgcolor: blue[500] }}>
                                                                     <AccountCircleIcon />

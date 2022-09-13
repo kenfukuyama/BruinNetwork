@@ -8,56 +8,58 @@ import BarLoader from "react-spinners/BarLoader";
 
 const EventFormEdit = (props) => {
     //keep track of what is being typed via useState hook
-    const {id} = useParams();
+    const { id } = useParams();
     const navigate = useNavigate();
-    const {loggedinInfo} = useContext(LoggedinContext);
+    const { loggedinInfo } = useContext(LoggedinContext);
     const [loading, setLoading] = useState(true);
     const [updated, setUpdated] = useState(false);
 
     const getToday = () => {
         let MyDate = new Date();
         let MyDateString;
-        MyDateString = MyDate.getFullYear() + '-' + ('0' + (MyDate.getMonth()+1)).slice(-2) +  '-' + ('0' + MyDate.getDate()).slice(-2);
+        MyDateString = MyDate.getFullYear() + '-' + ('0' + (MyDate.getMonth() + 1)).slice(-2) + '-' + ('0' + MyDate.getDate()).slice(-2);
         return MyDateString;
     }
 
     const [event, setEvent] = useState({
-        name : "",
-        eventDate : getToday(),
+        name: "",
+        eventDate: getToday(),
         description: "",
         startTime: "18:00",
         endTime: "19:00",
         place: "",
-        userId : loggedinInfo.loggedinId
-    }); 
+        userId: loggedinInfo.loggedinId
+    });
 
 
     useEffect(() => {
         if (!loggedinInfo.loggedin) {
             navigate('/login');
             return;
-        } 
+        }
 
         axios.get('http://localhost:8000/api/events/' + id)
-        .then( res => {
-            console.log(res.data);
-            let tempEvent = res.data;
-
-            let tempEventDate = new Date(tempEvent.eventDate);
-            tempEvent.eventDate = tempEventDate.getFullYear() + '-' + ('0' + (tempEventDate.getMonth()+1)).slice(-2) +  '-' + ('0' + tempEventDate.getDate()).slice(-2);
-
-            let tempStartDate = new Date(tempEvent.startTime);
-            tempEvent.startTime = tempStartDate.toTimeString().split(' ')[0].substring(0, 5);
+            .then(res => {
+                console.log(res.data);
+                let tempEvent = res.data;
+                // console.log(tempEvent.eventDate);
 
 
-            let tempEndDate = new Date(tempEvent.endTime);
-            tempEvent.endTime = tempEndDate.toTimeString().split(' ')[0].substring(0, 5);
+                let tempEventDate = new Date(new Date(tempEvent.eventDate).toLocaleString("en-US", {timeZone: "UTC"}));  
+                tempEvent.eventDate = tempEventDate.getFullYear() + '-' + ('0' + (tempEventDate.getMonth() + 1)).slice(-2) + '-' + ('0' + tempEventDate.getDate()).slice(-2);
 
-            setEvent(tempEvent);
-        })
-        .catch( err => console.log(err))
-        .finally( () => {setLoading(false)});
-    // eslint-disable-next-line
+                let tempStartDate = new Date(tempEvent.startTime);
+                tempEvent.startTime = tempStartDate.toTimeString().split(' ')[0].substring(0, 5);
+
+
+                let tempEndDate = new Date(tempEvent.endTime);
+                tempEvent.endTime = tempEndDate.toTimeString().split(' ')[0].substring(0, 5);
+
+                setEvent(tempEvent);
+            })
+            .catch(err => console.log(err))
+            .finally(() => { setLoading(false) });
+        // eslint-disable-next-line
     }, [])
 
     const updateEvent = (e) => {
@@ -70,7 +72,7 @@ const EventFormEdit = (props) => {
         eventEndTimeDate.setHours(event.endTime.substring(0, 2), event.endTime.substring(3, 5));
 
         axios.put('http://localhost:8000/api/events/' + event._id, {
-            name : event.name,
+            name: event.name,
             description: event.description,
             eventDate: event.eventDate,
             startTime: eventStartTimeDate,
@@ -84,7 +86,7 @@ const EventFormEdit = (props) => {
 
             })
             .catch(err => console.error(err))
-            .finally(() => {setLoading(false);})
+            .finally(() => { setLoading(false); })
     }
 
     const handleChange = (e) => {
@@ -95,105 +97,107 @@ const EventFormEdit = (props) => {
 
         }
 
-        setEvent({...event, [e.target.name] : e.target.value});
+        setEvent({ ...event, [e.target.name]: e.target.value });
     }
 
 
 
     return (
-            <div>
-                <div className="container">
-                    
-                    <div className="d-flex vh-100 align-items-center justify-content-center flex-column fade-in">
-                        
-                        <div className="card bg-transparent text-white">
-                            {/* <div className= {loading ? "" : "d-none"}>
+        <div>
+            <div className="vh-100">
+                <div className="container py-5 h-100 fade-in">
+                    <div className="row d-flex justify-content-center align-items-center h-100">
+                        <div className="col col-md-7 col-lg-8 col-xl-7">
+
+                            <div className="card bg-transparent text-white">
+                                {/* <div className= {loading ? "" : "d-none"}>
                                 <p>Updated</p>
                             </div> */}
 
-                            <BarLoader width={100} color="white" loading={loading} cssOverride={{display: "block", margin: "0 auto", borderColor: "red", position : "fixed", bottom: "10%", right: "47%" }} />
-                            <h4 className="card-header p-4">About Your Event</h4>
-                            <div className="card-body">
-                                <form onSubmit={updateEvent}>
-                                    <div className="mb-2">
-                                        <label className="form-label">Name</label><br />
-                                        <input
-                                            type="text"
-                                            placeholder='Event name'
-                                            name="name"
-                                            value={event.name}
-                                            onChange={handleChange}
-                                            className="form-control" />
-                                    </div>
-                                    <div className="mb-2">
-                                        <label className="form-label">Description</label><br />
-                                        <textarea
-                                            name="description"
-                                            value={event.description}
-                                            onChange={handleChange}
-                                            className="form-control" />
-                                    </div>
-                                    <div className="mb-2">
-                                        <label className="form-label">Event Date</label><br />
-                                        <input
-                                            type="date"
-                                            name="eventDate"
-                                            value={event.eventDate}
-                                            onChange={handleChange}
-                                            className="form-control" />
-                                    </div>
+                                <BarLoader width={100} color="white" loading={loading} cssOverride={{ display: "block", margin: "0 auto", borderColor: "red", position: "fixed", bottom: "10%", right: "47%" }} />
+                                <h4 className="card-header p-4">Edit Your Event</h4>
+                                <div className="card-body">
+                                    <form onSubmit={updateEvent}>
+                                        <div className="mb-2">
+                                            <label className="form-label">Name</label><br />
+                                            <input
+                                                type="text"
+                                                placeholder='Event name'
+                                                name="name"
+                                                value={event.name}
+                                                onChange={handleChange}
+                                                className="form-control" />
+                                        </div>
+                                        <div className="mb-2">
+                                            <label className="form-label">Description</label><br />
+                                            <textarea
+                                                name="description"
+                                                value={event.description}
+                                                onChange={handleChange}
+                                                className="form-control" />
+                                        </div>
+                                        <div className="mb-2">
+                                            <label className="form-label">Event Date</label><br />
+                                            <input
+                                                type="date"
+                                                name="eventDate"
+                                                value={event.eventDate}
+                                                onChange={handleChange}
+                                                className="form-control" />
+                                        </div>
 
-                                    <div className="mb-2">
-                                        <label className="form-label">Start Time</label><br />
-                                        <input type="time"
-                                            className="form-control"
-                                            id="startTime"
-                                            name="startTime"
-                                            value={event.startTime}
-                                            onChange={handleChange}
-                                            required />
-                                        {/* <input
+                                        <div className="mb-2">
+                                            <label className="form-label">Start Time</label><br />
+                                            <input type="time"
+                                                className="form-control"
+                                                id="startTime"
+                                                name="startTime"
+                                                value={event.startTime}
+                                                onChange={handleChange}
+                                                required />
+                                            {/* <input
                                         type="date"
                                         name="eventDate"
                                         value={event.eventDate}
                                         onChange={handleChange}
                                         className="form-control" /> */}
-                                    </div>
+                                        </div>
 
 
-                                    <div className="mb-2">
-                                        <label className="form-label">End Time</label><br />
-                                        <input type="time"
-                                            className="form-control"
-                                            id="endTime"
-                                            name="endTime"
-                                            value={event.endTime}
-                                            onChange={handleChange}
-                                            required />
-                                    </div>
+                                        <div className="mb-2">
+                                            <label className="form-label">End Time</label><br />
+                                            <input type="time"
+                                                className="form-control"
+                                                id="endTime"
+                                                name="endTime"
+                                                value={event.endTime}
+                                                onChange={handleChange}
+                                                required />
+                                        </div>
 
-                                    <div className="mb-3">
-                                        <label className="form-label">Location</label><br />
-                                        <input
-                                            type="text"
-                                            name="place"
-                                            value={event.place}
-                                            onChange={handleChange}
-                                            className="form-control" />
-                                    </div>
+                                        <div className="mb-3">
+                                            <label className="form-label">Location</label><br />
+                                            <input
+                                                type="text"
+                                                name="place"
+                                                value={event.place}
+                                                onChange={handleChange}
+                                                className="form-control" />
+                                        </div>
 
 
 
-                                    <input type="submit" className="btn btn-outline-primary" value={ updated ? "✓ Updated" : "Update" }/>
-                                </form>
+                                        <input type="submit" className="btn btn-outline-primary" value={updated ? "✓ Updated" : "Update"} />
+                                    </form>
 
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
             </div>
-        )
+        </div>
+    )
 }
 
 export default EventFormEdit;

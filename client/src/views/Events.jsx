@@ -17,6 +17,7 @@ const Events = () => {
     const [events, setEvents] = useState([]);
     const [loading, setLoading] = useState(false);
     const {loggedinInfo} = useContext(LoggedinContext);
+    
 
     // * initial message
     // const [ message, setMessage ] = useState("Loading...")  
@@ -65,7 +66,7 @@ const Events = () => {
                             <div className="fade-in card bg-transparent" style={{ borderRadius: "15px", backgroundColor: "#ffffff", overflowY : "scroll" , height: "93vh"}}>
                                 <div className="d-flex justify-content-center">
                                     <div className="input-group search-bar p-4 w-md-75 w-lg-100">
-                                        <input type="text" className="form-control rounded live-search-box regular" placeholder="Search Events" aria-label="Search People"
+                                        <input type="text" className="form-control rounded live-search-box regular" placeholder="Search Events" aria-label="Search Events"
                                             aria-describedby="search-addon" />
                                         <button type="button" className="btn btn-primary"><i className="bi bi-search"></i></button>
                                     </div>

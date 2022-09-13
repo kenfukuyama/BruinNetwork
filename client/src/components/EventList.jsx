@@ -162,11 +162,11 @@ const EventList = ({events}) => {
         // <div className="overflow-auto events-show">
         <>
             {formattedEvents.map((event, i) =>
-                <div className="" key={i}>
+                <div className="live-search-list" key={i}>
                     <div className="card m-2 shadow-lg card-border-radius">
                         <div className="card-header">
                             <div className="d-flex align-items-center justify-content-between">
-                                <div className="event-name">
+                                <div className="event-name live-search-list">
                                     <a href="/events/show/{{event.id}}" className="text-decoration-none h5 ">{event.name}</a>
                                 </div>
                                 <div className="event-time"> {event.eventDate} at {event.startTime}</div>

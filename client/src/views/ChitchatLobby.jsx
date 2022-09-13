@@ -4,7 +4,7 @@ import axios from 'axios';
 import React, { useRef } from 'react'
 import { useContext } from 'react';
 import { useEffect } from 'react';
-// import { useState } from 'react';
+import { useState } from 'react';
 import { LoggedinContext } from '../context/LoggedinContext';
 
 
@@ -13,6 +13,26 @@ import { useNavigate } from 'react-router-dom';
 
 const ChitchatLobby = () => {
     
+    // tips selector
+    const tips = [
+        "UCLA was founded in 1919",
+        "There are 52 differencs between left side and right side of Royce Hall",
+        "There are about 30,000 undergraduates",
+        "UCLA's colors are blue and gold. Blue to symbolize the ocean, and local wildflowers. Yellow to reflect the Golden State, the California poppy and sunsets.",
+        "Students at UCLA participate in “Midnight Yell” during finals week",
+        "Coach John Wooden won ten NCAA national championships in basketball during his tenure at UCLA",
+        "Events > Explore to check events at UCLA",
+        "You can saved your events by clicking bookmark button next to an event",
+        "Events > Saved Events to see your saved events ",
+        "Events > Add an Event to add an event",
+        "Chats > Chatroom to enter a different chatroom",
+        "Add your instagram tag at Account > My Profile to get discovered easier by others",
+        "Account > Discover to see other bruins",
+        "Account > Notifications to see your friend quests",
+        "You can tap an user to see their profile"
+        ]
+
+    const [tip, setTip] = useState(tips[1]);
     const interval = useRef(null);
     const {loggedinInfo, setLoggedinInfo, setChitchatRoomId} = useContext(LoggedinContext);
     // const [connecting, setConnecting] = useState(loggedinInfo.isInQueue);
@@ -41,6 +61,7 @@ const ChitchatLobby = () => {
                 // .then(res => console.log(res.data))
                 // .catch(err => console.error(err));
 
+                setTip(tips[Math.floor(Math.random() * tips.length)]);
                 // * this checks the queue but also creates it if it does not exist
                 axios.post('http://localhost:8000/api/chitchat/check-queue', {
                     userId: loggedinInfo.loggedinId
@@ -72,7 +93,7 @@ const ChitchatLobby = () => {
                         
                     })
                     .catch(err => console.error(err));
-            }, 3000); // ! the check queue frequecy
+            }, 2000); // ! the check queue frequecy
 
             // ! stop the interval and removes the user from the queue
             // ! we need to make sure that only one setTimeout is runnig
@@ -136,7 +157,7 @@ const ChitchatLobby = () => {
         // setConnecting(false);
         setLoggedinInfo ({ ...loggedinInfo, isInQueue : false});
         clearInterval(interval.current);
-        // ? axios.delete is not working somehow
+        // ? ! axios.delete is not working somehow
         axios.post('http://localhost:8000/api/chitchat/leave-queue', {
             userId: loggedinInfo.loggedinId
         })
@@ -153,7 +174,18 @@ const ChitchatLobby = () => {
             <div id="chitchat-lobby-page" className="fade-in d-flex align-items-center text-white vh-100">
                 <div className="connect-btns" style={{margin: "0 auto"}}>
                     <RingLoader loading={loggedinInfo.isInQueue} cssOverride={{margin: "0 auto", marginBottom: "20px"}} size={150} color={"white"}/>
-                    {loggedinInfo.isInQueue ? <button className="btn btn-outline-primary" onClick={exitWaitingRoom}>Connecting ...</button> : <button className="btn btn-outline-light" onClick={enterWaitingRoom}>Connect with a Random Bruin</button>
+                    {loggedinInfo.isInQueue ? 
+                    <div >
+
+                        <p className="mt-2">
+                            <span className="text-muted text-small"><small>browse other pages while you wait ...</small></span> <br/>
+                            {tip}
+                        </p>
+                        <button className="btn btn-outline-primary" onClick={exitWaitingRoom}>Connecting ...</button> 
+                    </div>
+
+                    
+                    : <button className="btn btn-outline-light" onClick={enterWaitingRoom}>Connect with a Random Bruin</button>
                 }
                 </div>
             </div>

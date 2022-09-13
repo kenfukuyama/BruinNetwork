@@ -49,8 +49,8 @@ function ChitchatPopUp() {
     const customStyles = {
         content: {
             
-            maxHeight: '50%',
-            maxWidth: "50%",
+            maxHeight: '60%',
+            width: "50%",
             margin: '0 auto',
             position: "fixed",
             padding: '0',
@@ -63,7 +63,7 @@ function ChitchatPopUp() {
 
         },
         overlay : {
-            backgroundColor: "rgb(36, 61, 132, 0.20)"
+            backgroundColor: "rgb(36, 61, 132, 0.40)",
         }
     };
 
@@ -86,7 +86,11 @@ function ChitchatPopUp() {
 
     return (
         <>
-            <RingLoader size={100} loading={loggedinInfo.isInQueue} cssOverride={{ display: "block", position: "fixed", bottom: "10%", left: "10%"}} />
+            <RingLoader 
+            size={100} 
+            loading={loggedinInfo.isInQueue} 
+            cssOverride={{ display: "block", position: "fixed", bottom: "5%", left: "5%", cursor: "pointer"}} 
+            onClick={() => navigate("/chitchat")}/>
 
 
                     <Modal
@@ -96,10 +100,10 @@ function ChitchatPopUp() {
                         onRequestClose={closeModal}
                         style={customStyles}
                         contentLabel="Chitchat Popup"
-                        closeTimeoutMS={2000}
+                        closeTimeoutMS={1000}
                         
                                 >
-                        <div className="d-flex justify-content-center align-items-center">
+                        <div className="w-100">
                             <div className="w-100">
 
                         {!otherUser ?  <></> : 

@@ -45,8 +45,11 @@ module.exports.getAllEvents = (request, response) => {
 }
 
 module.exports.getAllEventsCurrent = (request, response) => {
+    // TODO update this for better date time performance
     let date = new Date();
+    date.setDate(date.getDate() - 1);
     date.setUTCHours(0, 0, 0, 0);
+    // console.log(date);
     // console.log(date);
     Event.find({eventDate : {$gte : date}})
         .then(events => response.json(events))

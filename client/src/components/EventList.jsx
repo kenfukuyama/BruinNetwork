@@ -61,14 +61,14 @@ const EventList = ({events}) => {
             // // console.log(formattedEvents);
             // // console.log(formattedEvents.filter(eachEvent => eachEvent.liked));
 
-            axios.put('http://localhost:8000/api/users/' + loggedinInfo.loggedinId, user.current)
-            .then(res => {
-                // console.log(res.data);
-                user.current = res.data;
-                // let tempedUsername = res.data.username;
-                // ! this takes care of case when user refreshes, and destroy username
-                // setLoggedinInfo({ ...loggedinInfo, loggedinUsername: tempedUsername })
-            })
+            // axios.put('http://localhost:8000/api/users/' + loggedinInfo.loggedinId, user.current)
+            // .then(res => {
+            //     // console.log(res.data);
+            //     user.current = res.data;
+            //     // let tempedUsername = res.data.username;
+            //     // ! this takes care of case when user refreshes, and destroy username
+            //     // setLoggedinInfo({ ...loggedinInfo, loggedinUsername: tempedUsername })
+            // })
 
             // console.log("This is formattdEvents");
             // console.log(formattedEvents);

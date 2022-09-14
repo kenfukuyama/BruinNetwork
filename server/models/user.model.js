@@ -1,12 +1,13 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
-
+const uniqueValidator = require('mongoose-unique-validator');
 
 const UserSchema = new mongoose.Schema({
     username: {
         type: String,
         required: [true, "username is required"],
-        minlength: [2, "username must be 2 characters or longer"]
+        minlength: [2, "username must be 2 characters or longer"],
+        unique : "username is taken"
     },
     nickname: {
         type: String,
@@ -19,7 +20,8 @@ const UserSchema = new mongoose.Schema({
         validate: {
             validator: val => /^([\w-\.]+@([\w-]+\.)+[\w-]+)?$/.test(val),
             message: "Please enter a valid email"
-        }
+        },
+        unique : "email is taken"
     },
     password: {
         type: String,
@@ -78,6 +80,7 @@ UserSchema.pre('save', function (next) {
         });
 });
 
+UserSchema.plugin(uniqueValidator);
 module.exports.User = mongoose.model('User', UserSchema);
 
 

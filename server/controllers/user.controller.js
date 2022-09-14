@@ -108,7 +108,7 @@ module.exports.login = (req, res) => {
         // console.log(user);
         if (user === null) {
             // email not found in users collection
-            console.log("no user found");
+            console.log("no user found");   
             // res.status(400).json({msg : "no user found."});
             // reject("no user found");
             return new Promise((resolve, reject) => {reject({userId : "No user found"})});
@@ -138,7 +138,7 @@ module.exports.login = (req, res) => {
 
     })
     .catch(err => {
-        console.log(err);
+        // console.log(err);
         res.status(400).json(err);
 
     });
@@ -188,9 +188,10 @@ module.exports.login = (req, res) => {
 
 // register
 module.exports.register = (req, res) => {
+
     User.create(req.body)
         .then(user => {
-            console.log("hey there");
+            // console.log("hey there");
             const userToken = jwt.sign({
                 id: user._id
             }, envKey);
@@ -202,8 +203,9 @@ module.exports.register = (req, res) => {
                 .json({ msg: "success!", user: user, userToken: userToken});
         })
         .catch(err => {
-            console.log(err);
-            res.json(err);
+            // console.log("ruuning this error");
+            // console.log(err);
+            res.status(400).json(err);
         });
 }
 

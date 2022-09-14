@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const uniqueValidator = require('mongoose-unique-validator');
+// const uniqueValidator = require('mongoose-unique-validator');
 
 
 // unique : "validation message";
@@ -8,11 +8,11 @@ const uniqueValidator = require('mongoose-unique-validator');
 const EventSchema = new mongoose.Schema({
     name: { type: String,
         required: [true, "Event name is required"],
-        minlength: [3, "Event name should be at least 3 characters"]
+        minlength: [3, "Event name must be at least 3 characters"]
     },
     description: { type: String,
         required: [true, "Description is required"],
-        minlength: [3, "Description should be at least 3 characters"]
+        minlength: [10, "Description must be at least 10 characters"]
     },
     eventDate: { type: Date,
         required: [true, "Event date is required"]

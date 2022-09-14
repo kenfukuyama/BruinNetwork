@@ -13,6 +13,7 @@ const EventFormEdit = (props) => {
     const { loggedinInfo } = useContext(LoggedinContext);
     const [loading, setLoading] = useState(true);
     const [updated, setUpdated] = useState(false);
+    const [errorsObj, setErrorsObj] = useState({});
 
     const getToday = () => {
         let MyDate = new Date();
@@ -45,7 +46,7 @@ const EventFormEdit = (props) => {
                 // console.log(tempEvent.eventDate);
 
 
-                let tempEventDate = new Date(new Date(tempEvent.eventDate).toLocaleString("en-US", {timeZone: "UTC"}));  
+                let tempEventDate = new Date(new Date(tempEvent.eventDate).toLocaleString("en-US", {timeZone: "UTC"}));
                 tempEvent.eventDate = tempEventDate.getFullYear() + '-' + ('0' + (tempEventDate.getMonth() + 1)).slice(-2) + '-' + ('0' + tempEventDate.getDate()).slice(-2);
 
                 let tempStartDate = new Date(tempEvent.startTime);
@@ -57,7 +58,7 @@ const EventFormEdit = (props) => {
 
                 setEvent(tempEvent);
             })
-            .catch(err => console.log(err))
+            .catch(err => { })
             .finally(() => { setLoading(false) });
         // eslint-disable-next-line
     }, [])
@@ -85,7 +86,19 @@ const EventFormEdit = (props) => {
                 setUpdated(true);
 
             })
-            .catch(err => console.error(err))
+            .catch(err => {
+                const errResponse = err.response.data.errors;
+                const errObj = {};
+
+                for (const key in errResponse) {
+                    // if (!errObj[key]) {
+                    errObj[key] = [errResponse[key].message];
+                    // } else {
+                    //     errObj[key].push(errResponse[key].message);
+                    // }
+                }
+                setErrorsObj(errObj);
+            })
             .finally(() => { setLoading(false); })
     }
 
@@ -126,7 +139,13 @@ const EventFormEdit = (props) => {
                                                 name="name"
                                                 value={event.name}
                                                 onChange={handleChange}
-                                                className="form-control" />
+                                                className={`form-control ${errorsObj.name ? "border-danger" : ""}`} />
+
+                                            {errorsObj.name ?
+                                                <span className="form-text text-danger">
+                                                    {errorsObj.name}
+                                                </span>
+                                                : <></>}
                                         </div>
                                         <div className="mb-2">
                                             <label className="form-label">Description</label><br />
@@ -134,7 +153,8 @@ const EventFormEdit = (props) => {
                                                 name="description"
                                                 value={event.description}
                                                 onChange={handleChange}
-                                                className="form-control" />
+                                                className={`form-control ${errorsObj.description ? "border-danger" : ""}`} />
+                                            {errorsObj.description ? <span className="form-text text-danger">{errorsObj.description}</span> : <></>}
                                         </div>
                                         <div className="mb-2">
                                             <label className="form-label">Event Date</label><br />
@@ -143,46 +163,47 @@ const EventFormEdit = (props) => {
                                                 name="eventDate"
                                                 value={event.eventDate}
                                                 onChange={handleChange}
-                                                className="form-control" />
+                                                required
+                                                className={`form-control ${errorsObj.eventDate ? "border-danger" : "" }`} />
+                                            { errorsObj.eventDate ? <span className="form-text text-danger">{errorsObj.eventDate}</span> : <></> }
+
                                         </div>
 
                                         <div className="mb-2">
                                             <label className="form-label">Start Time</label><br />
                                             <input type="time"
-                                                className="form-control"
                                                 id="startTime"
                                                 name="startTime"
                                                 value={event.startTime}
                                                 onChange={handleChange}
-                                                required />
-                                            {/* <input
-                                        type="date"
-                                        name="eventDate"
-                                        value={event.eventDate}
-                                        onChange={handleChange}
-                                        className="form-control" /> */}
+                                                required
+                                                className={`form-control ${errorsObj.startTime ? "border-danger" : ""}`} />
+                                            {errorsObj.startTime ? <span className="form-text text-danger">{errorsObj.startTime}</span> : <></>}
                                         </div>
 
 
                                         <div className="mb-2">
                                             <label className="form-label">End Time</label><br />
                                             <input type="time"
-                                                className="form-control"
                                                 id="endTime"
                                                 name="endTime"
                                                 value={event.endTime}
                                                 onChange={handleChange}
-                                                required />
+                                                required
+                                                className={`form-control ${errorsObj.endTime ? "border-danger" : ""}`} />
+                                            {errorsObj.endTime ? <span className="form-text text-danger">{errorsObj.endTime}</span> : <></>}
                                         </div>
 
                                         <div className="mb-3">
                                             <label className="form-label">Location</label><br />
                                             <input
                                                 type="text"
+                                                placeholder='Location'
                                                 name="place"
                                                 value={event.place}
                                                 onChange={handleChange}
-                                                className="form-control" />
+                                                className={`form-control ${errorsObj.place ? "border-danger" : ""}`} />
+                                            {errorsObj.place ? <span className="form-text text-danger">{errorsObj.place}</span> : <></>}
                                         </div>
 
 

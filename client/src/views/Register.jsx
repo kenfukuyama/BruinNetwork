@@ -13,6 +13,8 @@ import { useContext } from 'react';
 const Register = () => {
     const {setLoggedinInfo, loggedinInfo} = useContext(LoggedinContext);
     const navigate = useNavigate();
+    const [errors, setErrors] = useState({});
+
     const [user, setUser] = useState({
         username: "",
         nickname: "",
@@ -33,6 +35,7 @@ const Register = () => {
         confirmPassword: user.confirmPassword
     }, {withCredentials: true} )
         .then(res => {
+            console.log("Registering...");
             const token = res.data.userToken;
             console.log(jwt(token));
             console.log(res);
@@ -48,7 +51,17 @@ const Register = () => {
             navigate('/');
 
         })
-        .catch(err => console.error(err));
+        .catch(err => {
+            console.error(err);
+            let errResponse = err.response.data.errors;
+            let errObj = {};
+            for (const key in errResponse) {
+                errObj[key] = errResponse[key].message;
+            }
+            console.log(errObj);
+            setErrors(errObj);
+
+        });
     }
 
     const handleChange = (e) => {
@@ -67,7 +80,13 @@ const Register = () => {
                         name="username"
                         value={user.username}
                         onChange={handleChange}
-                        className="form-control" />
+                        className={`form-control ${errors.username ? "border-danger" : "" }`} />
+
+                    {errors.username ?
+                        <span className="form-text text-danger">
+                            {errors.username}
+                        </span>
+                        : <></>}
                 </div>
                 <div className="mb-3">
                     <input
@@ -76,7 +95,14 @@ const Register = () => {
                         name="nickname"
                         value={user.nickname}
                         onChange={handleChange}
-                        className="form-control" />
+                        className={`form-control ${errors.nickname ? "border-danger" : "" }`} />
+                    
+                    {errors.nickname ?
+                        <span className="form-text text-danger">
+                            {errors.nickname}
+                        </span>
+                        : <></>}
+
                 </div>
                 <div className="mb-3">
                     <input
@@ -85,7 +111,12 @@ const Register = () => {
                         name="email"
                         value={user.email}
                         onChange={handleChange}
-                        className="form-control" />
+                        className={`form-control ${errors.email ? "border-danger" : "" }`} />
+                    {errors.email ?
+                        <span className="form-text text-danger">
+                            {errors.email}
+                        </span>
+                        : <></>}
                 </div>
                 <div className="mb-3">
                     <input
@@ -94,7 +125,13 @@ const Register = () => {
                         name="password"
                         value={user.password}
                         onChange={handleChange}
-                        className="form-control" />
+                        className={`form-control ${errors.password ? "border-danger" : "" }`} />
+
+                    {errors.password ?
+                        <span className="form-text text-danger">
+                            {errors.password}
+                        </span>
+                        : <></>}
                 </div>
                 
                 <div className="mb-3">
@@ -104,7 +141,12 @@ const Register = () => {
                         name="confirmPassword"
                         value={user.confirmPassword}
                         onChange={handleChange}
-                        className="form-control" />
+                        className={`form-control ${errors.confirmPassword ? "border-danger" : "" }`} />
+                    {errors.confirmPassword ?
+                        <span className="form-text text-danger">
+                            {errors.confirmPassword}
+                        </span>
+                        : <></>}
                 </div>
 
                 <button type="submit" className="btn btn-light btn-lg mt-1 styled-button">Register</button>

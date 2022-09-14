@@ -15,6 +15,8 @@ const Login = (props) => {
 
     const navigate = useNavigate();
 
+    const [error, setError] = useState({});
+
     const [userLogIn, setUserLogIn] = useState({
         email: "",
         password: "",
@@ -43,7 +45,18 @@ const Login = (props) => {
             navigate('/');
 
         })
-        .catch(err => console.error(err));
+        .catch(err => {
+            // console.error(err);
+            // setError(err.response.data);
+            let errResponse = err.response.data;
+            let errObj = {};
+            for (const key in errResponse) {
+                errObj[key] = errResponse[key];
+            }
+            // console.log(errObj);
+            setError(errObj);
+
+        });
     }
 
 
@@ -66,7 +79,12 @@ const Login = (props) => {
                         name="email"
                         value={userLogIn.email}
                         onChange={handleChangeLoggedIn}
-                        className="form-control" />
+                        className={`form-control ${error.userId ? "border-danger" : "" }`} />
+                    {error.userId ?
+                        <span className="form-text text-danger">
+                            {error.userId}
+                        </span>
+                        : <></>}
                 </div>
                 <div className="mb-3">
                     {/* <label className="form-label">password</label><br /> */}
@@ -76,7 +94,12 @@ const Login = (props) => {
                         name="password"
                         value={userLogIn.password}
                         onChange={handleChangeLoggedIn}
-                        className="form-control" />
+                        className={`form-control ${error.credentials ? "border-danger" : "" }`} />
+                    {error.credentials ?
+                        <span className="form-text text-danger">
+                            {error.credentials}
+                        </span>
+                        : <></>}
                 </div>
 
                 <button type="submit" className="btn btn-light btn-lg mt-1 styled-button">Sign In</button>

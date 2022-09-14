@@ -1,4 +1,9 @@
 const mongoose = require('mongoose');
+const uniqueValidator = require('mongoose-unique-validator');
+
+
+// unique : "validation message";
+// EventSchema.plugin(uniqueValidator);
 
 const EventSchema = new mongoose.Schema({
     name: { type: String,
@@ -27,6 +32,7 @@ const EventSchema = new mongoose.Schema({
     }
     // categories: [String]
 }, { timestamps: true });
+
 
 module.exports.Event = mongoose.model('Event', EventSchema);
 

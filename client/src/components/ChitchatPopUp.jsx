@@ -50,7 +50,7 @@ function ChitchatPopUp() {
         content: {
             
             maxHeight: '60%',
-            width: "50%",
+            maxWidth: "50%",
             margin: '0 auto',
             position: "fixed",
             padding: '0',
@@ -99,6 +99,7 @@ function ChitchatPopUp() {
                         // onAfterOpen={this.afterOpenModal}
                         onRequestClose={closeModal}
                         style={customStyles}
+                        className=""
                         contentLabel="Chitchat Popup"
                         closeTimeoutMS={1000}
                         

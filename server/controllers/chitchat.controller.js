@@ -131,4 +131,4 @@ setInterval(() => {
         }
     }
 
-}, 5000);
+}, 15 * 1000);  // ! frequecy for checking the old people in queue

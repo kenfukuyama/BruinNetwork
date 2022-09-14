@@ -16,13 +16,45 @@ const envKey =process.env.key;
 
 module.exports.getAll = (request, response) => {
     User.find({})
-        .then(users => response.json(users))
+        .then(users => {
+            // let 
+            const result = [];
+            for (const user of users) {
+                // delete user.password;
+                let tempObj = {...user};
+                // console.log(tempObj);
+                // delete tempObj[_doc].password;
+                delete tempObj["_doc"].password;
+                delete tempObj["_doc"].email;
+                result.push( tempObj["_doc"]);
+                // console.log(tempObj["_doc"]);
+                // delete user[email];
+                // console.log(typeof(user));
+                // let 
+                // const {password : _, ...tempUser} = user;
+                // result.push(tempUser);
+                // console.log(user);
+            }
+            // console.log(result);
+            // console.log(result);
+            
+            response.json(result);
+            
+        }
+        
+        
+        )
         .catch(err => response.json(err))
 }
 
 module.exports.getUser = (request, response) => {
     User.findOne({_id:request.params.id})
-        .then(user => response.json(user))
+        .then(user => {
+            let tempObj = {...user};
+            delete tempObj["_doc"].password;
+            delete tempObj["_doc"].email;
+            response.json(tempObj["_doc"]);
+        })
         .catch(err => response.json(err))
 }
 

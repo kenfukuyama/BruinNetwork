@@ -1,4 +1,4 @@
-const { application } = require('express');
+// const { application } = require('express');
 const ChitchatController = require('../controllers/chitchat.controller');
 
 module.exports = function(app) {

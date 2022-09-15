@@ -21,15 +21,29 @@ import Box from '@mui/material/box';
 
 const Chatrooms = () => {
     const rooms = ["Engineering", "Premed", "Law", "Cooking", "Sport"];
-    const [roomSelection, setRoomSelection] = useState(0);
+    const [roomSelection, setRoomSelection] = useState(-1);
+    const [error, setError] = useState("");
     const navigate = useNavigate();
 
 
     const enterChat = (e) => {
         e.preventDefault();
         // console.log("trying to enter: " + roomSelection);
-        navigate(`/chatroom/${rooms[roomSelection]}`);
+
+        if (roomSelection === -1) {
+            setError("Please Select a Chatroom");
+        } else {
+            navigate(`/chatroom/${rooms[roomSelection]}`);
+        }
+        
     };
+
+    const handleChange = (e, i) => {
+        if (i !== -1) {
+            setError("");
+        }
+        setRoomSelection(i);
+    }
 
 
     return (
@@ -49,7 +63,7 @@ const Chatrooms = () => {
                     {/* <!--#################################### START CHANNEL SELECTION  #######################################--> */}
 
                     <form name="chatroomNameForm" className="chatroomSelection">
-                        <div className="row styled-text text-white mt-1" onChange={(e) => {setRoomSelection(e.target.value)}}>
+                        <div className="row styled-text text-white mt-1">
 
                             {/* <div className="col-sm-6 col-md-4 col-lg-3 category-selector live-search-list"> */}
                                 {/* <p className="channelNickname">engineering</p> */}
@@ -76,7 +90,7 @@ const Chatrooms = () => {
                                                 return (
                                                     <ListItem sx={{ px: 2 }}
                                                         key={i}>
-                                                        <ListItemButton sx={{ py: 3 }} onClick={(e) => {setRoomSelection(i)}} >
+                                                        <ListItemButton sx={{ py: 3 }} onClick={(e) => {handleChange(e, i)}} >
                                                             <ListItemAvatar>
                                                                 <Avatar sx={{ bgcolor: blue[500] }}>
                                                                     <AccountCircleIcon />
@@ -92,12 +106,15 @@ const Chatrooms = () => {
                                 </div>
 
 
-
                         </div>
 
 
                         <div className="form-group fixed-bottom mb-4">
-                            <button type="submit" className="chatrooms-submit styled-button btn btn-lg w-md-21 w-lg-16 w-xl-14 w-xxl-12" onClick={enterChat}>Let's Chat <i className="bi-arrow-right-short"></i></button>
+                            {error && <p className = "text-danger">{error}</p>} 
+                            <button type="submit" className={`chatrooms-submit styled-button btn btn-lg w-md-21 w-lg-16 w-xl-14 w-xxl-12 ${error ? "border-danger" : ""}`} onClick={enterChat}>
+                                {roomSelection === -1 ? "Let's Chat" : rooms[roomSelection]}
+                                <i className="bi-arrow-right-short"></i>
+                            </button>
                         </div>
 
                     </form>

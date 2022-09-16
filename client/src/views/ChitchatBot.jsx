@@ -50,7 +50,7 @@ const ChitchatBot = () => {
         setTimeout(() => {
             setMessages(messages =>{ return([...messages, 
                 {
-                    content : "Hi! Ask me to search anything ...",
+                    content : "Hi! Chat with me!",
                     username : "BruinBot",
                     type : "BOT"
                 }
@@ -74,6 +74,7 @@ const ChitchatBot = () => {
     const sendMessage = (e) => {
         e.preventDefault();
         if (message.content.trim().length < 1) {
+            return;
         }
 
         let tempMessage = message.content;
@@ -83,6 +84,229 @@ const ChitchatBot = () => {
 
 
         // console.log(tempMessage);
+
+        if (tempMessage.startsWith("search:")) {
+            console.log("searching");
+            customSearch(tempMessage);
+        }
+
+        else {
+            axios.post(`http://localhost:8000/api/bot/chat`, { query: tempMessage })
+                .then(response => {
+                    console.log(response);
+
+                    if (response.status === 200) {
+                        setMessages(messages => {
+
+                            return ([...messages,
+                            {
+                                content: response?.data?.msg,
+                                username: "BruinBot",
+                                type: "BOT"
+                                // ! this might not always exited, and actually all of them
+    
+                            }
+                            ]);
+                        });
+                    }
+                    else {
+                        customSearch(tempMessage);
+                    }
+                    
+                });
+            
+        }     
+
+        // axios.post(`http://localhost:8000/api/bot/search`, {query : tempMessage})
+        // .then (response => {
+        //     console.log(response);
+        //     setMessages(messages =>{ 
+        //         let found = false;
+        //         let tempTitle;
+        //         try {
+        //             tempTitle =  response.data?.items[0]?.title;
+        //             found = found || tempTitle ? true : false;
+        //         } 
+        //         catch {
+        //             tempTitle = "";
+        //         }
+    
+        //         let tempLink;
+        //         try {
+        //             tempLink =  response.data?.items[0]?.link;
+        //             found =  found || tempLink ? true : false;
+        //         } 
+        //         catch {
+        //             tempLink = "";
+        //         }
+    
+                
+        //         let tempImg;
+        //         try {
+        //             tempImg =   response.data?.items[0]?.pagemap?.cse_thumbnail[0];
+        //             found =  found || tempImg ? true : false;
+        //         } 
+        //         catch {
+        //             tempImg = "";
+        //         }
+    
+        //         let tempContent = found ? "Check this out!" : "Could not find anything ..."; 
+    
+        //         return ([...messages, 
+        //             {
+        //                 content : tempContent,
+        //                 username : "BruinBot",
+        //                 type : "BOT",
+        //                 title : tempTitle,
+        //                 link : tempLink,
+        //                 img : tempImg,
+        //                 // ! this might not always exited, and actually all of them
+    
+        //             }
+        //         ]);
+        //     });
+
+
+        //     setTimeout(() => {
+        //         setMessages(messages =>{ 
+        //             let found = false;
+        //             let tempTitle;
+        //             try {
+        //                 tempTitle =  response.data?.items[1]?.title;
+        //                 found = found || tempTitle ? true : false;
+        //             } 
+        //             catch {
+        //                 tempTitle = "";
+        //             }
+        
+        //             let tempLink;
+        //             try {
+        //                 tempLink =  response.data?.items[1]?.link;
+        //                 found =  found || tempLink ? true : false;
+        //             } 
+        //             catch {
+        //                 tempLink = "";
+        //             }
+        
+                    
+        //             let tempImg;
+        //             try {
+        //                 tempImg =   response.data?.items[1]?.pagemap?.cse_thumbnail[0];
+        //                 found =  found || tempImg ? true : false;
+        //             } 
+        //             catch {
+        //                 tempImg = "";
+        //             }
+        
+        //             let tempContent = found ? "And there we go!" : "I tried but no cigar..."; 
+        
+        //             return ([...messages, 
+        //                 {
+        //                     content : tempContent,
+        //                     username : "BruinBot",
+        //                     type : "BOT",
+        //                     title : tempTitle,
+        //                     link : tempLink,
+        //                     img : tempImg,
+        //                     // ! this might not always exited, and actually all of them
+        
+        //                 }
+        //             ]);
+        //         });
+
+
+        //     }, 2000);
+
+        // })
+
+        // Bot response
+        // setTimeout(() => {
+        //     setMessages(messages =>{ return([...messages, 
+        //         {
+        //             content : "Check out the link that I found!",
+        //             username : "BruinBot",
+        //             type : "CHAT"
+        //         },
+        //         {
+        //             content : `https://www.google.com/search?q=${tempMessage}`,
+        //             username : "BruinBot",
+        //             type : "CHAT"
+        //         }
+                
+        //     ])});
+        // }, 2000);
+
+        // setMessages(messages =>{ return([...messages, 
+        //             {
+        //                 content : "Check this out!",
+        //                 username : "BruinBot",
+        //                 type : "BOT",
+        //                 title : "HELLO! - Daily royal, celebrity, fashion, beauty & lifestyle news",
+        //                 link : "https://www.hellomagazine.com/",
+        //                 img : {
+        //                     "src": "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcS0Bq7tO5sF1V1-1v8kvaTkeniZIbr9H25KVfV0i17dZbobXY9rmtUQn6Wv",
+        //                     "width": "225",
+        //                     "height": "225"
+        //                 }
+        //                 // ! this might not always exited, and actually all of them
+
+        //             }
+                    
+        // ])});
+
+        // setMessages(messages =>{ 
+        //     let found = false;
+        //     let tempTitle;
+        //     try {
+        //         tempTitle =  data?.items[0]?.title;
+        //         found = found || tempTitle ? true : false;
+        //     } 
+        //     catch {
+        //         tempTitle = "";
+        //     }
+
+        //     let tempLink;
+        //     try {
+        //         tempLink =  data?.items[0]?.link;
+        //         found =  found || tempLink ? true : false;
+        //     } 
+        //     catch {
+        //         tempLink = "";
+        //     }
+
+            
+        //     let tempImg;
+        //     try {
+        //         tempImg =   data?.items[0]?.pagemap?.cse_thumbnail[0];
+        //         found =  found || tempImg ? true : false;
+        //     } 
+        //     catch {
+        //         tempImg = "";
+        //     }
+
+        //     let tempContent = found ? "Check this out!" : "Could not find anything ..."; 
+
+        //     return ([...messages, 
+        //         {
+        //             content : tempContent,
+        //             username : "BruinBot",
+        //             type : "BOT",
+        //             title : tempTitle,
+        //             link : tempLink,
+        //             img : tempImg,
+        //             // ! this might not always exited, and actually all of them
+
+        //         }
+                
+        //     ]);
+
+        // });
+        // console.log(data);
+        // console.log(data.items[0]);
+
+    };
+
+    const customSearch = (tempMessage) => {
         axios.post(`http://localhost:8000/api/bot/search`, {query : tempMessage})
         .then (response => {
             console.log(response);
@@ -180,100 +404,10 @@ const ChitchatBot = () => {
                     ]);
                 });
 
-
             }, 2000);
+        });
 
-        })
-
-        // Bot response
-        // setTimeout(() => {
-        //     setMessages(messages =>{ return([...messages, 
-        //         {
-        //             content : "Check out the link that I found!",
-        //             username : "BruinBot",
-        //             type : "CHAT"
-        //         },
-        //         {
-        //             content : `https://www.google.com/search?q=${tempMessage}`,
-        //             username : "BruinBot",
-        //             type : "CHAT"
-        //         }
-                
-        //     ])});
-        // }, 2000);
-
-        // setMessages(messages =>{ return([...messages, 
-        //             {
-        //                 content : "Check this out!",
-        //                 username : "BruinBot",
-        //                 type : "BOT",
-        //                 title : "HELLO! - Daily royal, celebrity, fashion, beauty & lifestyle news",
-        //                 link : "https://www.hellomagazine.com/",
-        //                 img : {
-        //                     "src": "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcS0Bq7tO5sF1V1-1v8kvaTkeniZIbr9H25KVfV0i17dZbobXY9rmtUQn6Wv",
-        //                     "width": "225",
-        //                     "height": "225"
-        //                 }
-        //                 // ! this might not always exited, and actually all of them
-
-        //             }
-                    
-        // ])});
-
-        // setMessages(messages =>{ 
-        //     let found = false;
-        //     let tempTitle;
-        //     try {
-        //         tempTitle =  data?.items[0]?.title;
-        //         found = found || tempTitle ? true : false;
-        //     } 
-        //     catch {
-        //         tempTitle = "";
-        //     }
-
-        //     let tempLink;
-        //     try {
-        //         tempLink =  data?.items[0]?.link;
-        //         found =  found || tempLink ? true : false;
-        //     } 
-        //     catch {
-        //         tempLink = "";
-        //     }
-
-            
-        //     let tempImg;
-        //     try {
-        //         tempImg =   data?.items[0]?.pagemap?.cse_thumbnail[0];
-        //         found =  found || tempImg ? true : false;
-        //     } 
-        //     catch {
-        //         tempImg = "";
-        //     }
-
-        //     let tempContent = found ? "Check this out!" : "Could not find anything ..."; 
-
-        //     return ([...messages, 
-        //         {
-        //             content : tempContent,
-        //             username : "BruinBot",
-        //             type : "BOT",
-        //             title : tempTitle,
-        //             link : tempLink,
-        //             img : tempImg,
-        //             // ! this might not always exited, and actually all of them
-
-        //         }
-                
-        //     ]);
-
-        // });
-        // console.log(data);
-        // console.log(data.items[0]);
-
-
-
-
-    };
+    }
 
     if (loading) {
         return (
@@ -297,7 +431,8 @@ const ChitchatBot = () => {
                             </div>
                             <div className="d-flex flex-column ms-3 justify-content-center align-items-center mt-2">
                                 <div className="text-wrap">
-                                    <h4 className="text-wrap mb-0">Bruin Robot</h4>
+                                    <h4 className="text-wrap mb-0 text-white">Bruin Bot</h4>
+                                    <p><em>Powered by Google Assistant</em></p>
                                 </div>
                             </div>
                         </div>

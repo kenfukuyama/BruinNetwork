@@ -1,13 +1,11 @@
-
-
-
 const express = require('express');
 const cors = require('cors')
 const app = express();
 // for loggin in
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
-// const { signedCookie } = require('cookie-parser');
+const googleAssistant = require('./googleassistant');
+
 
 
 const port = 8000;
@@ -84,3 +82,5 @@ io.on("connection", (socket) => {
 })
 
 
+// googleAssistant.promptUser();
+// googleAssistant.getResponse("hello there!");

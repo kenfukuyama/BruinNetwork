@@ -51,8 +51,22 @@ const UserSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.Mixed
         , default: [["", true], ["", true], ["", true]]
     },
-    interests: { type: mongoose.Schema.Types.Mixed, default: {} },
-
+    interests: { 
+        type: mongoose.Schema.Types.Mixed, 
+        default: {} 
+    },
+    spirits : {
+        type: Number,
+        default: 5
+    },
+    spiritsCount : {
+        type: Number,
+        default : 0
+    },
+    spiritsNotifications : {
+        type: mongoose.Schema.Types.Mixed,
+        default: []
+    },
 
 }, { timestamps: true, minimize: false });
 

@@ -62,7 +62,6 @@ const MyUserAccount = () => {
                         "Faculty",
                         "Other"]
 
-
     useEffect(() => {
         if (!loggedinInfo.loggedin) {
             navigate('/login');

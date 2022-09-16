@@ -33,6 +33,8 @@ import MyFriends from './views/MyFriends';
 import Users from './views/Users';
 import MyFriendsPending from './views/MyFriendsPending';
 import UserFriendsPage from './views/UserFriendsPage';
+import MyNotificationsRequests from './views/MyNotificationsRequests';
+import MyNotificationsSpirits from './views/MyNotificationsSpirits';
 
 // import axios from 'axios';
 // import { useEffect } from 'react';
@@ -119,6 +121,8 @@ function App() {
           <Route element={<MyFriends/>} path="/users/friends"/>
           <Route element={<MyFriendsPending/>} path="/users/friends/pending"/>
           <Route element={<ChitchatBot/>} path="/users/chat/"/>
+          <Route element={<MyNotificationsSpirits/>} path="/users/notifications/spirits"/>
+          <Route element={<MyNotificationsRequests/>} path="/users/notifications/requests"/>
 
           {/* // * event routes */}
           <Route element={<Events/>} path="/events"/>

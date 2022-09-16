@@ -1,5 +1,5 @@
-import React from 'react'
-import {Link} from 'react-router-dom';
+import React, { useState } from 'react'
+import {Link, useNavigate} from 'react-router-dom';
 import Logout from './Logout';
 // import Cookies from 'universal-cookie';
 // import { useState } from 'react';
@@ -8,10 +8,68 @@ import {LoggedinContext} from '../context/LoggedinContext';
 import { useContext } from 'react';
 
 
+import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
+import Badge from '@mui/material/Badge';
+import axios from 'axios';
+import { useRef } from 'react';
+
 function NavBar() {
+    const navigate = useNavigate();
     // const cookies = new Cookies();
     // const [cookies, setCookies] = useState(new Cookies());
+    const [notifications, setNotifications] = useState(0);
+    const [requestCount, setRequestCount] = useState(0);
     const {loggedinInfo} = useContext(LoggedinContext);
+    const notificationIntVal = useRef(null);
+
+
+    useState(() => {
+        if (loggedinInfo.loggedinId) {
+            axios.get('http://localhost:8000/api/users/' + loggedinInfo.loggedinId)
+            .then(res => {
+                // console.log(res.data);
+                let tempNotifications = notifications + res?.data?.spiritsNotifications?.length;
+                console.log(tempNotifications);
+                setNotifications(tempNotifications);
+            })
+    
+            // get all friends
+            axios.post("http://localhost:8000/api/friendships/waiting", {userId : loggedinInfo.loggedinId})
+            .then(res => {
+                let tempNotifications1 = requestCount + res?.data?.length;
+                console.log("requests" + tempNotifications1);
+                setRequestCount(tempNotifications1);
+            })
+            
+        }
+
+        // subsequently call
+        if (loggedinInfo.loggedinId) {
+            notificationIntVal.current = setInterval(() => {
+                console.log("I am getting notifications");
+
+                axios.get('http://localhost:8000/api/users/' + loggedinInfo.loggedinId)
+                    .then(res => {
+                        // console.log(res.data);
+                        let tempNotifications = notifications + res?.data?.spiritsNotifications?.length;
+                        // console.log(tempNotifications);
+                        setNotifications(tempNotifications);
+                    })
+
+                // get all friends
+                axios.post("http://localhost:8000/api/friendships/waiting", { userId: loggedinInfo.loggedinId })
+                    .then(res => {
+                        let tempNotifications1 = requestCount + res?.data?.length;
+                        // console.log("requests" + tempNotifications1);
+                        setRequestCount(tempNotifications1);
+                    })
+
+
+            }, 3000); // change this to see when to stop
+            // console.log(intVal);
+        }
+
+    }, [loggedinInfo.loggedinId]);
     
 
     return (
@@ -70,6 +128,12 @@ function NavBar() {
                             <Link className="nav-link text-white" to={"/events/new"}><i className="bi bi-plus-circle-fill nav-icon"></i> ADD EVENTS</Link>
                         </li> */}
 
+                        <li className="nav-item ps-2 me-3">
+                            <Badge badgeContent={notifications + requestCount} color="primary" onClick={(e) => navigate('/users/notifications/spirits')} style={{cursor: "pointer", color: "#fff"}}>
+                                <NotificationsActiveIcon fontSize="small" />
+                            </Badge>
+                        </li>
+
                         <li className="nav-item ps-2">
                             <div className="btn-group">
                                 <button className="py-0 btn bg-transparent dropdown-toggle nav-link text-white" data-bs-toggle="dropdown" aria-expanded="false">
@@ -114,10 +178,10 @@ function NavBar() {
                                 </button>
                                 <ul className="dropdown-menu" style={{backgroundColor : "#000"}}>
                                     <li><Link className="btn text-white" to={"/users/friends"}><i className="bi bi-people-fill nav-icon"></i> Friends </Link></li>
-                                    <li><Link className="btn text-white" to={"/users/friends/pending"}><i className="bi bi-bell-fill nav-icon"></i> Requests </Link></li>
+                                    <li><Link className="btn text-white" to={"/users/friends/pending"}><i className="bi bi-person-plus-fill nav-icon"></i> Requests </Link></li>
                                     <li><Link className="btn text-white" to={"/users"}><i className="bi bi-binoculars-fill nav-icon"></i> Discover </Link></li>
                                     <li><Link className="btn text-white" to={"/users/account"}><i className="bi bi-person-circle nav-icon"></i> My Profile </Link></li>
-                                    <Logout />
+                                    <Logout setIntVal={notificationIntVal.current}/>
                                 </ul>
                             </div>
                         </li>

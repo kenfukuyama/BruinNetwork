@@ -21,7 +21,7 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { blue } from '@mui/material/colors';
+import { blue} from '@mui/material/colors';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -97,7 +97,7 @@ const Users = () => {
                                         <FriendsNavigation inviationCounts={inviationCounts}/>
                                     </div>
                                     <div className="d-flex align-item-center justify-content-center mb-3">
-                                        <Button variant="contained" id="navButton" startIcon={<ExploreIcon />}>Explore People</Button>
+                                        <Button color='success'  variant="contained" id="navButton" startIcon={<ExploreIcon />}>Explore People</Button>
                                     </div>
 
                                     <div className="d-flex justify-content-center flex-wrap">
@@ -113,7 +113,16 @@ const Users = () => {
                                                             //     edge="end"
                                                             //     inputProps={{ 'aria-labelledby': labelId }}
                                                             // />
-                                                                <p id="profile-major-year-text" className="mb-0 text-right pe-3">{user.year[1]} <br/><em className="text-muted">{user.major}</em></p>
+                                                            <div className="d-flex gap-3 align-items-center">
+                                                                <div>
+                                                                    <p className="mb-0 text-right pe-3 text-primary">{user.spiritsCount ? <>{user.spiritsCount}<i className={`bi bi-award${user.spiritsCount >= 800 ? "-fill": ""} nav-icon`}></i></> : ""} </p>
+                                                                </div>
+                                                                <div>
+                                                                    <p id="profile-major-year-text" className="mb-0 text-right pe-3">{user.year[1]} <br /><em className="text-muted">{user.major}</em></p>
+                                                                </div>
+
+                                                            </div>
+
 
                                                         }
                                                     >

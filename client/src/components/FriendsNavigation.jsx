@@ -4,12 +4,13 @@ import React from 'react'
 
 import IconButton from '@mui/material/IconButton';
 
-import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
+// import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import ExploreIcon from '@mui/icons-material/Explore';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import { useNavigate } from 'react-router-dom';
 import Badge from '@mui/material/Badge';
 
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
 
 
 
@@ -20,14 +21,15 @@ const FriendsNavigation = ({inviationCounts}) => {
             <IconButton onClick={(e) => navigate('/users/friends')}>
                 <PeopleAltIcon fontSize="medium" />
             </IconButton>
-            <Badge badgeContent={inviationCounts} color="warning" onClick={(e) => navigate('/users/friends/pending')}>
-                <NotificationsActiveIcon fontSize="medium" color="action" />
+            <Badge badgeContent={inviationCounts} color="success" onClick={(e) => navigate('/users/friends/pending')} style={{cursor : "pointer"}}>
+                <PersonAddIcon fontSize="medium" color="action" />
             </Badge>
             <IconButton onClick={(e) => navigate('/users')}>
                 <ExploreIcon fontSize="medium" />
             </IconButton>
         </div>
     )
+
 }
 
 export default FriendsNavigation;

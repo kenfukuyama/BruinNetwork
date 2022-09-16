@@ -75,7 +75,7 @@ const MyFriends = () => {
                                         <FriendsNavigation inviationCounts={inviationCounts}/>
                                     </div>
                                     <div className="d-flex align-item-center justify-content-center mb-3">
-                                        <Button color="success"variant="contained" id="navButton" startIcon={<PeopleAltIcon />}>Friends</Button>
+                                        <Button color="primary" variant="contained" id="navButton" startIcon={<PeopleAltIcon />}>Friends</Button>
                                     </div>
 
                                     <div className="d-flex justify-content-center flex-wrap">

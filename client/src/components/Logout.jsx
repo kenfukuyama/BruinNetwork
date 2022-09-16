@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import {LoggedinContext} from '../context/LoggedinContext';
 import { useContext } from 'react';
 
-const Logout = () => {
+const Logout = ({setIntVal}) => {
     const navigate = useNavigate();
     const {setLoggedinInfo} = useContext(LoggedinContext);
     
@@ -15,6 +15,7 @@ const Logout = () => {
         .then(res => { 
             console.log(res);
             // clears everythig
+            clearInterval(setIntVal);
             setLoggedinInfo ({
                 loggedin : false,
                 loggedinId : null,

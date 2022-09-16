@@ -4,7 +4,6 @@ const app = express();
 // for loggin in
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
-const googleAssistant = require('./googleassistant');
 
 
 

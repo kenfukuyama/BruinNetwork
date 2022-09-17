@@ -120,14 +120,14 @@ const ChatroomPublic = () => {
             <div id="chat-page" className="d-flex align-items-center justify-content-center vh-100 w-100 styled-text text-white">
                 <div className="chat-container w-100 w-sm-75 w-lg-62 w-xxl-50 mt-5">
 
-                    <div className="d-none d-sm-flex justify-content-center align-items-center flex-column">
+                    <div className="d-sm-flex justify-content-center align-items-center flex-column">
                         {/*  */}
                         <h2 id="chatroomName" className="text-center m-0">{roomId ? roomId : "Default Chatroom"}</h2>
 
                         <p className="text-success mb-1"><span id="number-connected">2</span> Online</p>
                     </div>
 
-                    <ul id="messageArea" className="messageAreaPublic" ref={messageAreaRef}>
+                    <ul id="messageArea" className="messageAreaPublic scroll-box" ref={messageAreaRef}>
                         {/* <li ref={topRef} className="btn" onClick={scrollToBottom}>Scroll To the Bottom</li> */}
                         {messages &&
                             messages.map((message, i) => {

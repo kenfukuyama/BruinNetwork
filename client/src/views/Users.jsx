@@ -79,7 +79,7 @@ const Users = () => {
                             (<ScaleLoader size={100} color="white" loading={loading} cssOverride={{ display: "block", position: "fixed", bottom: "5%", right: "10%" }} />)
                             :
                             (
-                                <div className="card fade-in px-2" style={{ borderRadius: "15px", backgroundColor: "rgba(25, 138, 209, 0.55)", overflowY : "scroll" , height: "93vh"}}>
+                                <div className="card fade-in px-2 scroll-box" style={{ borderRadius: "15px", backgroundColor: "rgba(25, 138, 209, 0.55)", overflowY : "scroll" , height: "93vh"}}>
                                     <div className="p-4 text-black" >
                                         <div className="d-flex justify-content-center">
                                             <div className="input-group search-bar p-4 w-md-75 w-lg-100">
@@ -100,41 +100,43 @@ const Users = () => {
                                         <Button color='success'  variant="contained" id="navButton" startIcon={<ExploreIcon />}>Explore People</Button>
                                     </div>
 
-                                    <div className="d-flex justify-content-center flex-wrap">
-                                        <List dense sx={{ width: '100%', bgcolor: 'background.paper', borderRadius: "15px"}}>
+                                    <div className="d-flex justify-content-center flex-wrap text-wrap">
+                                        <List className="text-wrap pe-3" dense sx={{ width: '100%', bgcolor: 'background.paper', borderRadius: "15px"}}>
                                             {users.map((user, i) => {
                                                 const labelId = `checkbox-list-secondary-label-${i}`;
                                                 return ( 
-                                                    <ListItem className="live-search-list" sx={{px : 2}}
-                                                        key={i}
-                                                        disablePadding
-                                                        secondaryAction={
-                                                            // <Checkbox
-                                                            //     edge="end"
-                                                            //     inputProps={{ 'aria-labelledby': labelId }}
-                                                            // />
-                                                            <div className="d-flex gap-3 align-items-center">
+
+                                                    <div className="d-flex text-wrap justify-content-center" key={i}>
+
+                                                        <ListItem className="live-search-list" sx={{}}
+                                                            key={i}
+                                                            disablePadding
+                                                            // secondaryAction={
+                                                            //     // <Checkbox
+                                                            //     //     edge="end"
+                                                            //     //     inputProps={{ 'aria-labelledby': labelId }}
+                                                            //     // />
+                                                            // }
+                                                        >
+                                                            <ListItemButton   sx={{py : 2}} onClick={() => {nav(`/users/${user._id}`)}}>
+                                                                <ListItemAvatar>
+                                                                    <Avatar sx={{ bgcolor: blue[500] }}>
+                                                                        <AccountCircleIcon />
+                                                                    </Avatar>
+                                                                </ListItemAvatar>
+                                                                <ListItemText id={labelId} primary={<h6 className="mb-0">{user.nickname}<em className="text-muted"> (@{user.username})</em></h6>} />
+                                                            </ListItemButton>
+                                                        </ListItem>
+                                                        <div className="d-flex align-items-center justify-content-end w-sm-50 w-md-50 w-lg-50 text-wrap flex-wrap">
                                                                 <div>
-                                                                    <p className="mb-0 text-right pe-3 text-primary">{user.spiritsCount ? <>{user.spiritsCount}<i className={`bi bi-award${user.spiritsCount >= 800 ? "-fill": ""} nav-icon`}></i></> : ""} </p>
+                                                                    <p className="mb-0 text-right pe-3 text-primary ">{user.spiritsCount ? <>{user.spiritsCount}<i className={`bi bi-award${user.spiritsCount >= 800 ? "-fill": ""} nav-icon`}></i></> : ""} </p>
                                                                 </div>
                                                                 <div>
-                                                                    <p id="profile-major-year-text" className="mb-0 text-right pe-3">{user.year[1]} <br /><em className="text-muted">{user.major}</em></p>
+                                                                    <p id="profile-major-year-text" className="mb-0 me-2">{user.year[1]} <br /><em className="text-muted ">{user.major}</em></p>
                                                                 </div>
 
-                                                            </div>
-
-
-                                                        }
-                                                    >
-                                                        <ListItemButton   sx={{py : 2}} onClick={() => {nav(`/users/${user._id}`)}}>
-                                                            <ListItemAvatar>
-                                                                <Avatar sx={{ bgcolor: blue[500] }}>
-                                                                    <AccountCircleIcon />
-                                                                </Avatar>
-                                                            </ListItemAvatar>
-                                                            <ListItemText id={labelId} primary={<h6 className="mb-0">{user.nickname}<em className="text-muted"> (@{user.username})</em></h6>} />
-                                                        </ListItemButton>
-                                                    </ListItem>
+                                                        </div>
+                                                    </div>
                                                 );
                                             })}
                                         </List>

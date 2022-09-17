@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {Link, useNavigate} from 'react-router-dom';
 import Logout from './Logout';
 // import Cookies from 'universal-cookie';
@@ -23,12 +23,14 @@ function NavBar() {
     const notificationIntVal = useRef(null);
 
 
-    useState(() => {
+    useEffect(() => {
+        console.log("runing navbar hook");
+        console.log(loggedinInfo.loggedinId);
         if (loggedinInfo.loggedinId) {
             axios.get('http://localhost:8000/api/users/' + loggedinInfo.loggedinId)
             .then(res => {
                 // console.log(res.data);
-                let tempNotifications = notifications + res?.data?.spiritsNotifications?.length;
+                let tempNotifications = res?.data?.spiritsNotifications?.length;
                 console.log(tempNotifications);
                 setNotifications(tempNotifications);
             })
@@ -36,38 +38,39 @@ function NavBar() {
             // get all friends
             axios.post("http://localhost:8000/api/friendships/waiting", {userId : loggedinInfo.loggedinId})
             .then(res => {
-                let tempNotifications1 = requestCount + res?.data?.length;
+                let tempNotifications1 = res?.data?.length;
                 console.log("requests" + tempNotifications1);
                 setRequestCount(tempNotifications1);
             })
             
         }
 
+        // ! call the notifications whenever thr route changes!
         // subsequently call
-        if (loggedinInfo.loggedinId) {
-            notificationIntVal.current = setInterval(() => {
-                console.log("I am getting notifications");
+        // if (loggedinInfo.loggedinId) {
+        //     notificationIntVal.current = setInterval(() => {
+        //         console.log("I am getting notifications");
 
-                axios.get('http://localhost:8000/api/users/' + loggedinInfo.loggedinId)
-                    .then(res => {
-                        // console.log(res.data);
-                        let tempNotifications = notifications + res?.data?.spiritsNotifications?.length;
-                        // console.log(tempNotifications);
-                        setNotifications(tempNotifications);
-                    })
+        //         axios.get('http://localhost:8000/api/users/' + loggedinInfo.loggedinId)
+        //             .then(res => {
+        //                 // console.log(res.data);
+        //                 let tempNotifications = notifications + res?.data?.spiritsNotifications?.length;
+        //                 // console.log(tempNotifications);
+        //                 setNotifications(tempNotifications);
+        //             })
 
-                // get all friends
-                axios.post("http://localhost:8000/api/friendships/waiting", { userId: loggedinInfo.loggedinId })
-                    .then(res => {
-                        let tempNotifications1 = requestCount + res?.data?.length;
-                        // console.log("requests" + tempNotifications1);
-                        setRequestCount(tempNotifications1);
-                    })
+        //         // get all friends
+        //         axios.post("http://localhost:8000/api/friendships/waiting", { userId: loggedinInfo.loggedinId })
+        //             .then(res => {
+        //                 let tempNotifications1 = requestCount + res?.data?.length;
+        //                 // console.log("requests" + tempNotifications1);
+        //                 setRequestCount(tempNotifications1);
+        //             })
 
 
-            }, 3000); // change this to see when to stop
+        //     }, 3000); // change this to see when to stop
             // console.log(intVal);
-        }
+        // }
 
     }, [loggedinInfo.loggedinId]);
     

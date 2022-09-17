@@ -63,7 +63,7 @@ const MyFriends = () => {
                             (<ScaleLoader size={100} color="white" loading={loading} cssOverride={{ display: "block", position: "fixed", bottom: "5%", right: "10%" }} />)
                             :
                             (
-                                <div className="card fade-in px-2" style={{ borderRadius: "15px", backgroundColor: "rgba(25, 138, 209, 0.55)", overflowY : "scroll" , height: "93vh"}}>
+                                <div className="card fade-in px-2 scroll-box" style={{ borderRadius: "15px", backgroundColor: "rgba(25, 138, 209, 0.55)", overflowY : "scroll" , height: "93vh"}}>
                                     <div className="p-4 text-black" >
                                         <div className="d-flex justify-content-center">
                                             <div className="input-group search-bar p-4 w-md-75 w-lg-100">

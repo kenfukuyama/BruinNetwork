@@ -88,7 +88,8 @@ class GoogleAssistant {
 
 
 const homedir = require('homedir')
-const deviceCredentials = require(`${homedir()}/.config/google-oauthlib-tool/credentials.json`);
+// const deviceCredentials = require(`${homedir()}/.config/google-oauthlib-tool/credentials.json`) || 
+const deviceCredentials = require("./credentials.json");
 
 const CREDENTIALS = {
     client_id: deviceCredentials.client_id,

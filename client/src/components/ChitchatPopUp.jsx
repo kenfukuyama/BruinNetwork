@@ -58,7 +58,7 @@ function ChitchatPopUp() {
             textAlign: 'center',
             overflow: 'auto',
             // zIndex: "99"
-            borderRadius: "30px",
+            borderRadius: "15px",
 
         },
         overlay : {
@@ -100,7 +100,7 @@ function ChitchatPopUp() {
                             // onAfterOpen={this.afterOpenModal}
                             onRequestClose={closeModal}
                             style={customStyles}
-                            className="w-100 w-md-75 w-lg-50 px-3 left-m-0 left-lg-0"
+                            className="w-100 w-md-75 w-lg-50 px-3 left-m-0 left-lg-0  scroll-box"
                             contentLabel="Chitchat Popup"
                             closeTimeoutMS={1000}
     
@@ -111,7 +111,7 @@ function ChitchatPopUp() {
                             {!otherUser ?  <></> :
     
     
-                            <div className="fade-in card border-0">
+                            <div className="fade-in card border-0 ">
                                 <div className="card-body p-4 text-black">
                                     {/* <div>
                                                     <h6 className="mb-4">Exquisite hand henna tattoo</h6>

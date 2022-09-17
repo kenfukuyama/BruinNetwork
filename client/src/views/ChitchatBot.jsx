@@ -438,7 +438,7 @@ const ChitchatBot = () => {
                         </div>
                     </div>
 
-                    <ul id="messageArea" className="messageAreaPublic" ref={messageAreaRef}>
+                    <ul id="messageArea" className="messageAreaPublic scroll-box" ref={messageAreaRef}>
                         {messages &&
                             messages.map((message, i) => {
                                 return (

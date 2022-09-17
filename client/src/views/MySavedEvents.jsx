@@ -41,7 +41,7 @@ const MySavedEvents = () => {
                         {!events ?
                             (<ScaleLoader size={100} color="white" loading={!events} cssOverride={{ display: "block", position: "fixed", bottom: "5%", right: "10%" }} />)
                             :
-                            <div className="fade-in card bg-transparent"  style={{ borderRadius: "15px", backgroundColor: "#ffffff", overflowY : "scroll" , height: "93vh"}}>
+                            <div className="fade-in card bg-transparent scroll-box"  style={{ borderRadius: "15px", backgroundColor: "#ffffff", overflowY : "scroll" , height: "93vh"}}>
                                 <div className="d-flex justify-content-center">
                                     <div className="input-group search-bar p-4 w-md-75 w-lg-100">
                                         <input type="text" className="form-control rounded live-search-box regular" placeholder="Search Events" aria-label="Search People"

@@ -16,11 +16,11 @@ import { blue } from '@mui/material/colors';
 import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/box';
 
+import rooms from '../data/rooms'
 
 
 
 const Chatrooms = () => {
-    const rooms = ["Engineering", "Premed", "Law", "Cooking", "Sport"];
     const [roomSelection, setRoomSelection] = useState(-1);
     const [error, setError] = useState("");
     const navigate = useNavigate();
@@ -63,7 +63,7 @@ const Chatrooms = () => {
                     {/* <!--#################################### START CHANNEL SELECTION  #######################################--> */}
 
                     <form name="chatroomNameForm" className="chatroomSelection">
-                        <div className="row styled-text text-white mt-1">
+                        {/* <div className="styled-text text-white mt-1 text-wrap"> */}
 
                             {/* <div className="col-sm-6 col-md-4 col-lg-3 category-selector live-search-list"> */}
                                 {/* <p className="channelNickname">engineering</p> */}
@@ -82,8 +82,8 @@ const Chatrooms = () => {
                                 {/* <input type="radio" name="chatroomName" id="humanity" value="humanity"/> */}
                                 {/* <label className="category-image channel bg-primary" htmlFor="engineering" id="previewBtn"></label> */}
                             {/* </div> */}
-                                <div className="d-flex justify-content-center flex-wrap">
-                                    <Box sx={{ width: '50%'}}>
+                                <div className="d-flex justify-content-center flex-wrap mx-0 px-0">
+                                    <Box className="w-sm-100 w-md-75 w-lg-50">
                                         <List dense sx={{ width: '100%', bgcolor: 'transparent', borderRadius: "15px" }}>
                                             {rooms.map((room, i) => {
                                                 const labelId = `checkbox-list-secondary-label-${i}`;
@@ -96,7 +96,7 @@ const Chatrooms = () => {
                                                                     <AccountCircleIcon />
                                                                 </Avatar>
                                                             </ListItemAvatar>
-                                                            <ListItemText id={labelId} primary={<h6 className="mb-0">{room}</h6>} />
+                                                            <ListItemText className="text-wrap" id={labelId} primary={<h6 className="mb-0 text-wrap">{room}</h6>} />
                                                         </ListItemButton>
                                                     </ListItem>
                                                 );
@@ -106,14 +106,15 @@ const Chatrooms = () => {
                                 </div>
 
 
-                        </div>
+                        {/* </div> */}
 
 
                         <div className="form-group fixed-bottom mb-4">
                             {error && <p className = "text-danger">{error}</p>} 
-                            <button type="submit" className={`chatrooms-submit styled-button btn btn-lg w-md-21 w-lg-16 w-xl-14 w-xxl-12 ${error ? "border-danger" : ""}`} onClick={enterChat}>
-                                {roomSelection === -1 ? "Let's Chat" : rooms[roomSelection]}
-                                <i className="bi-arrow-right-short"></i>
+                            <button type="submit" className={`chatrooms-submit ${roomSelection === -1 ? "bg-transparent border-info" : ""} text-wrap btn btn-lg w-md-21 w-lg-16 w-xl-14 w-xxl-12 ${error ? "border-danger" : ""}`} onClick={enterChat}>
+                                {roomSelection === -1 ? <>Let's Chat</> : <>{rooms[roomSelection]} <i className="bi-arrow-right-short"></i></>}
+
+                                
                             </button>
                         </div>
 

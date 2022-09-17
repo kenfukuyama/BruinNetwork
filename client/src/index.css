@@ -842,3 +842,22 @@ margin-bottom: 0;
   opacity: 0;
   transition: opacity 1000ms ease-in-out;
 }
+
+#parent-scroll {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+#child-scroll {
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+  padding-right: 30px; /* Increase/decrease this value for cross-browser compatibility */
+  box-sizing: content-box; /* So the width will be 100% + 17px */
+
+}
+
+.scroll-box::-webkit-scrollbar {
+  display: none;
+}

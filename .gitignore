@@ -6,6 +6,7 @@
 /node_modules
 /env
 devicecredentials.json
+credentials.json
 # /client/.pnp
 # /client.pnp.js
 

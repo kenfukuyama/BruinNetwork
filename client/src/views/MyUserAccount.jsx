@@ -155,7 +155,7 @@ const MyUserAccount = () => {
                             (<ScaleLoader size={100} color="white" loading={loading} cssOverride={{ display: "block", position: "fixed", bottom: "5%", right: "10%" }} />)
                             :
                             (
-                                <div className="card bg-transparent text-white fade-in" style={{overflowY : "scroll", maxHeight: "93vh"}}>
+                                <div className="card bg-transparent text-white fade-in scroll-box" style={{overflowY : "scroll", maxHeight: "93vh"}}>
                                     {/* <h4 className="card-header p-4 text-white">{user.nickname} <em><small>(@{user.username})</small></em></h4> */}
                                     <div className="d-flex align-items-center mb-4 justify-content-between">
                                         <div className="d-flex userName  align-items-center">
@@ -255,7 +255,7 @@ const MyUserAccount = () => {
                                                 name="bio"
                                                 value={user.bio}
                                                 onChange={handleChange}
-                                                className="form-control" />
+                                                className="form-control scroll-box" />
                                         </div>
                                         
                                         {/* <div className="h3">

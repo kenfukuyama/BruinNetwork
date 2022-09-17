@@ -83,9 +83,26 @@ module.exports.updateUser = (request, response) => {
         response.status(404).json({msg : "unauthorized"});
         return;
     }
-    User.findOneAndUpdate({_id: request.params.id}, request.body, {new:true})
-        .then(updatedUser => response.json({msg: "updated" ,...updatedUser}))
-        .catch(err => response.json(err))
+
+    // User.findOne({_id:request.body._id})
+    // .then(user => {
+    //     // console.log(user);
+    //     // console.log(request.body);
+    //     // let tempObj = request.body;
+        
+    //     console.log("ran here");
+    //     user._doc = {...user._doc, ...tempObj, confirmPassword : };
+    //     console.log("running here");
+    //     user._doc.confirmPassword = user._doc.password;
+    //     // console.log(user);
+    //     console.log(user._doc);
+    //     return user.save();
+    // })
+
+
+    User.findOneAndUpdate({_id: request.body._id}, request.body, {new:true})
+        .then(updatedUser => response.status(200).json({msg: "updated" ,...updatedUser}))
+        .catch(err => response.status(400).json(err))
     // response.status(200).json({msg: "updated"});
 }
 

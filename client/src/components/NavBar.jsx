@@ -19,6 +19,8 @@ function NavBar() {
     // const [cookies, setCookies] = useState(new Cookies());
     const [notifications, setNotifications] = useState(0);
     const [requestCount, setRequestCount] = useState(0);
+    const [totalNotifications, setTotalNotifications] = useState(0);
+
     const {loggedinInfo} = useContext(LoggedinContext);
     const notificationIntVal = useRef(null);
 
@@ -73,6 +75,14 @@ function NavBar() {
         // }
 
     }, [loggedinInfo.loggedinId]);
+
+
+
+    useEffect(() => {
+        setTotalNotifications(notifications + requestCount);
+    }, [notifications, requestCount])
+
+
     
 
     return (
@@ -132,7 +142,7 @@ function NavBar() {
                         </li> */}
 
                         <li className="nav-item ps-2 me-3">
-                            <Badge badgeContent={notifications + requestCount} color="primary" onClick={(e) => navigate('/users/notifications/spirits')} style={{cursor: "pointer", color: "#fff"}}>
+                            <Badge badgeContent={totalNotifications} color="primary" onClick={(e) => navigate('/users/notifications/spirits')} style={{cursor: "pointer", color: "#fff"}}>
                                 <NotificationsActiveIcon fontSize="small" />
                             </Badge>
                         </li>

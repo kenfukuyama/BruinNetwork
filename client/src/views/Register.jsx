@@ -58,7 +58,7 @@ const Register = () => {
             for (const key in errResponse) {
                 errObj[key] = errResponse[key].message;
             }
-            console.log(errObj);
+            // console.log(errObj);
             setErrors(errObj);
 
         });

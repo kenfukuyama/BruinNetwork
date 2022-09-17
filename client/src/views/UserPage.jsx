@@ -260,7 +260,8 @@ const UserPage = (props) => {
         let tempLoggedInUser = JSON.parse(JSON.stringify(loggedinUser));
         tempLoggedInUser.spirits--;
         setloggedinUser(tempLoggedInUser);
-        console.log(loggedinUser);
+        // console.log(tempLoggedInUser);
+        // console.log(loggedinInfo.loggedinId)
         if (tempLoggedInUser) {
             axios.put('http://localhost:8000/api/users/' + loggedinInfo.loggedinId, tempLoggedInUser)
                 .then(res => {

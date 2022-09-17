@@ -38,6 +38,7 @@ const MyUserAccount = () => {
     const navigate = useNavigate();
 
     const [green, setGreen] = useState("");
+    const [errors, setErrors] = useState({});
 
     // # extrea configuration
     const theme = createTheme({
@@ -80,17 +81,78 @@ const MyUserAccount = () => {
 
 
     const updateUser = (e) => {
+        // console.log("running");
+
+        if (Object.keys(errors).length > 0) {
+            console.log("not updated");
+            return;
+        }
         axios.put('http://localhost:8000/api/users/' + loggedinInfo.loggedinId, user)
                     .then(res => {
-                        console.log(res.data);
+                        // console.log(res.data);
+                        console.log("updated");
                         setUpdated(true);
+                        setErrors({});
                     })
-                    .catch(err => { console.error(err) });
+                    .catch(err => { 
+                        console.log("running12");
+                        let errResponse = err.response.data.errors;
+                        let errObj = {};
+                        for (const key in errResponse) {
+                            errObj[key] = errResponse[key].message;
+                        }
+                        console.log(errObj);
+                        setErrors(errObj);
+                    });
     }
 
 
     // ! handle input change
     const handleChange = (e) => {
+        // ! front end validation
+        let errObj = {...errors};
+        if (e.target.name === "nickname") {
+            
+            if (! (e.target.value.length >= 2 && e.target.value.length <= 30)) {
+                errObj['nickname'] = "nickname must be between 2 to 30 characters";
+            }
+            else {
+                delete errObj.nickname;
+            }
+        }
+        if (e.target.name === "major") {
+            
+            if (! (e.target.value.length <= 50)) {
+                errObj['major'] = "Major must be 50 characters or shorter. If you have a long major name, please use an acronym.";
+            }
+            else {
+                delete errObj.major;
+            }
+        }
+        if (e.target.name === "bio") {
+            
+            if (! (e.target.value.length <= 200)) {
+                errObj['bio'] = "bio must be 200 characters or shorter";
+            }
+            else {
+                delete errObj.bio;
+            }
+        }
+
+        if (e.target.name === "instagramUsername") {
+            
+            if (! (e.target.value.length <= 30)) {
+                errObj['instagramUsername'] = "instagram username must be 30 characters or shorter";
+            }
+            else {
+                delete errObj.instagramUsername;
+            }
+        }
+
+
+
+        setErrors(errObj);
+
         setUser({ ...user, [e.target.name]: e.target.value });
     }
 
@@ -116,7 +178,22 @@ const MyUserAccount = () => {
 
         // console.log(tempContacts[i][0]);
         tempContacts[i][0] = e.target.value;
+
+
         setUser({ ...user, contacts : tempContacts});
+
+        let errObj = {...errors};
+        let isOk = true;
+        for (let i = 0; i < user.contacts.length; i++) {
+            if (user.contacts[i][0].length > 100) {
+                errObj['contact'] = "contact can not be longer than 100 characters";
+                isOk = false;
+            }
+        }
+        if (isOk) {
+            delete errObj.contact;
+        }
+        setErrors(errObj);
     }
 
 
@@ -126,17 +203,58 @@ const MyUserAccount = () => {
         setUser({ ...user, contacts : tempContacts});
     }
 
+
+    const handleInterestChange = (e) => {
+        setInterest(e.target.value);
+        let errObj = {...errors};
+        let isOk = true;
+        // * check wehhte they larey have 10 intersts or the lenght of interst is 30 characters or shorter
+        if (Object.keys(user.interests).length == 10) {
+            errObj['interest'] = "You can only add 10 interests to your profile";
+            isOk = false;
+        }
+        if (interest.length > 30) {
+            errObj['interest'] = "Interest needs to be 30 characters or shorter";
+            isOk = false;
+        }
+        if (isOk) {
+            delete errObj.interest;
+        } 
+        setErrors(errObj);
+    }
+
+
+    const handleBlurInterest = (e) => {
+        let errObj = {...errors};
+        if (Object.keys(user.interests).length <= 10) {
+            delete errObj.interest;
+        }
+        setErrors(errObj);
+    }
+
     const handleInterestSubmit = (e) => {
         // TODO only allows up to 7 interests
-
-        if (!interest) {
+        if (!interest || "interest" in errors) {
             return;
         }
+
+        if (Object.keys(user.interests).length >= 10) {
+            return;
+        }
+
+
         let obj = {};
         obj[interest] = 1;
         let tempUser = { ...user, interests: { ...user.interests, ...obj } };
         setUser(tempUser);
         setInterest("");
+
+        // change all the errors for interest
+        let errObj = {...errors};
+        delete errObj.interest;
+        setErrors(errObj);
+
+
     }
 
     const deleteInterest = (e, value) => {
@@ -183,6 +301,24 @@ const MyUserAccount = () => {
                                     </div>
 
                                     <div className="card-body">
+                                        {/* <div className="mb-2">
+                                            <label className="form-label text-white">Username</label><br />
+                                            <input
+                                                type="text"
+                                                placeholder='username'
+                                                name="username"
+                                                value={user.username}
+                                                onChange={handleChange}
+                                                className={`form-control ${errors.username ? "border-danger" : "" }`} />
+
+                                                {errors.username ?
+                                                    <span className="form-text text-danger">
+                                                        {errors.username}
+                                                    </span>
+                                                    : <></>}
+
+
+                                        </div> */}
                                         <div className="mb-2">
                                             <label className="form-label text-white">Nickname</label><br />
                                             <input
@@ -191,18 +327,14 @@ const MyUserAccount = () => {
                                                 name="nickname"
                                                 value={user.nickname}
                                                 onChange={handleChange}
-                                                className="form-control" />
+                                                className={`form-control ${errors.nickname ? "border-danger" : "" }`} />
+
+                                            {errors.nickname ?
+                                                <span className="form-text text-danger">
+                                                    {errors.nickname}
+                                                </span>
+                                                : <></>}
                                         </div>
-                                        {/* <div className="mb-2">
-                                            <label className="form-label text-white">Year</label><br />
-                                            <input
-                                                type="text"
-                                                placeholder='year'
-                                                name="year"
-                                                value={user.year.length > 0 ? yearChoices[user.year[0]] : ""}
-                                                onChange={handleChange}
-                                                className="form-control" />
-                                        </div> */}
 
                                         <div className="mb-2">
                                             <label className="form-label text-white">Year</label><br />
@@ -245,7 +377,14 @@ const MyUserAccount = () => {
                                                 name="major"
                                                 value={user.major}
                                                 onChange={handleChange}
-                                                className="form-control" />
+                                                className={`form-control ${errors.major ? "border-danger" : "" }`} />
+
+                                                
+                                            {errors.major ?
+                                                <span className="form-text text-danger">
+                                                    {errors.major}
+                                                </span>
+                                                : <></>}
                                         </div>
 
                                         <div className="mb-2">
@@ -253,9 +392,16 @@ const MyUserAccount = () => {
                                             <textarea
                                                 placeholder='Bio'
                                                 name="bio"
+                                                rows="3"
                                                 value={user.bio}
                                                 onChange={handleChange}
-                                                className="form-control scroll-box" />
+                                                className={`form-control scroll-box ${errors.bio ? "border-danger" : "" }`} />
+                                                
+                                            {errors.bio ?
+                                                <span className="form-text text-danger">
+                                                    {errors.bio}
+                                                </span>
+                                                : <></>}
                                         </div>
                                         
                                         {/* <div className="h3">
@@ -281,11 +427,16 @@ const MyUserAccount = () => {
                                                 name="instagramUsername"
                                                 value= {user.instagramUsername}
                                                 onChange={handleChange}
-                                                className="form-control" 
+                                                className={`form-control ${errors.instagramUsername ? "border-danger" : "" }`}
                                                 placeholder="Instagram username" 
                                                 aria-label="Username" 
                                                 aria-describedby="basic-addon1"/>
                                         </div>
+                                        {errors.instagramUsername ?
+                                                    <span className="form-text text-danger">
+                                                        {errors.instagramUsername}
+                                                    </span>
+                                                    : <></>}
 
                                         <div className="d-flex gap-3 justify-content-center">
                                             <div className="mb-3">
@@ -327,24 +478,35 @@ const MyUserAccount = () => {
                                                     </FormGroup>
                                                 </div>
                                             </div>
-
                                         </div>
+                                        {errors.contact ?
+                                                <span className="form-text text-danger">
+                                                    {errors.contact}
+                                                </span>
+                                                : <></>}
 
 
                                         <div className="mb-3">
                                             <label className="form-label text-white">Interests</label><br />
                                             <div className="d-flex justify-content-center gap-3">
                                                 <input type="text"
-                                                    className="form-control mb-1 w-50"
+                                                    name="interest"
                                                     value={interest}
-                                                    onChange={e => setInterest(e.target.value)}
-                                                />
+                                                    onChange={e => handleInterestChange(e)}
+                                                    onBlur = {e => handleBlurInterest(e)}
+                                                    className={`form-control mb-1 w-50 ${errors.interest ? "border-danger" : "" }`}/>
+                                                
                                                 <ThemeProvider theme={theme}>
                                                     <IconButton color="primary" aria-label="add to interest" onClick={handleInterestSubmit}>
                                                         <PlaylistAddIcon fontSize="medium" />
                                                     </IconButton>
                                                 </ThemeProvider>
                                             </div>
+                                            {errors.interest ?
+                                                <span className="form-text text-danger">
+                                                    {errors.interest}
+                                                </span>
+                                                : <></>}
                                         </div>
 
                                         <div className="d-flex gap-2 mb-3 w-100 flex-wrap">
@@ -354,6 +516,7 @@ const MyUserAccount = () => {
                                                 })
                                             }
                                         </div>
+                                        
                                         <button className="btn btn-primary w-25" onClick={updateUser}>{updated ? "✓ Updated" : "Update"}</button>
 
 

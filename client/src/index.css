@@ -676,7 +676,11 @@ margin-bottom: 0;
 .h-md-25 {
   height:25%!important;
 }
+.left-m-0 {
+  left : 12.5% !important;
 }
+}
+
 
 /* Large devices (desktops, 992px and up)*/
 @media (min-width: 992px) {
@@ -715,6 +719,9 @@ margin-bottom: 0;
 }
 .h-lg-25 {
   height:25%!important;
+}
+.left-lg-0 {
+  left : 25% !important;
 }
 }
 

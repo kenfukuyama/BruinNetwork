@@ -449,27 +449,28 @@ const ChitchatBot = () => {
                                         </li>
                                     ) : (
                                         
-                                        <li className="chat-message receiver" key={i}>
+                                        <li className="chat-message receiver text-wrap" key={i}>
                                             <span>@{message.username}</span>
                                             <p className="mb-0">{message.content}</p> 
-                                            {message.title &&
-                                                <div className="d-flex justify-content-center">
-                                                    <h6><hr/>{message.title}</h6>
-                                                </div>
-                                            }
-                                            {message.img && 
-                                                <div className="d-flex justify-content-center">
-                                                    <img src={message.img.src} width={message.img.width} height={message.img.height} alt="Searched Img"/>
-                                                </div>
-                                            }
-                                            {message.link &&
-                                                    <div className="d-flex justify-content-center">
-                                                        {/* <a href={message.link} className="center"><br /> {message.link}</a> */}
-                                                        <p className="btn text-info" onClick={e => window.open(message.link)}><u>{message.link} </u></p>
-
-                                                        
+                                            <div className="text-wrap">
+                                                {message.title &&
+                                                    <div className="d-flex justify-content-center text-wrap">
+                                                        <h6><hr/>{message.title}</h6>
                                                     </div>
-                                            }   
+                                                }
+                                                {message.img &&
+                                                    <div className="d-flex justify-content-center">
+                                                        <img src={message.img.src} width={message.img.width} height={message.img.height} alt="Searched Img"/>
+                                                    </div>
+                                                }
+                                                {message.link &&
+                                                        <div className="d-flex justify-content-center text-wrap">
+                                                            {/* <a href={message.link} className="center"><br /> {message.link}</a> */}
+                                                            <p className="btn text-info text-wrap" onClick={e => window.open(message.link)}><u>{message.link} </u></p>
+                                                
+                                                        </div>
+                                                }
+                                            </div>
                                         </li>
                                     )
                                 )

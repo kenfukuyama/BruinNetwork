@@ -16,11 +16,12 @@ import { blue } from '@mui/material/colors';
 import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/box';
 
-import rooms from '../data/rooms'
+import rooms from '../assets/rooms'
 
 
 
 const Chatrooms = () => {
+    let chatrooms = rooms.majors;
     const [roomSelection, setRoomSelection] = useState(-1);
     const [error, setError] = useState("");
     const navigate = useNavigate();
@@ -33,7 +34,7 @@ const Chatrooms = () => {
         if (roomSelection === -1) {
             setError("Please Select a Chatroom");
         } else {
-            navigate(`/chatroom/${rooms[roomSelection]}`);
+            navigate(`/chatroom/${chatrooms[roomSelection]}`);
         }
         
     };
@@ -85,20 +86,25 @@ const Chatrooms = () => {
                                 <div className="d-flex justify-content-center flex-wrap mx-0 px-0">
                                     <Box className="w-sm-100 w-md-75 w-lg-50">
                                         <List dense sx={{ width: '100%', bgcolor: 'transparent', borderRadius: "15px" }}>
-                                            {rooms.map((room, i) => {
+                                            {chatrooms.map((room, i) => {
                                                 const labelId = `checkbox-list-secondary-label-${i}`;
                                                 return (
-                                                    <ListItem sx={{ px: 2 }}
-                                                        key={i}>
-                                                        <ListItemButton sx={{ py: 3 }} onClick={(e) => {handleChange(e, i)}} >
-                                                            <ListItemAvatar>
-                                                                <Avatar sx={{ bgcolor: blue[500] }}>
-                                                                    <AccountCircleIcon />
-                                                                </Avatar>
-                                                            </ListItemAvatar>
-                                                            <ListItemText className="text-wrap" id={labelId} primary={<h6 className="mb-0 text-wrap">{room}</h6>} />
-                                                        </ListItemButton>
-                                                    </ListItem>
+                                                    <div className="d-flex align-items-center justify-content-between" key={i}>
+                                                        <ListItem sx={{ px: 2 }}
+                                                            key={i}>
+                                                            <ListItemButton sx={{ py: 3 }} onClick={(e) => {handleChange(e, i)}} >
+                                                                <ListItemAvatar>
+                                                                    <Avatar sx={{ bgcolor: blue[500] }}>
+                                                                        <AccountCircleIcon />
+                                                                    </Avatar>
+                                                                </ListItemAvatar>
+                                                                <ListItemText className="text-wrap" id={labelId} primary={<h6 className="mb-0 text-wrap">{room}</h6>} />
+                                                            </ListItemButton>
+                                                        </ListItem>
+                                                        <div className="category">
+                                                            <p className="pe-1 text-muted">Major</p>
+                                                        </div>
+                                                    </div>
                                                 );
                                             })}
                                         </List>
@@ -111,8 +117,8 @@ const Chatrooms = () => {
 
                         <div className="form-group fixed-bottom mb-4">
                             {error && <p className = "text-danger">{error}</p>} 
-                            <button type="submit" className={`chatrooms-submit ${roomSelection === -1 ? "bg-transparent border-info" : ""} text-wrap btn btn-lg w-md-21 w-lg-16 w-xl-14 w-xxl-12 ${error ? "border-danger" : ""}`} onClick={enterChat}>
-                                {roomSelection === -1 ? <>Let's Chat</> : <>{rooms[roomSelection]} <i className="bi-arrow-right-short"></i></>}
+                            <button type="submit" className={`chatrooms-submit ${roomSelection === -1 ? "bg-transparent border-info" : ""} text-wrap btn btn-lg w-md-50 w-lg-25 w-xl-25 w-xxl-25 ${error ? "border-danger" : ""}`} onClick={enterChat}>
+                                {roomSelection === -1 ? <>Let's Chat</> : <>{chatrooms[roomSelection]} <i className="bi-arrow-right-short"></i></>}
 
                                 
                             </button>

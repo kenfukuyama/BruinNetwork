@@ -11,7 +11,7 @@ import Avatar from '@mui/material/Avatar';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import {blue} from '@mui/material/colors';
 
-const Chitchat = () => {
+const Chitchat = ({beat}) => {
     const messageAreaRef = useRef(null);
     const navigate = useNavigate();
 
@@ -28,8 +28,10 @@ const Chitchat = () => {
     const [message, setMessage] = useState({
         content : "",
         username : "",
+        userId : "",
         type : "CHAT",
-        roomId : roomId
+        roomId : roomId,
+        time : "",
     });
     const [messages, setMessages] = useState([]);
 
@@ -56,19 +58,19 @@ const Chitchat = () => {
                         // ! this takes care of case when user refreshes, and destroy username
                         setLoggedinInfo({ ...loggedinInfo, loggedinUsername: tempedUsername })
                         setLoading(false);
-                        setMessage({ ...message, username: tempedUsername });
+                        setMessage({ ...message, username: tempedUsername , userId : loggedinInfo.loggedinId  });
                         
                         // * let everyone knows that they joined
-                        socket.emit("chat", {content : `${tempedUsername} joined`, username : "", type : "JOIN", roomId : roomId});
+                        socket.emit("chat", {content : `${tempedUsername} joined`, username : tempedUsername, type : "JOIN", roomId : roomId, time : new Date()});
 
                     })
                     .finally(() => setLoading(false));
             } else {
                 // ! this takes care of the case when the user loggin or reigster
                 setLoading(false)
-                setMessage({ ...message, username: loggedinInfo.loggedinUsername });
+                setMessage({ ...message, username: loggedinInfo.loggedinUsername , userId : loggedinInfo.loggedinId});
                 // * let everyone knows that they joined
-                socket.emit("chat", { content: `${loggedinInfo.loggedinUsername} joined`, username: "", type: "JOIN", roomId : roomId });
+                socket.emit("chat", { content: `${loggedinInfo.loggedinUsername} joined`, username: loggedinInfo.loggedinUsername, type: "JOIN", roomId : roomId , time : new Date()});
             }
         }
 
@@ -89,12 +91,20 @@ const Chitchat = () => {
         socket.on('chat', (data) => {
             console.log(data);
             setMessages(messages => {return [...messages, data]});
+            if (data.type === "CHAT" && data?.userId !== loggedinInfo?.loggedinId) {
+                beat.play().catch();
+            }
 
         })
 
         // ! disconnet is acting weired
         return function cleanup() {
-            socket.emit("chat", { content: `${loggedinInfo.loggedinUsername} left`, username: "", type: "LEAVE", roomId : roomId });
+            if (loggedinInfo.loggedinUsername) {
+                socket.emit("chat", { content: `${loggedinInfo.loggedinUsername} left`, username: loggedinInfo.loggedinUsername, type: "LEAVE", roomId : roomId , time : new Date()});
+            }
+            else {
+                socket.emit("chat", { content: `a user left`, username: null , type: "LEAVE", roomId : roomId , time : new Date()});
+            }
             socket.disconnect(true);
         }
     // eslint-disable-next-line
@@ -116,7 +126,7 @@ const Chitchat = () => {
             // console.log(message.content.trim().length);
             return;
         }
-        socket.emit('chat', message);
+        socket.emit('chat', {...message, time: new Date()});
         setMessage({...message, content: ""});
 
     };
@@ -147,7 +157,7 @@ const Chitchat = () => {
                                     <AccountCircleIcon />
                                 </Avatar>
                             </div>
-                            <div className="d-flex flex-column ms-3 justify-content-end align-items-center mt-2">
+                            <div className="d-flex flex-column ms-3 justify-content-end align-items-center mt-2 text-white">
                                 <div className="text-wrap">
                                     <h4 className="text-wrap mb-0">{otherUser ? `${otherUser.nickname}`: "Chitchat"}</h4>
                                 </div>
@@ -164,7 +174,7 @@ const Chitchat = () => {
                         {/* <p className="text-success mb-1"><span id="number-connected">2</span> Online</p> */}
                         {/* <hr/> */}
 
-                    <ul id="messageArea" className="messageAreaPublic" ref={messageAreaRef}>
+                    <ul id="messageArea" className="messageAreaPublic scroll-box" ref={messageAreaRef}>
                         {/* <li ref={topRef} className="btn" onClick={scrollToBottom}>Scroll To the Bottom</li> */}
                         {messages &&
                             messages.map((message, i) => {
@@ -172,12 +182,13 @@ const Chitchat = () => {
                                     (message.type === "CHAT") ? (
                                         <li className={`chat-message ${loggedinInfo.loggedinUsername === message.username ? 'sender' : 'receiver'}`} key={i}>
                                             <span>@{message.username}</span>
-                                            <p className="mb-0">{message.content}</p>
+                                            <p className="">{message.content}</p>
+                                            <p className="timestamp text-form">{new Date(message.time).toLocaleTimeString('en', { timeStyle: 'short', hour12: true, timeZone: 'America/Los_Angeles' })}</p>
                                         </li>
                                     ) : (
                                         
                                         <li className={`chat-message ${message.type === "JOIN" ? 'text-success' : 'text-secondary'}`} key={i}>
-                                            <p className="mb-0">@{message.content}</p>
+                                            <p className=""> {message.username ? <>@</> : <></>}{message.content}</p>
                                         </li>
                                     )
                                 )

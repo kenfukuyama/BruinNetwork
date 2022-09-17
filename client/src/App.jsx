@@ -41,6 +41,7 @@ import MyNotificationsSpirits from './views/MyNotificationsSpirits';
 
 function App() {
   // intialize the loggedin status based on the jwt token
+    let beat = new Audio('/chat.mp3');
 
 
   // useEffect(() => {
@@ -133,8 +134,8 @@ function App() {
         
           {/* // * chat routes */}
           <Route element={<ChitchatLobby/>} path="/chitchat"/>
-          <Route element={<ChatroomPublic/>} path="/chatroom/:roomId"/>
-          <Route element={<Chitchat/>} path="/chitchat/:roomId"/>
+          <Route element={<ChatroomPublic beat={beat}/>} path="/chatroom/:roomId"/>
+          <Route element={<Chitchat beat={beat}/>} path="/chitchat/:roomId"/>
           <Route element={<Chatrooms/>} path="/chatrooms"/>
           
         </Routes>

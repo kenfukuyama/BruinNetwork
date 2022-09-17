@@ -1,7 +1,7 @@
-const rooms = [
-"Sociology",
-"Political science and government",
+const rooms = { majors :[
 "Psychology",
+"Political science and government",
+"Sociology",
 "Econometrics and quantitative economics",
 "Biology/biological sciences",
 "Physiological psychology/psychobiology",
@@ -100,6 +100,6 @@ const rooms = [
 "Geological/geophysical engineering",
 "Jewish/judaic studies",
 "Music theory and composition"
-];
+]};
 
 export default rooms;

@@ -88,6 +88,7 @@ function ChitchatPopUp() {
         <>
             <RingLoader 
             size={100} 
+            color={"grey"} //TODO: change this color
             loading={loggedinInfo.isInQueue} 
             cssOverride={{ display: "block", position: "fixed", bottom: "5%", left: "5%", cursor: "pointer"}} 
             onClick={() => navigate("/chitchat")}/>

@@ -55,13 +55,13 @@ const UserFriendsPage = () => {
         <div className="vh-100">
             <div className="container py-5 h-100">
                 <div className="row d-flex justify-content-center align-items-center h-100">
-                    <div className="col col-md-9 col-lg-7 col-xl-5">
+                    <div className="col col-md-9 col-lg-8 col-xl-8">
                         {loading ?
                             (<ScaleLoader size={100} color="white" loading={loading} cssOverride={{ display: "block", position: "fixed", bottom: "5%", right: "10%" }} />)
                             :
                             (
-                                <div className="card" style={{ borderRadius: "15px", backgroundColor: "#ffffff"}}>
-                                    <div className="card-body p-4 text-black">
+                                <div className="card fade-in px-2 scroll-box" style={{ borderRadius: "15px", backgroundColor: "rgba(25, 138, 209, 0.55)", overflowY : "scroll" , height: "93vh"}}>
+                                    <div className="p-4 pb-0 text-black">
 
 
                                         { user ? 
@@ -98,7 +98,7 @@ const UserFriendsPage = () => {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="d-flex align-item-center justify-content-center">
+                                    <div className="d-flex align-item-center justify-content-center mb-2">
                                         <Button color="success"variant="contained" id="navButton" startIcon={<PeopleAltIcon />}>Friends</Button>
                                     </div>
 

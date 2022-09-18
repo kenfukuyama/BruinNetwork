@@ -7,6 +7,8 @@ const cookieParser = require('cookie-parser');
 
 
 
+
+
 const port = 8000;
 require('./server/config/mongoose.config');
 
@@ -24,6 +26,7 @@ app.use(express.json(), express.urlencoded({ extended: true }));
 // extra files
 const colors =  require('colors');
 const { application, response } = require('express');
+const { default: axios } = require('axios');
 colors.enable();
 
 
@@ -62,6 +65,7 @@ io.on("connection", (socket) => {
         // this emits to all
         // io.emit("chat", data);
         socket.username = data.username;
+        socket.userId = data.userId;
         // console.log(socket.username);
         io.to(data.roomId).emit("chat", data);
     })
@@ -117,9 +121,48 @@ const getOnlineNumber = (request, response) => {
 
 };
 
+const getUsersInRoom = (request, response) => {
+    // console.log(io.sockets.adapter.rooms);
+    // console.log("ran");
+    // let onlineObj = {}
+    // for (const room of io.sockets.adapter.rooms) {
+        // console.log(room);
+        // onlineObj[room[0]] = room[1].size
+    // }
+    // console.log(onlineObj);
+    // console.log(request.body.roomId);
+    let roomsSet = io.sockets.adapter.rooms.get(request.body.roomId);
+    // console.log(typeof(roomsSet));
+    // console.log(roomsSet?.size);
+    // for (const socketId in roomsSet) {
+    //     console.log(socketId);
+    // }
+    let resultUserIds = [];
+    roomsSet?.forEach((value, key, set) => {
+        // console.log(value);
+        // console.log(io.sockets[value]);
+        // console.log(io.sockets?.sockets?.get(value)?.userId);
+
+        resultUserIds.push(io.sockets?.sockets?.get(value)?.userId);
+    });
+    // console.log(resultUserIds);
+    axios.post("http://localhost:8000/api/users/chatrooms/all", {userIds : resultUserIds})
+    .then(res => {
+        // console.log(res.data);
+        response.status(200).json(res.data);
+    })
+    .catch(err => response.status(400).json(err));
+    // console.log(io.sockets.sockets);
+
+};
+
+
+
+
 // module.exports = {getOnlineNumber};
 
 app.post('/api/chatrooms/online-number/all', getOnlineNumber);
+app.post('/api/chatrooms/chatusers/all', getUsersInRoom);
 
 // googleAssistant.promptUser();
 // googleAssistant.getResponse("hello there!");

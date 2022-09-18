@@ -171,9 +171,11 @@ const Chitchat = ({beat}) => {
 
 
     useEffect(() => {
-        if (!loading && !otherUserLoading) {
-            messageAreaRef.current.scrollTop = messageAreaRef.current.scrollHeight;
+        if (!loading && !otherUserLoading && messageAreaRef.current) {
+            messageAreaRef.current.scrollTop = messageAreaRef.current?.scrollHeight;
         }
+
+
         localStorage.setItem(roomId, JSON.stringify(messages));
     }, [messages, loading, otherUserLoading, roomId]);
 

@@ -80,7 +80,7 @@ const UserSchema = new mongoose.Schema({
     },
     avatarColor : {
         type : String,
-        default : "#0A6AB6",
+        default : "#2196f3",
     },
     avatarIcon : {
         type : String,

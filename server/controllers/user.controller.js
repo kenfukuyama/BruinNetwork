@@ -233,3 +233,23 @@ module.exports.logout = (req, res) => {
 }
 
 // console.log(envKey);
+
+
+module.exports.findChatUsers = (request, response) => {
+    // console.log("ran here");
+    // console.log(request.body["userIds"]);
+    User.find({_id : {$in: request.body.userIds}})
+    .then(users => {
+        // console.log(users);
+        const result = [];
+        for (const user of users) {
+            let tempObj = {...user};
+            delete tempObj["_doc"].password;
+            delete tempObj["_doc"].email;
+            result.push( tempObj["_doc"]);
+        }
+        // console.log(result);
+        response.status(200).json(users);
+    })
+    .catch(err => response.status(400).json(err));
+}

@@ -15,8 +15,18 @@ import Badge from '@mui/material/Badge';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { blue} from '@mui/material/colors';
 
+import AvatarIcon from '../components/AvatarIcon';
+import Box from '@mui/material/Box';
+import CloseIcon from '@mui/icons-material/Close';
+import IconButton from '@mui/material/IconButton';
 
 
+// users
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
 
 const ChatroomPublic = ({beat}) => {
     const messageAreaRef = useRef(null);
@@ -25,7 +35,13 @@ const ChatroomPublic = ({beat}) => {
     const {roomId} = useParams();
     const [onlineNumber, setOnlineNumber] = useState(10);
 
+
     const {loggedinInfo,setLoggedinInfo} = useContext(LoggedinContext);
+
+    const [user, setUser] = useState(null);
+
+    const [chatUsers, setChatUsers] = useState(null);
+    const [none, setNone] = useState("none");
     const [loading, setLoading] = useState(true);
     
 
@@ -96,28 +112,29 @@ const ChatroomPublic = ({beat}) => {
 
 
         if (loading) {
-            if (loggedinInfo.loggedinUsername === null) {
+            // if (loggedinInfo.loggedinUsername === null) {
                 //we don't want do anything until finishing loading the user
-                axios.get('http://localhost:8000/api/users/' + loggedinInfo.loggedinId)
-                    .then(res => {
-                        let tempedUsername = res.data.username;
-                        // ! this takes care of case when user refreshes, and destroy username
-                        setLoggedinInfo({ ...loggedinInfo, loggedinUsername: tempedUsername})
-                        setLoading(false);
-                        setMessage({ ...message, username: tempedUsername, userId : loggedinInfo.loggedinId  });
-                        
-                        // * let everyone knows that they joined
-                        socket.emit("chat", {content : `${tempedUsername} joined`, username : tempedUsername, type : "JOIN", roomId : roomId, time : new Date(), userId : loggedinInfo?.loggedinId});
+            axios.get('http://localhost:8000/api/users/' + loggedinInfo.loggedinId)
+                .then(res => {
+                    let tempedUsername = res.data.username;
+                    setUser(res.data);
+                    // ! this takes care of case when user refreshes, and destroy username
+                    setLoggedinInfo({ ...loggedinInfo, loggedinUsername: tempedUsername})
+                    setLoading(false);
+                    setMessage({ ...message, username: tempedUsername, userId : loggedinInfo.loggedinId  });
+                    
+                    // * let everyone knows that they joined
+                    socket.emit("chat", {content : `${tempedUsername} joined`, username : tempedUsername, type : "JOIN", roomId : roomId, time : new Date(), userId : loggedinInfo?.loggedinId});
 
-                    })
-                    .finally(() => setLoading(false));
-            } else {
-                // ! this takes care of the case when the user loggin or reigster
-                setLoading(false)
-                setMessage({ ...message, username: loggedinInfo.loggedinUsername, userId : loggedinInfo.loggedinId});
-                // * let everyone knows that they joined
-                socket.emit("chat", { content: `${loggedinInfo.loggedinUsername} joined`, username: loggedinInfo.loggedinUsername, type: "JOIN", roomId : roomId, time : new Date(), userId : loggedinInfo?.loggedinId});
-            }
+            })
+            .finally(() => setLoading(false));
+            // } else {
+            //     // ! this takes care of the case when the user loggin or reigster
+            //     setLoading(false)
+            //     setMessage({ ...message, username: loggedinInfo.loggedinUsername, userId : loggedinInfo.loggedinId});
+            //     // * let everyone knows that they joined
+            //     socket.emit("chat", { content: `${loggedinInfo.loggedinUsername} joined`, username: loggedinInfo.loggedinUsername, type: "JOIN", roomId : roomId, time : new Date(), userId : loggedinInfo?.loggedinId});
+            // }
         }
 
 
@@ -168,12 +185,12 @@ const ChatroomPublic = ({beat}) => {
 
 
     useEffect(() => {
-        if (!loading) {
-            messageAreaRef.current.scrollTop = messageAreaRef.current.scrollHeight;
+        if (!loading && messageAreaRef.current) {
+            messageAreaRef.current.scrollTop = messageAreaRef.current?.scrollHeight;
         }
 
         localStorage.setItem(roomId, JSON.stringify(messages));
-    }, [messages, loading, roomId]);
+    }, [messages, loading, roomId, user]);
 
     const sendMessage = (e) => {
         e.preventDefault();
@@ -187,7 +204,18 @@ const ChatroomPublic = ({beat}) => {
 
     };
 
-    if (loading) {
+
+    const getChatUsers = () => {
+        // console.log("trying to get users");
+        axios.post("http://localhost:8000/api/chatrooms/chatusers/all", {roomId : roomId})
+        .then(res => {
+            console.log(res.data);
+            setChatUsers(res.data);
+        })
+        .catch()
+    };
+
+    if (loading || !user) {
         return (
             <div id="chat-page" className="d-flex align-items-center justify-content-center vh-100 w-100 styled-text text-white">
                 <PropagateLoader width={100} color="white" loading={loading} cssOverride={{display: "block", margin: "0 auto", borderColor: "red", position : "fixed", top: "50%", left: "47%" }} />
@@ -213,6 +241,7 @@ const ChatroomPublic = ({beat}) => {
                             max={4}
                             className="my-3"
                             sx = {{ '.css-5azhe6-MuiAvatarGroup-root' : {border: "0px"} }}
+                            onClick={(e) => {setNone(""); getChatUsers();}}
                             >
                                 {
                                     Array(onlineNumber).fill('1').map((person, i) => {
@@ -222,9 +251,12 @@ const ChatroomPublic = ({beat}) => {
                                                     overlap="circular"
                                                     anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
                                                     variant="dot"
+                                                    style={{cursor : "pointer"}}
                                                 >
-                                                    <Avatar sx={{ bgcolor: blue[500] }}>
-                                                        <AccountCircleIcon />
+                                                    <Avatar sx={{ bgcolor: i === 0 ? user.avatarColor : blue[500]}}>
+
+                                                        {i === 0 ? <AvatarIcon iconValue={user.avatarIcon}/> : <AccountCircleIcon />}
+                                                        
                                                     </Avatar>
                                                 </StyledBadge>
                                             </div>
@@ -233,6 +265,61 @@ const ChatroomPublic = ({beat}) => {
                                 }
                             </StyledAvatorGroup>
                         </div>
+
+                        {/*  chat users */}
+                        <Box sx={{ border: 1, pt: 1, px: 1, bgcolor: '#fff', borderRadius: "15px", borderColor: "#808080", zIndex: "1000" }}
+                            style={{ position: 'fixed', top: "20%", display: [none] }}
+                            className="w-sm-75 w-md-50 w-lg-40 w-xl-40">
+                            <div className="d-flex justify-content-end">
+                                <div className="close-button">
+                                    <IconButton onClick={(e) => { setNone("none") }}>
+                                        <CloseIcon fontSize="medium" sx={{ color: "#000" }} />
+                                    </IconButton>
+                                </div>
+                            </div>
+                            <div className="d-flex justify-content-center flex-wrap text-wrap">
+                                <List className="text-wrap pe-3 scroll-box" dense sx={{ width: '100%', bgcolor: 'background.paper', borderRadius: "15px", overflowY : "scroll" , maxHeight: "60vh"}}>
+                                    {chatUsers ?
+                                        <>{chatUsers.map((user, i) => {
+                                            const labelId = `checkbox-list-secondary-label-${i}`;
+                                            return (
+
+                                                <div className="d-flex text-wrap justify-content-center" key={i}>
+
+                                                    <ListItem className="text-black" sx={{}}
+                                                        key={i}
+                                                        disablePadding
+                                                    // secondaryAction={
+                                                    //     // <Checkbox
+                                                    //     //     edge="end"
+                                                    //     //     inputProps={{ 'aria-labelledby': labelId }}
+                                                    //     // />
+                                                    // }
+                                                    >
+                                                        <ListItemButton sx={{ py: 2 }} onClick={() => { window.open(`/users/${user._id}`) }}>
+                                                            <ListItemAvatar>
+                                                                <Avatar sx={{ bgcolor: user.avatarColor }}>
+                                                                    <AvatarIcon iconValue={user.avatarIcon}/>
+                                                                </Avatar>
+                                                            </ListItemAvatar>
+                                                            <ListItemText id={labelId} primary={<h6 className="mb-0">{user.nickname}<em className="text-muted"> (@{user.username})</em></h6>} />
+                                                        </ListItemButton>
+                                                    </ListItem>
+                                                    <div className="d-flex align-items-center justify-content-end w-sm-50 w-md-50 w-lg-50 text-wrap flex-wrap">
+                                                        <div>
+                                                            <p id="profile-major-year-text" className="mb-0 me-2 text-dark">{user.year[1]} <br /><em className="text-muted ">{user.major}</em></p>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            );
+                                        })}
+
+                                        </> : <><PropagateLoader width={50} color="white" loading={!chatUsers}/></>}
+                                </List>
+                            </div>
+                        </Box>
+
                     </div>
 
                     <ul id="messageArea" className="messageAreaPublic scroll-box" ref={messageAreaRef}>

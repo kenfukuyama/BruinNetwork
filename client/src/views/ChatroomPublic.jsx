@@ -208,31 +208,31 @@ const ChatroomPublic = ({beat}) => {
                         {/* <p className="text-success mb-1"><span id="number-connected">2</span> Online</p>
                         
                         */}
-                        <StyledAvatorGroup 
-                        max={4} 
-                        className="my-3" 
-                        sx = {{ '.css-5azhe6-MuiAvatarGroup-root' : {border: "0px"} }}
-                        >
-                            {
-                                Array(onlineNumber).fill('1').map((person, i) => {
-                                    return (
-                                        <div key={i}>
-                                            <StyledBadge
-                                                overlap="circular"
-                                                anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-                                                variant="dot"
-                                            >
-                                                <Avatar sx={{ bgcolor: blue[500] }}>
-                                                    <AccountCircleIcon />
-                                                </Avatar>
-                                            </StyledBadge>
-
-                                        </div>
-                                    )
-
-                                }) 
-                            }
-                        </StyledAvatorGroup>
+                        <div className="d-flex justify-content-center">
+                            <StyledAvatorGroup
+                            max={4}
+                            className="my-3"
+                            sx = {{ '.css-5azhe6-MuiAvatarGroup-root' : {border: "0px"} }}
+                            >
+                                {
+                                    Array(onlineNumber).fill('1').map((person, i) => {
+                                        return (
+                                            <div key={i}>
+                                                <StyledBadge
+                                                    overlap="circular"
+                                                    anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                                                    variant="dot"
+                                                >
+                                                    <Avatar sx={{ bgcolor: blue[500] }}>
+                                                        <AccountCircleIcon />
+                                                    </Avatar>
+                                                </StyledBadge>
+                                            </div>
+                                        )
+                                    })
+                                }
+                            </StyledAvatorGroup>
+                        </div>
                     </div>
 
                     <ul id="messageArea" className="messageAreaPublic scroll-box" ref={messageAreaRef}>

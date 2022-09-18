@@ -12,8 +12,8 @@ const Main = () => {
                 <p className="lead styled-text" style={{fontFamily : "Courier New, monospace"}}>Meet and Connect with Bruins</p>
 
                 <div className="d-flex gap-2">
-                    <Link className="btn btn-light btn-lg mt-2" to={"/events"}><strong>Explore Events</strong> <i className="bi-arrow-right-short"></i></Link>
-                    <Link  className="btn btn-light btn-lg mt-2" to={"/chitchat"}><strong>Chat with Random Bruins</strong> <i className="bi-arrow-right-short"></i></Link>
+                    <Link className="btn btn-light btn-lg mt-2 text-center" to={"/events"}><strong>Explore Events</strong> <i className="bi-arrow-right-short"></i></Link>
+                    <Link  className="btn btn-light btn-lg mt-2 text-center" to={"/chitchat"}><strong>Chat with Random Bruins</strong> <i className="bi-arrow-right-short"></i></Link>
                 </div>
 
                 {/* <div className="d-flex gap-2">

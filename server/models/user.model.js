@@ -77,6 +77,14 @@ const UserSchema = new mongoose.Schema({
     recentRooms : {
         type: mongoose.Schema.Types.Mixed,
         default: [-1, -1, -1]
+    },
+    avatarColor : {
+        type : String,
+        default : "#0A6AB6",
+    },
+    avatarIcon : {
+        type : String,
+        default : "AccountCircleIcon",
     }
 
 }, { timestamps: true, minimize: false });

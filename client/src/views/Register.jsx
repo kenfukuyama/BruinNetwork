@@ -121,7 +121,7 @@ const Register = () => {
                 <div className="mb-3">
                     <input
                         type="password"
-                        placeholder='password'
+                        placeholder='password (8 characters or longer)'
                         name="password"
                         value={user.password}
                         onChange={handleChange}
@@ -137,7 +137,7 @@ const Register = () => {
                 <div className="mb-3">
                     <input
                         type="password"
-                        placeholder='confirmPassword'
+                        placeholder='confirm password'
                         name="confirmPassword"
                         value={user.confirmPassword}
                         onChange={handleChange}

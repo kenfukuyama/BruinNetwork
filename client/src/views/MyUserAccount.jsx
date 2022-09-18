@@ -10,10 +10,10 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 import Avatar from '@mui/material/Avatar';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import {blue} from '@mui/material/colors';
+// import {blue} from '@mui/material/colors';
 
 
+import { makeStyles } from "@material-ui/core/styles";
 
 
 import {
@@ -27,9 +27,67 @@ import Chip from '@mui/material/Chip';
 import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
 
 // import { createTheme, ThemeProvider} from '@mui/material/styles';
+//  popper import
+import Box from '@mui/material/Box';
+// import Popper from '@mui/material/Popper';
+// import InfoIcon from '@mui/icons-material/Info';
+import Badge from '@mui/material/Badge';
+import EditIcon from '@mui/icons-material/Edit';
+import CloseIcon from '@mui/icons-material/Close';
+
+
+// * icon selections
+// import AdbIcon from '@mui/icons-material/Adb';
+// import AirplanemodeActiveIcon from '@mui/icons-material/AirplanemodeActive';
+// import SportsBaseballIcon from '@mui/icons-material/SportsBaseball';
+// import SportsBasketballIcon from '@mui/icons-material/SportsBasketball';
+// import SportsVolleyballIcon from '@mui/icons-material/SportsVolleyball';
+// import SportsTennisIcon from '@mui/icons-material/SportsTennis';
+// import PedalBikeIcon from '@mui/icons-material/PedalBike';
+// import HailIcon from '@mui/icons-material/Hail';
+// import SportsBarIcon from '@mui/icons-material/SportsBar';
+// import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
+// import Face3Icon from '@mui/icons-material/Face3';
+// import Face2Icon from '@mui/icons-material/Face2';
+// import FaceIcon from '@mui/icons-material/Face';
+// import SickIcon from '@mui/icons-material/Sick';
+// import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+// import CatchingPokemonIcon from '@mui/icons-material/CatchingPokemon';
+
+import AvatarIcon from '../components/AvatarIcon';
+
+
+
+
+
+// * style for button
+const useStyles = makeStyles(theme => ({
+    customHoverFocus: {
+        "&:hover, &.Mui-focusVisible": { backgroundColor: "white", padding: "3px" }
+    }
+}));
 
 
 const MyUserAccount = () => {
+
+    // avatar icons 
+    const listIcons = [
+        "AccountCircleIcon",
+        "AdbIcon",
+        "AirplanemodeActiveIcon",
+        "SportsBaseballIcon",
+        "SportsBasketballIcon",
+        "SportsVolleyballIcon",
+        "SportsTennisIcon",
+        "PedalBikeIcon",
+        "HailIcon",
+        "SportsBarIcon",
+        "SportsEsportsIcon",
+        "Face3Icon",
+        "Face2Icon",
+        "SickIcon",
+        "CatchingPokemonIcon"
+    ]
     const [loading, setLoading] = useState(true);
     const [user, setUser] = useState(null);
     const [updated, setUpdated] = useState(false);
@@ -38,6 +96,8 @@ const MyUserAccount = () => {
     const navigate = useNavigate();
 
     const [errors, setErrors] = useState({});
+
+    const colorClass = useStyles();
 
     // # extrea configuration
     // const theme = createTheme({
@@ -51,10 +111,10 @@ const MyUserAccount = () => {
     // # array for years
     const yearChoices = [
                         "1st - Freshman", 
-                        "2nd - Sophemore",
+                        "2nd - Sophomore",
                         "3rd - Junior",
                         "4th - Senior",
-                        "Grudate - Master",
+                        "Graduate - Master",
                         "Graduate - PhD",
                         "Medical Student",
                         "Law Student",
@@ -76,6 +136,20 @@ const MyUserAccount = () => {
             .finally(() => {setLoading(false)});
 
     }, [loggedinInfo.loggedin, loggedinInfo.loggedinId, navigate])
+
+    // * popper effects
+    // * anchor
+    const [none, setNone] = useState("none");
+
+    // const handleClick = (event) => {
+    //     setAnchorEl(anchorEl ? null : event.currentTarget);
+    // };
+
+    // const open = Boolean(anchorEl);
+    // const popId = open ? 'simple-popper' : undefined;
+
+
+
 
 
     const updateUser = (e) => {
@@ -262,6 +336,15 @@ const MyUserAccount = () => {
         setUser(tempUser);
     }
 
+    const changeAvator = (value) => {
+        setUser({ ...user, avatarIcon: value });
+    }
+    // * oepne popper
+    // const togglePopper = () => {
+
+    // };
+
+
     return (
         <div className="vh-100">
             <div className="container py-5 align-items-center">
@@ -279,10 +362,112 @@ const MyUserAccount = () => {
                                                 {/* <img src=""
                                                             alt="Generic placeholder image" className="img-fluid rounded-circle border border-dark border-3"
                                                         style={{width: "70px"}}/> */}
-                                                <Avatar sx={{ bgcolor: blue[500] }}>
-                                                    <AccountCircleIcon />
-                                                </Avatar>
+
+
+                                                <Badge
+                                                    overlap="circular"
+                                                    anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                                                    badgeContent={
+
+                                                        <IconButton className={colorClass.customHoverFocus} onClick={(e) => {setNone("")}} sx={{color : "#fff", padding: "10px"}}>
+                                                            <EditIcon fontSize="medium" color="primary" />
+                                                        </IconButton>
+                                                    }
+                                                >
+                                                    <Avatar sx={{ bgcolor: [user.avatarColor]}}>
+                                                        <AvatarIcon iconValue={user.avatarIcon} />
+                                                    </Avatar>
+                                                </Badge>
+
+
                                             </div>
+
+                                            {/* // *popper for the spritis */}
+                                            {/* <Popper
+                                                id={popId}
+                                                open={open}
+                                                anchorEl={anchorEl}
+                                                placement="right-start"
+                                                onClick={handleClick}
+                                                modifiers={[
+                                                    {
+                                                        name: 'flip',
+                                                        enabled: true,
+                                                        options: {
+                                                            altBoundary: true,
+                                                            rootBoundary: 'viewport',
+                                                            padding: 8,
+                                                        }
+                                                    },
+                                                    // {
+                                                    //     offset: {
+                                                    //         enabled: true,
+                                                    //         offset: '0, 30'
+                                                    //     }
+                                                    // },
+                                                    {
+                                                        name: 'preventOverflow',
+                                                        enabled: true,
+                                                        options: {
+                                                            altAxis: true,
+                                                            altBoundary: true,
+                                                            tether: true,
+                                                            rootBoundary: 'document',
+                                                            padding: 8,
+                                                        },
+                                                    
+                                                ]}> */}
+                                                <Box sx={{ border: 1, pt: 1, px: 1, bgcolor: '#fff', borderRadius: "15px", borderColor: "#808080"}} 
+                                                    style={{ position: 'fixed', top: "15%", display: [none]}}
+                                                    className="w-sm-75 w-md-32 w-lg-32 w-xl-25">
+                                                    <div className="d-flex justify-content-end">
+                                                        <div className="close-button">
+                                                            <IconButton onClick={(e) => {setNone("none")}}>
+                                                                <CloseIcon fontSize="medium" sx={{ color: "#000" }}  />
+                                                            </IconButton>
+                                                        </div>
+                                                    </div>
+                                                    <div className="d-flex flex-wrap">
+                                                        <input
+                                                            type="color"
+                                                            name="avatarColor"
+                                                            value = {user.avatarColor}
+                                                            onChange={handleChange}
+                                                            className="form-control"/>
+
+
+
+                                                    {
+                                                        listIcons.map((icon, i) => {
+                                                            // console.log(icon);
+                                                            
+                                                            return (
+                                                                <div key={i}>
+                                                                    <IconButton onClick={(e) => {changeAvator(icon)}}>
+                                                                        <AvatarIcon iconValue={icon} color="#888" />
+                                                                    </IconButton>
+
+                                                                </div>
+                                                            )
+                                                        })
+                                                    }
+                                                    {/* <IconButton  onClick={() => { }}>
+                                                        <AvatarIcon iconValue="AdbIcon" />
+                                                    </IconButton>
+                                                     */}
+
+                                                    </div>
+                                                    <div className="d-flex justify-content-center">
+                                                        <div className="close-button" onClick={updateUser}>
+                                                            <button className='btn btn-outline-primary my-2'>
+                                                                {updated ? "✓ Updated" : "Update"}
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </Box>
+
+                                            {/* </Popper> */}
+
                                             <div className="d-flex flex-column ms-3">
                                                 <div className="">
                                                     <h4 className="mb-0">{user.nickname} </h4>
@@ -510,7 +695,7 @@ const MyUserAccount = () => {
                                         <div className="d-flex gap-2 mb-3 w-100 flex-wrap">
                                             {user.interests ? <>
                                                 {Object.keys(user.interests).map((interest, i) => {
-                                                    return <Chip label={interest} variant="outlined" style={{backgroundColor : "#2E7D32", borderRadius : "15px"}} onDelete={(e) => deleteInterest(e, interest)} key={i} />
+                                                    return <Chip label={interest} variant="outlined" style={{backgroundColor : "#2E7D32", borderRadius : "15px", color: "#fff"}} onDelete={(e) => deleteInterest(e, interest)} key={i} />
                                                 })}
                                             </> : <></>  
                                             }

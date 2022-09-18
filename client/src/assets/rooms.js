@@ -58,7 +58,7 @@ const rooms = [
 ["Business/managerial economics", "major"],
 ["Biomathematics, bioinformatics, and computational biology", "major"],
 ["Communication", "major"],
-["Film/cinema/video studies", "major"],
+["Film, cinema, video studies", "major"],
 ["Ecology", "major"],
 ["Asian-american studies", "major"],
 ["Dance", "major"],

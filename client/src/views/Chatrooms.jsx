@@ -141,7 +141,7 @@ const Chatrooms = () => {
                         (
                             <>
                                 <h2 className="mt-5">Discover Bruin Community</h2>
-                                <p className="text-success"> <span className=""></span> 1203 online</p>
+                                {/* <p className="text-success"> <span className=""></span> 1203 online</p> */}
                                 <div className="d-flex justify-content-center">
                                     <div className="input-group search-bar p-4 w-md-50 w-lg-50">
                                         <input type="text" className="form-control rounded live-search-box regular" placeholder="Search Channels" aria-label="Search Channels"

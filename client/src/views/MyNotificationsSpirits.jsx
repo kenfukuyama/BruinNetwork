@@ -32,6 +32,7 @@ import ClearAllIcon from '@mui/icons-material/ClearAll';
 
 import WhatshotIcon from '@mui/icons-material/Whatshot';
 import NotificationsNavigation from '../components/NotificationsNavigation';
+import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 
 
 import IconButton from '@mui/material/IconButton';
@@ -44,6 +45,7 @@ const MyNotificationsSpirits = () => {
     const [loading, setLoading] = useState(true);
     const [spiritsNotifications, setSpiritsNotifications] = useState([]);
     const {loggedinInfo} = useContext(LoggedinContext);
+    const [spiritCount, setSpiritCount] = useState(null);
     const [inviationCounts, setInviationCounts] = useState(0);
 
 
@@ -51,6 +53,7 @@ const MyNotificationsSpirits = () => {
         axios.get('http://localhost:8000/api/users/' + loggedinInfo.loggedinId)
         .then(res => {
             console.log(res.data);
+            setSpiritCount(res.data.spiritsCount);
             setSpiritsNotifications(res?.data?.spiritsNotifications?.reverse());
         })
         .finally(() => {setLoading(false);})
@@ -101,6 +104,10 @@ const MyNotificationsSpirits = () => {
                                     <div className="d-flex align-item-center justify-content-center mb-3 gap-2">
                                         <Button color="warning" variant="contained" id="navButton" startIcon={<WhatshotIcon />}>SPIRITS</Button>
                                         <Button  onClick={clearAll} style={{color : "#888888"}} startIcon={<ClearAllIcon style={{color : "#888888"}} />} >CLEAR ALL</Button>
+                                    </div>
+
+                                    <div className="d-flex align-item-center justify-content-center mb-3">
+                                        <Button color="primary" variant="contained" id="navButton" startIcon={<EmojiEventsIcon />}>{spiritCount} SPIRIT{spiritCount > 0 ? "S" : ""}</Button>
                                     </div>
 
                                     <div className="d-flex justify-content-center flex-wrap">

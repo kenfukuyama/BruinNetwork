@@ -15,6 +15,7 @@ import {blue} from '@mui/material/colors';
 
 
 
+
 import {
     Switch,
     FormGroup,
@@ -25,8 +26,7 @@ import IconButton from '@mui/material/IconButton';
 import Chip from '@mui/material/Chip';
 import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
 
-import { createTheme, ThemeProvider} from '@mui/material/styles';
-
+// import { createTheme, ThemeProvider} from '@mui/material/styles';
 
 
 const MyUserAccount = () => {
@@ -37,17 +37,16 @@ const MyUserAccount = () => {
     const [interest, setInterest] = useState("");
     const navigate = useNavigate();
 
-    const [green, setGreen] = useState("");
     const [errors, setErrors] = useState({});
 
     // # extrea configuration
-    const theme = createTheme({
-        palette: {
-            white: {
-                main: '#ffffff',
-            }
-        }
-    });
+    // const theme = createTheme({
+    //     palette: {
+    //         white: {
+    //             main: '#ffffff',
+    //         }
+    //     }
+    // });
 
     // # array for years
     const yearChoices = [
@@ -73,7 +72,6 @@ const MyUserAccount = () => {
             .then(res => {
                 // console.log(res.data);
                 setUser(res.data);
-                setGreen("success");
             })
             .finally(() => {setLoading(false)});
 
@@ -269,7 +267,7 @@ const MyUserAccount = () => {
             <div className="container py-5 align-items-center">
                 <div className="row d-flex justify-content-center align-items-center mt-4">
                     <div className="col col-md-9 col-lg-7 col-xl-5">
-                        {!user || loading || !green ?
+                        {!user || loading ?
                             (<ScaleLoader size={100} color="white" loading={loading} cssOverride={{ display: "block", position: "fixed", bottom: "5%", right: "10%" }} />)
                             :
                             (
@@ -496,11 +494,11 @@ const MyUserAccount = () => {
                                                     onBlur = {e => handleBlurInterest(e)}
                                                     className={`form-control mb-1 w-50 ${errors.interest ? "border-danger" : "" }`}/>
                                                 
-                                                <ThemeProvider theme={theme}>
-                                                    <IconButton color="primary" aria-label="add to interest" onClick={handleInterestSubmit}>
+                                                {/* <ThemeProvider theme={theme}> */}
+                                                    <IconButton style={{color : "#fff"}} aria-label="add to interest" onClick={handleInterestSubmit}>
                                                         <PlaylistAddIcon fontSize="medium" />
                                                     </IconButton>
-                                                </ThemeProvider>
+                                                {/* </ThemeProvider> */}
                                             </div>
                                             {errors.interest ?
                                                 <span className="form-text text-danger">
@@ -510,10 +508,11 @@ const MyUserAccount = () => {
                                         </div>
 
                                         <div className="d-flex gap-2 mb-3 w-100 flex-wrap">
-                                            {
-                                                Object.keys(user.interests).map((interest, i) => {
-                                                    return <Chip label={interest} sx = {{bgcolor : blue[100]}} onDelete={(e) => deleteInterest(e, interest)} key={i} />
-                                                })
+                                            {user.interests ? <>
+                                                {Object.keys(user.interests).map((interest, i) => {
+                                                    return <Chip label={interest} variant="outlined" style={{backgroundColor : "#2E7D32", borderRadius : "15px"}} onDelete={(e) => deleteInterest(e, interest)} key={i} />
+                                                })}
+                                            </> : <></>  
                                             }
                                         </div>
                                         

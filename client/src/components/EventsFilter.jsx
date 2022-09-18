@@ -18,15 +18,15 @@ const EventsFilter = ({setFilter}) => {
     // const navigate = useNavigate();
     return (
         <div className="navigation-icons d-flex justify-content-center align-items-center gap-5">
-            <IconButton color="info" onClick={() => setFilter("SortByTitle")}>
+            <IconButton sx={{color : "#fff"}} onClick={() => setFilter("SortByTitle")}>
                 <SortByAlphaIcon fontSize="medium" />
             </IconButton>
 
-            <IconButton color="info" onClick={() => setFilter("SortByDateAscending")}>
+            <IconButton sx={{color : "#fff"}} onClick={() => setFilter("SortByDateAscending")}>
                 <FormatListNumberedIcon fontSize="medium" />
             </IconButton>
             
-            <IconButton onClick={() => setFilter("Reset")}>
+            <IconButton sx={{color : "#fff"}} onClick={() => setFilter("Reset")}>
                 <BackspaceIcon fontSize="small" />
             </IconButton>
         </div>

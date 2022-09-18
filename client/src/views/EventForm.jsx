@@ -157,6 +157,7 @@ const EventForm = (props) => {
                                     <label className="form-label">Description</label><br />
                                     <textarea
                                         placeholder='Description'
+                                        rows="5"
                                         name="description"
                                         value={event.description}
                                         onChange={handleChange}

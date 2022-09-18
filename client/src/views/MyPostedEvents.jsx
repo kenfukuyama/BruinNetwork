@@ -10,6 +10,9 @@ import EventListEdit from '../components/EventListEdit';
 import ScaleLoader from 'react-spinners/ScaleLoader';
 import EventsNavigation from '../components/EventsNavigation';
 
+import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
+import Button from '@mui/material/Button';
+
 
 const MyPostedEvents = () => {
     const {loggedinInfo} = useContext(LoggedinContext);
@@ -59,6 +62,9 @@ const MyPostedEvents = () => {
 
                                 </div>
                                 <EventsNavigation/>
+                                <div className="d-flex align-item-center justify-content-center my-2">
+                                        <Button color="primary" variant="contained" id="navButton" startIcon={<LibraryBooksIcon />}>POSTED EVENTS</Button>
+                                </div>
                                 {events && <EventListEdit events={events} />}
                             </div>
                         }

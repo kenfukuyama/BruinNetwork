@@ -151,6 +151,7 @@ const EventFormEdit = (props) => {
                                             <label className="form-label">Description</label><br />
                                             <textarea
                                                 name="description"
+                                                rows="5"
                                                 value={event.description}
                                                 onChange={handleChange}
                                                 className={`form-control ${errorsObj.description ? "border-danger" : ""}`} />

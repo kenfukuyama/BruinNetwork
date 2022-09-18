@@ -74,6 +74,10 @@ const UserSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.Mixed,
         default: []
     },
+    recentRooms : {
+        type: mongoose.Schema.Types.Mixed,
+        default: [-1, -1, -1]
+    }
 
 }, { timestamps: true, minimize: false });
 

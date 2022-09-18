@@ -242,7 +242,7 @@ const UserPage = (props) => {
             return eachEvent;
         })
 
-        console.log(loggedinUser);
+        // console.log(loggedinUser);
         if (loggedinUser) {
             axios.put('http://localhost:8000/api/users/' + loggedinInfo.loggedinId, tempLoggedInUser)
                 .then(res => {

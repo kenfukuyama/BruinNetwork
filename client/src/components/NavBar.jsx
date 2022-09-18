@@ -26,14 +26,14 @@ function NavBar() {
 
 
     useEffect(() => {
-        console.log("runing navbar hook");
-        console.log(loggedinInfo.loggedinId);
+        // console.log("runing navbar hook");
+        // console.log(loggedinInfo.loggedinId);
         if (loggedinInfo.loggedinId) {
             axios.get('http://localhost:8000/api/users/' + loggedinInfo.loggedinId)
             .then(res => {
                 // console.log(res.data);
                 let tempNotifications = res?.data?.spiritsNotifications?.length;
-                console.log(tempNotifications);
+                // console.log(tempNotifications);
                 setNotifications(tempNotifications);
             })
     
@@ -41,7 +41,7 @@ function NavBar() {
             axios.post("http://localhost:8000/api/friendships/waiting", {userId : loggedinInfo.loggedinId})
             .then(res => {
                 let tempNotifications1 = res?.data?.length;
-                console.log("requests" + tempNotifications1);
+                // console.log("requests" + tempNotifications1);
                 setRequestCount(tempNotifications1);
             })
             

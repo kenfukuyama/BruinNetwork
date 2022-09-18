@@ -209,7 +209,7 @@ const MyUserAccount = () => {
         let errObj = {...errors};
         let isOk = true;
         // * check wehhte they larey have 10 intersts or the lenght of interst is 30 characters or shorter
-        if (Object.keys(user.interests).length == 10) {
+        if (Object.keys(user.interests).length >= 10) {
             errObj['interest'] = "You can only add 10 interests to your profile";
             isOk = false;
         }

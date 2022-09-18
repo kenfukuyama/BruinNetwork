@@ -30,7 +30,6 @@ const ChatroomPublic = ({beat}) => {
     const [messages, setMessages] = useState([]);
 
     useEffect(() => {
-        console.log("runing use Effect chatroomPublic");
         if (!loggedinInfo.loggedin) {
             // ! disconnect socket if you returning
             socket.disconnect(true);
@@ -52,7 +51,6 @@ const ChatroomPublic = ({beat}) => {
                     .then(res => {
                         let tempedUsername = res.data.username;
                         // ! this takes care of case when user refreshes, and destroy username
-                        // console.log(loggedinInfo.loggedinId );
                         setLoggedinInfo({ ...loggedinInfo, loggedinUsername: tempedUsername})
                         setLoading(false);
                         setMessage({ ...message, username: tempedUsername, userId : loggedinInfo.loggedinId  });
@@ -67,7 +65,7 @@ const ChatroomPublic = ({beat}) => {
                 setLoading(false)
                 setMessage({ ...message, username: loggedinInfo.loggedinUsername, userId : loggedinInfo.loggedinId});
                 // * let everyone knows that they joined
-                socket.emit("chat", { content: `${loggedinInfo.ploggedinUsername} joined`, username: loggedinInfo.loggedinUsername, type: "JOIN", roomId : roomId, time : new Date(), userId : loggedinInfo?.loggedinId});
+                socket.emit("chat", { content: `${loggedinInfo.loggedinUsername} joined`, username: loggedinInfo.loggedinUsername, type: "JOIN", roomId : roomId, time : new Date(), userId : loggedinInfo?.loggedinId});
             }
         }
 
@@ -75,12 +73,10 @@ const ChatroomPublic = ({beat}) => {
 
         // ! handle incomimg messages
             socket.on('chat', (data) => {
-                console.log(data);
                 
                 setMessages(messages => {return [...messages, data]});
 
                 if (data.type === "CHAT" && data.userId !== loggedinInfo.loggedinId) {
-                    // console.log( loggedinInfo.loggedinId)
                     beat.play().catch();
                 }
             })
@@ -110,9 +106,7 @@ const ChatroomPublic = ({beat}) => {
         e.preventDefault();
 
         // empty message or white space
-        // console.log(message.content.trim().length);
         if (message.content.trim().length < 1) {
-            // console.log(message.content.trim().length);
             return;
         }
         socket.emit('chat', {...message, time: new Date()});

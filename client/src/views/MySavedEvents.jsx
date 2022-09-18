@@ -9,6 +9,8 @@ import { LoggedinContext } from '../context/LoggedinContext';
 import SavedEventsList from '../components/SavedEventsList';
 import ScaleLoader from 'react-spinners/ScaleLoader';
 import EventsNavigation from '../components/EventsNavigation';
+import BookmarkIcon from '@mui/icons-material/Bookmark';
+import Button from '@mui/material/Button';
 
 const MySavedEvents = () => {
     const {loggedinInfo} = useContext(LoggedinContext);
@@ -52,7 +54,13 @@ const MySavedEvents = () => {
                                 
 
                                 </div>
+
+
                                 <EventsNavigation/>
+                                <div className="d-flex align-item-center justify-content-center my-2">
+                                        <Button color="primary" variant="contained" id="navButton" startIcon={<BookmarkIcon />}>SAVED EVENTS</Button>
+                                </div>
+
                                 {events && <SavedEventsList events={events} />}
                             </div>
                         }

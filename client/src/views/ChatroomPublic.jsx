@@ -138,7 +138,7 @@ const ChatroomPublic = ({beat}) => {
 
         // ! handleOnline number changes
         socket.on('onlineNumberUpdate', (data) => {
-            console.log(data);
+            // console.log(data);
             setOnlineNumber(data?.onlineNumber);
             // if (data.type === "CHAT" && data.userId !== loggedinInfo.loggedinId) {
             //     beat.play().catch();
@@ -148,12 +148,12 @@ const ChatroomPublic = ({beat}) => {
 
         // ! disconnet is acting weired
         return function cleanup() {
-            if (loggedinInfo.loggedinUsername) {
-                socket.emit("chat", { content: `${loggedinInfo.loggedinUsername} left`, username: loggedinInfo.loggedinUsername, type: "LEAVE", roomId : roomId , time : new Date(), userId : loggedinInfo?.loggedinId});
-            }
-            else {
-                socket.emit("chat", { content: `a user left`, username: null , type: "LEAVE", roomId : roomId , time : new Date(),  userId : loggedinInfo?.loggedinId});
-            }
+            // if (loggedinInfo.loggedinUsername) {
+            //     socket.emit("chat", { content: `${loggedinInfo.loggedinUsername} left`, username: loggedinInfo.loggedinUsername, type: "LEAVE", roomId : roomId , time : new Date(), userId : loggedinInfo?.loggedinId});
+            // }
+            // else {
+            //     socket.emit("chat", { content: `a user left`, username: null , type: "LEAVE", roomId : roomId , time : new Date(),  userId : loggedinInfo?.loggedinId});
+            // }
             socket.disconnect(true);
         }
     // eslint-disable-next-line
@@ -239,7 +239,7 @@ const ChatroomPublic = ({beat}) => {
                                         </li>
                                     ) : (
                                         <li className={"chat-message"} key={i}>
-                                            <p className=""> {message.username ? <>@</> : <></>}{message.content}</p>
+                                            <p className={`${message.type === "JOIN" ? "text-success" : "text-secondary"}`}> {message.username ? <>@</> : <></>}{message.content}</p>
                                         </li>
                                     )
                                 )

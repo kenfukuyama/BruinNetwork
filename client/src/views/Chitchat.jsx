@@ -148,12 +148,12 @@ const Chitchat = ({beat}) => {
 
         // ! disconnet is acting weired
         return function cleanup() {
-            if (loggedinInfo.loggedinUsername) {
-                socket.emit("chat", { content: `${loggedinInfo.loggedinUsername} left`, username: loggedinInfo.loggedinUsername, type: "LEAVE", roomId : roomId , time : new Date()});
-            }
-            else {
-                socket.emit("chat", { content: `a user left`, username: null , type: "LEAVE", roomId : roomId , time : new Date()});
-            }
+            // if (loggedinInfo.loggedinUsername) {
+            //     socket.emit("chat", { content: `${loggedinInfo.loggedinUsername} left`, username: loggedinInfo.loggedinUsername, type: "LEAVE", roomId : roomId , time : new Date()});
+            // }
+            // else {
+            //     socket.emit("chat", { content: `a user left`, username: null , type: "LEAVE", roomId : roomId , time : new Date()});
+            // }
             socket.disconnect(true);
         }
     // eslint-disable-next-line

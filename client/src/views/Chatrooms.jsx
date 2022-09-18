@@ -11,8 +11,8 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { blue, lime } from '@mui/material/colors';
+// import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { blue, lime, teal, cyan} from '@mui/material/colors';
 import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/box';
 
@@ -25,11 +25,12 @@ import ScaleLoader from 'react-spinners/ScaleLoader';
 
 import Collapsible from 'react-collapsible';
 import AssistantIcon from '@mui/icons-material/Assistant';
-
-
+import SchoolIcon from '@mui/icons-material/School';
+import ChairIcon from '@mui/icons-material/Chair';
+import MapsHomeWorkIcon from '@mui/icons-material/MapsHomeWork';
 
 const Chatrooms = () => {
-    let chatrooms = rooms.majors;
+    let chatrooms = rooms;
 
 
 
@@ -39,6 +40,7 @@ const Chatrooms = () => {
     const [loading, setLoading] = useState(true);
     const user = useRef(null);
     const recentButtonRef = useRef(null);
+    const onlineNumbers = useRef(null);
     const { loggedinInfo } = useContext(LoggedinContext);
 
 
@@ -57,6 +59,13 @@ const Chatrooms = () => {
                 setLoading(false);
             })
             .finally(() => setLoading(false));
+
+
+        axios.post('http://localhost:8000/api/chatrooms/online-number/all', {})
+        .then(res => {
+            // console.log(res.data);
+            onlineNumbers.current = res.data;
+        })
         // eslint-disable-next-line
     }, []);
 
@@ -77,7 +86,7 @@ const Chatrooms = () => {
             // console.log(chatrooms[roomSelection]);
             updateRecentRooms(roomSelection);
             // replace `/` with an escape character
-            let formattedRoom = chatrooms[roomSelection].replace("/", "%2F");
+            let formattedRoom = chatrooms[roomSelection][0].replace("/", "%2F");
             navigate(`/chatroom/${formattedRoom}`);
         }
 
@@ -170,11 +179,30 @@ const Chatrooms = () => {
                                                                                                     <AssistantIcon />
                                                                                                 </Avatar>
                                                                                             </ListItemAvatar>
-                                                                                            <ListItemText className="text-wrap" id={labelId} primary={<h6 className="mb-0 text-wrap">{chatrooms[recentSelection]}</h6>} />
+                                                                                            {/* <ListItemText className="text-wrap" id={labelId} primary={<h6 className="mb-0 text-wrap">{chatrooms[recentSelection]}</h6>} /> */}
+                                                                                            <ListItemText className="text-wrap" id={labelId} primary={<h6 className="mb-0 text-wrap">{chatrooms[recentSelection][0]}<em className="text-muted"><br/>{chatrooms[recentSelection][1]}</em></h6>} />
                                                                                         </ListItemButton>
                                                                                     </ListItem>
-                                                                                    <div className="category">
-                                                                                        <p className="pe-1 text-muted">Major</p>
+                                                                                    <div className="category d-flex align-items-center justify-content-center">
+                                                                                        {/* <p className="pe-1 text-muted">Major</p> */}
+                                                                                        { onlineNumbers.current ? <>
+                                                                                                {onlineNumbers.current[chatrooms[recentSelection][0]] ? 
+                                                                                                <>
+                                                                                                    <div className="online-number">
+                                                                                                        <p className="pe-1 text-muted mb-0">{onlineNumbers.current[chatrooms[recentSelection][0]] }</p>
+                                                                                                    </div>
+                                                                                                    <svg height="25" width="25" className="blinking">
+                                                                                                        <circle cx="12.5" cy="12.5" r="5" fill="green" />
+                                                                                                    </svg> 
+                                                                                                </>
+                                                                                            : <></>}
+                                                                                        
+                                                                                        
+                                                                                        </> : <></>}
+                                                                                        
+                                                                                        
+                                                                                        {/* <p className="pe-1 text-muted">{onlineNumbers.current[chatrooms[recentSelection]] ? onlineNumbers.current[chatrooms[recentSelection]] : ""}</p> */}
+
                                                                                     </div>
                                                                                 </div>
                                                                             </>}
@@ -190,10 +218,9 @@ const Chatrooms = () => {
 
                                                 </Collapsible>
                                                 : <>
-                                                    <p className="text-muted mb-1">Loading ...</p>
+                                                    <p className="text-muted mb-1">loading recent rooms...</p>
                                                 </>
                                             }
-
 
                                 {/* <form name="chatroomNameForm" className="chatroomSelection"> */}
                                     
@@ -208,15 +235,46 @@ const Chatrooms = () => {
                                                                 key={i}>
                                                                 <ListItemButton sx={{ py: 3 }} onClick={(e) => { handleChange(e, i) }} >
                                                                     <ListItemAvatar>
-                                                                        <Avatar sx={{ bgcolor: blue[500] }}>
-                                                                            <AccountCircleIcon />
+                                                                        <Avatar sx={{ bgcolor: 
+                                                                            room[1] === "major" ?  blue[500] : 
+                                                                                (room[1] === "dorm" || room[1] === "on campus" ? teal[500] :
+                                                                                    (room[1] === "university apartment" ||  room[1] === "off campus" ? cyan[500] : 
+                                                                                        ""
+                                                                                    )
+                                                                                ) 
+                                                                        }}>
+                                                                            
+                                                                        {room[1] ==="major" ?  <SchoolIcon /> : 
+                                                                            <> {room[1] === "dorm" || room[1] === "on campus" ? <ChairIcon/> : 
+                                                                                <> {room[1] === "university apartment" ||  room[1] === "off campus" ? <MapsHomeWorkIcon/> : 
+                                                                                    <>
+                                                                                    </>
+                                                                                } </>
+                                                                            } </>
+                                                                        }
                                                                         </Avatar>
                                                                     </ListItemAvatar>
-                                                                    <ListItemText className="text-wrap" id={labelId} primary={<h6 className="mb-0 text-wrap">{room}</h6>} />
+                                                                    <ListItemText className="text-wrap" id={labelId} primary={<h6 className="mb-0 text-wrap">{room[0]}<em className="text-muted"><br/>{room[1]}</em></h6>} />
                                                                 </ListItemButton>
                                                             </ListItem>
-                                                            <div className="category">
-                                                                <p className="pe-1 text-muted">Major</p>
+                                                            <div className="category d-flex align-items-center justify-content-center">
+                                                                {/* <p className="pe-1 text-muted">Major</p> */}
+                                                                {onlineNumbers.current ? <>
+                                                                    {onlineNumbers.current[room[0]] ?
+                                                                        <>
+                                                                            <div className="online-number">
+                                                                                <p className="pe-1 text-muted mb-0">{onlineNumbers.current[room[0]]}</p>
+                                                                            </div>
+                                                                            <svg height="25" width="25" className="blinking">
+                                                                                <circle cx="12.5" cy="12.5" r="5" fill="green" />
+                                                                            </svg>
+                                                                        </>
+                                                                        : <></>}
+
+                                                                </> : <></>}
+
+                                                                {/* <p className="pe-1 text-muted">{onlineNumbers.current[chatrooms[recentSelection]] ? onlineNumbers.current[chatrooms[recentSelection]] : ""}</p> */}
+
                                                             </div>
                                                         </div>
                                                     );
@@ -232,7 +290,7 @@ const Chatrooms = () => {
                                     <div className="form-group fixed-bottom mb-4">
                                         {error && <p className="text-danger">{error}</p>}
                                         <button type="submit" className={`chatrooms-submit ${roomSelection === -1 ? "bg-transparent border-info" : ""} text-wrap btn btn-lg w-md-50 w-lg-25 w-xl-25 w-xxl-25 ${error ? "border-danger" : ""}`} onClick={enterChat}>
-                                            {roomSelection === -1 ? <>Let's Chat</> : <>{chatrooms[roomSelection]} <i className="bi-arrow-right-short"></i></>}
+                                            {roomSelection === -1 ? <>Let's Chat</> : <>{chatrooms[roomSelection][0]} <i className="bi-arrow-right-short"></i></>}
 
 
                                         </button>

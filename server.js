@@ -23,11 +23,12 @@ app.use(express.json(), express.urlencoded({ extended: true }));
 
 // extra files
 const colors =  require('colors');
+const { application, response } = require('express');
 colors.enable();
 
 
 
-// Routes for server
+// ! Routes for server
 require('./server/routes/event.routes')(app); 
 require('./server/routes/user.routes')(app); 
 require('./server/routes/chitchat.routes')(app); 
@@ -45,8 +46,6 @@ const io = require('socket.io')(server, { cors: true });
 
 // let queueObject = require('/data/chitchatQueue');
 
-
-
 // socket connections
 io.on("connection", (socket) => {
     // ! connection received
@@ -62,15 +61,9 @@ io.on("connection", (socket) => {
 
         // this emits to all
         // io.emit("chat", data);
+        socket.username = data.username;
+        // console.log(socket.username);
         io.to(data.roomId).emit("chat", data);
-
-        if (data.type === "LEAVE") {
-            const clients = io.sockets.adapter.rooms.get(data.roomId);
-            const onlineNumber = clients ? clients.size-1 : 0;
-            console.log(onlineNumber-1);
-            io.to(data.roomId).emit("onlineNumberUpdate", {onlineNumber : onlineNumber});
-            
-        }
     })
 
     // * for joining the rooms to specific room
@@ -81,17 +74,52 @@ io.on("connection", (socket) => {
         const clients = io.sockets.adapter.rooms.get(data.roomId);
         const onlineNumber = clients ? clients.size : 0;
         io.to(data.roomId).emit("onlineNumberUpdate", {onlineNumber : onlineNumber});
-        console.log(socket.rooms);
+        // console.log(socket.rooms);
+        // console.log(io.sockets.adapter.rooms);
     })
     
     // ! disconnected
+
+    // ! we will update all the users abou the change
+    socket.on("disconnecting", (reason) => {
+        console.log("disconnecting");
+        // console.log(socket.rooms);
+        for (const room of socket.rooms) {
+            if (room !== socket.id) {
+                const clients = io.sockets.adapter.rooms.get(room);
+                const onlineNumber = clients ? clients.size-1 : 0;
+                // console.log(onlineNumber);
+                const leftData = { content: `${socket.username} left`, username: socket.username, type: "LEAVE", roomId : room , time : new Date()}
+                io.to(room).emit("chat", leftData);
+                io.to(room).emit("onlineNumberUpdate", {onlineNumber : onlineNumber});
+            }
+        }
+    });
     socket.on("disconnect", (reason) => {
         console.log(colors.red(`-> user disconnected: ${socket.id} - ${reason}`));
+        // console.log(socket.rooms);
         
     });
 
 })
 
+
+const getOnlineNumber = (request, response) => {
+    // console.log(io.sockets.adapter.rooms);
+    // console.log("ran");
+    let onlineObj = {}
+    for (const room of io.sockets.adapter.rooms) {
+        // console.log(room);
+        onlineObj[room[0]] = room[1].size
+    }
+    // console.log(onlineObj);
+    response.status(200).json(onlineObj);
+
+};
+
+// module.exports = {getOnlineNumber};
+
+app.post('/api/chatrooms/online-number/all', getOnlineNumber);
 
 // googleAssistant.promptUser();
 // googleAssistant.getResponse("hello there!");

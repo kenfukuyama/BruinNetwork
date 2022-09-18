@@ -11,16 +11,25 @@ import Avatar from '@mui/material/Avatar';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import {blue} from '@mui/material/colors';
 
+
+
+import { styled } from '@mui/material/styles';
+import Badge from '@mui/material/Badge';
+
 const Chitchat = ({beat}) => {
     const messageAreaRef = useRef(null);
     const navigate = useNavigate();
 
     const {roomId} = useParams();
+    const [onlineNumber, setOnlineNumber] = useState(10);
+
 
     const {loggedinInfo,setLoggedinInfo} = useContext(LoggedinContext);
     const [loading, setLoading] = useState(true);
     const [otherUserLoading, setOtherUserLoading] = useState(true);
     const [otherUser, setOtherUser] = useState(null);
+
+    
 
 
 
@@ -34,6 +43,37 @@ const Chitchat = ({beat}) => {
         time : "",
     });
     const [messages, setMessages] = useState([]);
+
+
+    // ! for avator theme
+    const StyledBadge = styled(Badge)(({ theme }) => ({
+        '& .MuiBadge-badge': {
+            backgroundColor: '#44b700',
+            color: '#44b700',
+            boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
+            '&::after': {
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+                borderRadius: '50%',
+                animation: 'ripple 1.2s infinite ease-in-out',
+                border: '1px solid currentColor',
+                content: '""',
+            },
+        },
+        '@keyframes ripple': {
+            '0%': {
+                transform: 'scale(.8)',
+                opacity: 1,
+            },
+            '100%': {
+                transform: 'scale(2.4)',
+                opacity: 0,
+            },
+        },
+    }));
 
     useEffect(() => {
         console.log("runing use Effect chatroomPublic");
@@ -97,6 +137,15 @@ const Chitchat = ({beat}) => {
 
         })
 
+        // ! handleOnline number changes
+        socket.on('onlineNumberUpdate', (data) => {
+            console.log(data);
+            setOnlineNumber(data?.onlineNumber);
+            // if (data.type === "CHAT" && data.userId !== loggedinInfo.loggedinId) {
+            //     beat.play().catch();
+            // }
+        })
+
         // ! disconnet is acting weired
         return function cleanup() {
             if (loggedinInfo.loggedinUsername) {
@@ -153,9 +202,16 @@ const Chitchat = ({beat}) => {
                                 {/* <img src=""
                                                             alt="Generic placeholder image" className="img-fluid rounded-circle border border-dark border-3"
                                                         style={{width: "70px"}}/> */}
-                                <Avatar sx={{ bgcolor: blue[500] }}>
-                                    <AccountCircleIcon />
-                                </Avatar>
+                                <StyledBadge
+                                    overlap="circular"
+                                    anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                                    variant={`${onlineNumber > 1 ? "dot" : ""}`}
+                                >
+                                    <Avatar sx={{ bgcolor: blue[500] }}>
+                                        <AccountCircleIcon />
+                                    </Avatar>
+                                </StyledBadge>
+
                             </div>
                             <div className="d-flex flex-column ms-3 justify-content-end align-items-center mt-2 text-white">
                                 <div className="text-wrap">

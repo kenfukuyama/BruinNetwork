@@ -8,15 +8,26 @@ import {LoggedinContext} from '../context/LoggedinContext';
 import PropagateLoader from "react-spinners/PropagateLoader";
 import { useRef } from 'react';
 
+import Avatar from '@mui/material/Avatar';
+import AvatarGroup from '@mui/material/AvatarGroup';
+import { styled } from '@mui/material/styles';
+import Badge from '@mui/material/Badge';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { blue} from '@mui/material/colors';
+
+
+
 
 const ChatroomPublic = ({beat}) => {
     const messageAreaRef = useRef(null);
     const navigate = useNavigate();
 
     const {roomId} = useParams();
+    const [onlineNumber, setOnlineNumber] = useState(10);
 
     const {loggedinInfo,setLoggedinInfo} = useContext(LoggedinContext);
     const [loading, setLoading] = useState(true);
+    
 
     const [socket] = useState(() => io(':8000'));
     const [message, setMessage] = useState({
@@ -28,6 +39,46 @@ const ChatroomPublic = ({beat}) => {
         time : "",
     });
     const [messages, setMessages] = useState([]);
+
+
+    const StyledBadge = styled(Badge)(({ theme }) => ({
+        '& .MuiBadge-badge': {
+            backgroundColor: '#44b700',
+            color: '#44b700',
+            boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
+            '&::after': {
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+                borderRadius: '50%',
+                animation: 'ripple 1.2s infinite ease-in-out',
+                border: '1px solid currentColor',
+                content: '""',
+            },
+        },
+        '@keyframes ripple': {
+            '0%': {
+                transform: 'scale(.8)',
+                opacity: 1,
+            },
+            '100%': {
+                transform: 'scale(2.4)',
+                opacity: 0,
+            },
+        },
+    }));
+
+    const StyledAvatorGroup = styled(AvatarGroup)(({ theme }) => ({
+        '& .css-sxh3gq-MuiAvatar-root-MuiAvatarGroup-avatar': {
+            backgroundColor: blue[500],
+            // border : '0px'
+        }
+
+    }));
+
+
 
     useEffect(() => {
         if (!loggedinInfo.loggedin) {
@@ -75,11 +126,24 @@ const ChatroomPublic = ({beat}) => {
             socket.on('chat', (data) => {
                 
                 setMessages(messages => {return [...messages, data]});
+                // let onlineNumber = socket.adapter.rooms.get('roomId');
+                // console.log(onlineNumber);
+
 
                 if (data.type === "CHAT" && data.userId !== loggedinInfo.loggedinId) {
                     beat.play().catch();
                 }
             })
+
+
+        // ! handleOnline number changes
+        socket.on('onlineNumberUpdate', (data) => {
+            console.log(data);
+            setOnlineNumber(data?.onlineNumber);
+            // if (data.type === "CHAT" && data.userId !== loggedinInfo.loggedinId) {
+            //     beat.play().catch();
+            // }
+        })
 
 
         // ! disconnet is acting weired
@@ -126,13 +190,40 @@ const ChatroomPublic = ({beat}) => {
         return (
 
             <div id="chat-page" className="d-flex align-items-center justify-content-center vh-100 w-100 styled-text text-white">
-                <div className="chat-container w-100 w-sm-75 w-lg-62 w-xxl-50 mt-5">
+                <div className="chat-container w-100 w-sm-75 w-lg-62 w-xxl-50 mt-5 fade-in">
 
                     <div className="d-sm-flex justify-content-center align-items-center flex-column">
                         {/*  */}
                         <h2 id="chatroomName" className="text-center m-0">{roomId ? roomId : "Default Chatroom"}</h2>
 
-                        <p className="text-success mb-1"><span id="number-connected">2</span> Online</p>
+                        {/* <p className="text-success mb-1"><span id="number-connected">2</span> Online</p>
+                        
+                        */}
+                        <StyledAvatorGroup 
+                        max={4} 
+                        className="my-3" 
+                        sx = {{ '.css-5azhe6-MuiAvatarGroup-root' : {border: "0px"} }}
+                        >
+                            {
+                                Array(onlineNumber).fill('1').map((person, i) => {
+                                    return (
+                                        <div key={i}>
+                                            <StyledBadge
+                                                overlap="circular"
+                                                anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                                                variant="dot"
+                                            >
+                                                <Avatar sx={{ bgcolor: blue[500] }}>
+                                                    <AccountCircleIcon />
+                                                </Avatar>
+                                            </StyledBadge>
+
+                                        </div>
+                                    )
+
+                                }) 
+                            }
+                        </StyledAvatorGroup>
                     </div>
 
                     <ul id="messageArea" className="messageAreaPublic scroll-box" ref={messageAreaRef}>

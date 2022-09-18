@@ -861,3 +861,8 @@ margin-bottom: 0;
 .scroll-box::-webkit-scrollbar {
   display: none;
 }
+
+
+.css-sxh3gq-MuiAvatar-root-MuiAvatarGroup-avatar {
+  background-color: #fff;
+}

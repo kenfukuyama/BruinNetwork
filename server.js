@@ -63,6 +63,14 @@ io.on("connection", (socket) => {
         // this emits to all
         // io.emit("chat", data);
         io.to(data.roomId).emit("chat", data);
+
+        if (data.type === "LEAVE") {
+            const clients = io.sockets.adapter.rooms.get(data.roomId);
+            const onlineNumber = clients ? clients.size-1 : 0;
+            console.log(onlineNumber-1);
+            io.to(data.roomId).emit("onlineNumberUpdate", {onlineNumber : onlineNumber});
+            
+        }
     })
 
     // * for joining the rooms to specific room
@@ -70,12 +78,16 @@ io.on("connection", (socket) => {
         // console.log(data);
         // io.emit("chat", data);
         socket.join(data.roomId);
+        const clients = io.sockets.adapter.rooms.get(data.roomId);
+        const onlineNumber = clients ? clients.size : 0;
+        io.to(data.roomId).emit("onlineNumberUpdate", {onlineNumber : onlineNumber});
         console.log(socket.rooms);
     })
     
     // ! disconnected
     socket.on("disconnect", (reason) => {
         console.log(colors.red(`-> user disconnected: ${socket.id} - ${reason}`));
+        
     });
 
 })

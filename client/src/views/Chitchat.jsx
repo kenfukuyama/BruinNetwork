@@ -146,6 +146,16 @@ const Chitchat = ({beat}) => {
             // }
         })
 
+
+        // ! getting local storage data
+        const data = localStorage.getItem(roomId);
+        if (data) {
+            setMessages(JSON.parse(data));
+        }
+
+        
+        
+
         // ! disconnet is acting weired
         return function cleanup() {
             // if (loggedinInfo.loggedinUsername) {
@@ -164,7 +174,8 @@ const Chitchat = ({beat}) => {
         if (!loading && !otherUserLoading) {
             messageAreaRef.current.scrollTop = messageAreaRef.current.scrollHeight;
         }
-    }, [messages, loading, otherUserLoading]);
+        localStorage.setItem(roomId, JSON.stringify(messages));
+    }, [messages, loading, otherUserLoading, roomId]);
 
     const sendMessage = (e) => {
         e.preventDefault();

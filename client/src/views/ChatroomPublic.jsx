@@ -146,6 +146,13 @@ const ChatroomPublic = ({beat}) => {
         })
 
 
+        // ! getting local storage data
+        const data = localStorage.getItem(roomId);
+        if (data) {
+            setMessages(JSON.parse(data));
+        }
+
+
         // ! disconnet is acting weired
         return function cleanup() {
             // if (loggedinInfo.loggedinUsername) {
@@ -164,7 +171,9 @@ const ChatroomPublic = ({beat}) => {
         if (!loading) {
             messageAreaRef.current.scrollTop = messageAreaRef.current.scrollHeight;
         }
-    }, [messages, loading]);
+
+        localStorage.setItem(roomId, JSON.stringify(messages));
+    }, [messages, loading, roomId]);
 
     const sendMessage = (e) => {
         e.preventDefault();

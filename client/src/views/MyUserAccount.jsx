@@ -73,7 +73,6 @@ const MyUserAccount = () => {
     // avatar icons 
     const listIcons = [
         "AccountCircleIcon",
-        "AdbIcon",
         "AirplanemodeActiveIcon",
         "SportsBaseballIcon",
         "SportsBasketballIcon",
@@ -85,9 +84,50 @@ const MyUserAccount = () => {
         "SportsEsportsIcon",
         "Face3Icon",
         "Face2Icon",
+        "FaceIcon",
         "SickIcon",
-        "CatchingPokemonIcon"
+        "CatchingPokemonIcon",
+        "AirplanemodeInactiveIcon",
+        "AppleIcon",
+        "AndroidIcon",
+        "AdbIcon",
+        "ArchitectureIco",
+        "BalanceIco",
+        "BatteryCharging20Ico",
+        "BatteryCharging80Ico",
+        "BatteryChargingFullIco",
+        "Brightness4Ico",
+        "CampaignIco",
+        "CellTowerIco",
+        "CloudCircleIco",
+        "DiningIco",
+        "Diversity2Ico",
+        "Diversity3Ico",
+        "Diversity1Ico",
+        "EngineeringIco",
+        "FitnessCenterIco",
+        "GitHubIco",
+        "HouseboatIco",
+        "LanguageIco",
+        "LibraryMusicIco",
+        "LocalFloristIco",
+        "LocalFireDepartmentIco",
+        "LocalAtmIco",
+        "NightsStayIco",
+        "NordicWalkingIco",
+        "PetsIco",
+        "PsychologyIco",
+        "RestaurantIco",
+        "RocketLaunchIco",
+        "SelfImprovementIco",
+        "SportsFootballIco",
+        "SportsSoccerIco",
+        "SuperscriptIco",
+        "SupervisedUserCircleIco",
+        "SwipeRightIco",
+        "TranslateIco"
     ]
+
     const [loading, setLoading] = useState(true);
     const [user, setUser] = useState(null);
     const [updated, setUpdated] = useState(false);
@@ -417,7 +457,7 @@ const MyUserAccount = () => {
                                                         },
                                                     
                                                 ]}> */}
-                                                <Box sx={{ border: 1, pt: 1, px: 1, bgcolor: '#fff', borderRadius: "15px", borderColor: "#808080"}} 
+                                                <Box sx={{ border: 1, pt: 1, px: 1, bgcolor: '#fff', borderRadius: "15px", borderColor: "#808080", zIndex: "1000"}} 
                                                     style={{ position: 'fixed', top: "15%", display: [none]}}
                                                     className="w-sm-75 w-md-32 w-lg-32 w-xl-25">
                                                     <div className="d-flex justify-content-end">
@@ -427,7 +467,7 @@ const MyUserAccount = () => {
                                                             </IconButton>
                                                         </div>
                                                     </div>
-                                                    <div className="d-flex flex-wrap">
+                                                    <div className="d-flex flex-wrap justify-content-center">
                                                         <input
                                                             type="color"
                                                             name="avatarColor"

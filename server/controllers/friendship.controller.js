@@ -99,7 +99,16 @@ module.exports.findApprovedFriends = (request, response) => {
         // console.log(friendIds);
         return (User.find({_id : {$in: friendIds}}))
     })
-    .then(friends => response.status(200).json(friends))
+    .then(friends => {
+        const result = [];
+        for (const user of friends) {
+            let tempObj = {...user};
+            delete tempObj["_doc"].password;
+            delete tempObj["_doc"].email;
+            result.push( tempObj["_doc"]);
+        }
+        response.status(200).json(result);
+    })
     .catch(err => response.status(400).json(err));
 }
 
@@ -122,7 +131,16 @@ module.exports.findPendingFriends = (request, response) => {
         // console.log(friendIds);
         return (User.find({_id : {$in: friendIds}}))
     })
-    .then(friends => response.status(200).json(friends))
+    .then(friends => {
+        const result = [];
+        for (const user of friends) {
+            let tempObj = {...user};
+            delete tempObj["_doc"].password;
+            delete tempObj["_doc"].email;
+            result.push( tempObj["_doc"]);
+        }
+        response.status(200).json(result);
+    })
     .catch(err => response.status(400).json(err));
 }
 
@@ -144,6 +162,15 @@ module.exports.findWaitingFriends = (request, response) => {
         // console.log(friendIds);
         return (User.find({_id : {$in: friendIds}}))
     })
-    .then(friends => response.status(200).json(friends))
+    .then(friends => {
+        const result = [];
+        for (const user of friends) {
+            let tempObj = {...user};
+            delete tempObj["_doc"].password;
+            delete tempObj["_doc"].email;
+            result.push( tempObj["_doc"]);
+        }
+        response.status(200).json(result);
+    })
     .catch(err => response.status(400).json(err));
 }

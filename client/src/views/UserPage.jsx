@@ -346,7 +346,7 @@ const UserPage = (props) => {
                                                                             {
                                                                                 friendshipStatus === 3 ?
                                                                                     <div className="d-flex confirmation gap-2">
-                                                                                        <button className='btn btn-primary' onClick={(e) => { connect(); setfriendshipStatus(2); }}>Confirm</button>
+                                                                                        <button className='btn btn-success' onClick={(e) => { connect(); setfriendshipStatus(2); }}>Confirm</button>
                                                                                         <button className='btn btn-secondary' onClick={(e) => { disconnect(); setfriendshipStatus(1); }}><i className="bi bi-person-x" /></button>
                                                                                     </div>
                                                                                     : <button className='btn btn-secondary' onClick={(e) => { disconnect(); setfriendshipStatus(1); }}>Pending</button>

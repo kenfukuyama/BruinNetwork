@@ -1,0 +1,39 @@
+
+AirplanemodeInactiveIcon ： AirplanemodeInactiveIcon，
+AndroidIcon :AndroidIcon,
+AppleIcon: AppleIcon,
+ArchitectureIco :ArchitectureIco，
+BalanceIco：BalanceIco，
+BatteryCharging20Ico：BatteryCharging20Ico，
+BatteryCharging80Ico：BatteryCharging80Ico，
+BatteryChargingFullIco：BatteryChargingFullIco，
+Brightness4Ico：Brightness4Ico，
+CampaignIco：CampaignIco，
+CellTowerIco：CellTowerIco，
+CloudCircleIco：CloudCircleIco，
+DiningIco：DiningIco，
+Diversity2Ico：Diversity2Ico，
+Diversity3Ico：Diversity3Ico，
+Diversity1Ico：Diversity1Ico，
+EngineeringIco：EngineeringIco，
+FitnessCenterIco：FitnessCenterIco，
+GitHubIco：GitHubIco，
+HouseboatIco：HouseboatIco，
+LanguageIco：LanguageIco，
+LibraryMusicIco：LibraryMusicIco，
+LocalFloristIco：LocalFloristIco，
+LocalFireDepartmentIco：LocalFireDepartmentIco，
+LocalAtmIco：LocalAtmIco，
+NightsStayIco：NightsStayIco，
+NordicWalkingIco：NordicWalkingIco，
+PetsIco：PetsIco，
+PsychologyIco：PsychologyIco，
+RestaurantIco：RestaurantIco，
+RocketLaunchIco：RocketLaunchIco，
+SelfImprovementIco：SelfImprovementIco，
+SportsFootballIco：SportsFootballIco，
+SportsSoccerIco：SportsSoccerIco，
+SuperscriptIco：SuperscriptIco，
+SupervisedUserCircleIco：SupervisedUserCircleIco，
+SwipeRightIco：SwipeRightIco，
+TranslateIco：TranslateIco，

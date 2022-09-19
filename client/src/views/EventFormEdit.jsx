@@ -122,7 +122,7 @@ const EventFormEdit = (props) => {
                     <div className="row d-flex justify-content-center align-items-center h-100">
                         <div className="col col-md-7 col-lg-8 col-xl-7">
 
-                            <div className="card bg-transparent text-white">
+                            <div className="card bg-transparent text-white scroll-box" style={{overflowY : "scroll", maxHeight: "93vh"}}>
                                 {/* <div className= {loading ? "" : "d-none"}>
                                 <p>Updated</p>
                             </div> */}

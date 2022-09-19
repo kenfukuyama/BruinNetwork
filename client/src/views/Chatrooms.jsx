@@ -86,7 +86,24 @@ const Chatrooms = () => {
         if (roomSelection === -1) {
             setError("Please Select a Chatroom");
         } else {
-            // console.log(chatrooms[roomSelection]);
+            // console.log("running here");
+            // console.log(chatrooms[1][0]);
+            // console.log(displayRooms[roomSelection]);
+            // console.log(displayRooms[roomSelection][0]);
+            // console.log(displayRooms[roomSelection][0] === chatrooms[1][0]);
+
+            // find the index first
+            // let tempIdx = 0;
+            // for (let i = 0; i < chatrooms.length; i++) {
+            //     if (chatrooms[i][0] === displayRooms[roomSelection][0]) {
+            //         tempIdx = i;
+            //         console.log("found at" + i);
+            //         break;
+            //     }
+            // }
+            // console.log(tempIdx );
+
+
             updateRecentRooms(roomSelection);
             // replace `/` with an escape character
             let formattedRoom = chatrooms[roomSelection][0].replace("/", "%2F");
@@ -124,11 +141,27 @@ const Chatrooms = () => {
                 .catch();
     }
 
-    const handleChange = (e, i) => {
-        if (i !== -1) {
+    const handleChange = (e, idx) => {
+        if (idx!== -1) {
             setError("");
         }
-        setRoomSelection(i);
+
+        if (!query) {
+            // no query just pure value
+            setRoomSelection(idx);
+            return;
+
+        }
+        else {
+            let tempIdx = 0;
+            for (let i = 0; i < chatrooms.length; i++) {
+                if (chatrooms[i][0] === displayRooms[idx][0]) {
+                    tempIdx = i;
+                    break;
+                }
+            }
+            setRoomSelection(tempIdx);
+        }
     }
 
     const search = (e) => {
@@ -158,7 +191,7 @@ const Chatrooms = () => {
                                 <div className="d-flex justify-content-center">
                                     <div className="input-group search-bar p-4 w-md-75 w-lg-50">
                                         <input type="text"
-                                            className="form-control rounded live-search-box regular"
+                                            className="form-control rounded live-search-box"
                                             placeholder="Search Chatrooms"
                                             aria-label="Search Chatrooms"
                                             aria-describedby="search-addon"

@@ -27,7 +27,7 @@ import ChatroomPublic from './views/ChatroomPublic';
 import Chitchat from './views/Chitchat';
 import ChitchatLobby from './views/ChitchatLobby';
 import UserPage from './views/UserPage';
-import ChitchatBot from './views/ChitchatBot';
+// import ChitchatBot from './views/ChitchatBot';
 
 import MyFriends from './views/MyFriends';
 import Users from './views/Users';

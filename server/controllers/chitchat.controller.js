@@ -115,7 +115,7 @@ module.exports.checkQueue = (request, response) => {
 // * functions to clear and check the queue
 setInterval(() => {
     // remove users after 3 minutes
-    console.log(colors.cyan(queueObject));
+    // console.log(colors.cyan(queueObject));
 
 
     // ! clear the queue frequecy

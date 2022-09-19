@@ -741,7 +741,7 @@ const MyUserAccount = () => {
                                             }
                                         </div>
                                         
-                                        <button className="btn btn-primary w-25" onClick={updateUser}>{updated ? "✓ Updated" : "Update"}</button>
+                                        <button className="btn btn-primary w-25 mb-3" onClick={updateUser}>{updated ? "✓ Updated" : "Update"}</button>
 
 
                                     </div>

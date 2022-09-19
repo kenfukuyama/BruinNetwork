@@ -112,7 +112,7 @@ const UserFriendsPage = () => {
                                         <div className="d-flex justify-content-center">
                                             <div className="input-group search-bar p-4 w-md-75 w-lg-100">
                                                 <input type="text"
-                                                    className="form-control rounded live-search-box regular"
+                                                    className="form-control rounded live-search-box "
                                                     placeholder="Search Friends"
                                                     aria-label="Search People"
                                                     aria-describedby="search-addon"
@@ -127,35 +127,39 @@ const UserFriendsPage = () => {
                                         <Button color="success" variant="contained" id="navButton" startIcon={<PeopleAltIcon />}>Friends</Button>
                                     </div>
 
-                                    <div className="d-flex justify-content-center flex-wrap">
-                                        <List dense sx={{ width: '100%', bgcolor: 'background.paper', borderRadius: "15px" }}>
-                                            {friends.map((user, i) => {
-                                                const labelId = `checkbox-list-secondary-label-${i}`;
-                                                return (
-                                                    <ListItem sx={{ px: 2 }}
-                                                        key={i}
-                                                        disablePadding
-                                                        secondaryAction={
-                                                            // <Checkbox
-                                                            //     edge="end"
-                                                            //     inputProps={{ 'aria-labelledby': labelId }}
-                                                            // />
-                                                            <p id="profile-major-year-text" className="mb-0 text-right pe-3">{user.year[1]} <br /><em className="text-muted">{user.major}</em></p>
 
-                                                        }
-                                                    >
-                                                        <ListItemButton sx={{ py: 3 }} onClick={() => { nav(`/users/${user._id}`) }}>
-                                                            <ListItemAvatar>
-                                                                <Avatar sx={{ bgcolor: user.avatarColor }}>
-                                                                    <AvatarIcon iconValue={user.avatarIcon} />
-                                                                </Avatar>
-                                                            </ListItemAvatar>
-                                                            <ListItemText id={labelId} primary={<h6 className="mb-0">{user.nickname}<em className="text-muted"> (@{user.username})</em></h6>} />
-                                                        </ListItemButton>
-                                                    </ListItem>
-                                                );
-                                            })}
-                                        </List>
+                                    <div className="d-flex justify-content-center flex-wrap">
+                                        {friends.length > 0 ? <>
+                                            <List dense sx={{ width: '100%', bgcolor: 'background.paper', borderRadius: "15px" }}>
+                                                {friends.map((user, i) => {
+                                                    const labelId = `checkbox-list-secondary-label-${i}`;
+                                                    return (
+                                                        <ListItem sx={{ px: 2 }}
+                                                            key={i}
+                                                            disablePadding
+                                                            secondaryAction={
+                                                                // <Checkbox
+                                                                //     edge="end"
+                                                                //     inputProps={{ 'aria-labelledby': labelId }}
+                                                                // />
+                                                                <p id="profile-major-year-text" className="mb-0 text-right pe-3">{user.year[1]} <br /><em className="text-muted">{user.major}</em></p>
+
+                                                            }
+                                                        >
+                                                            <ListItemButton sx={{ py: 3 }} onClick={() => { nav(`/users/${user._id}`) }}>
+                                                                <ListItemAvatar>
+                                                                    <Avatar sx={{ bgcolor: user.avatarColor }}>
+                                                                        <AvatarIcon iconValue={user.avatarIcon} />
+                                                                    </Avatar>
+                                                                </ListItemAvatar>
+                                                                <ListItemText id={labelId} primary={<h6 className="mb-0">{user.nickname}<em className="text-muted"> (@{user.username})</em></h6>} />
+                                                            </ListItemButton>
+                                                        </ListItem>
+                                                    );
+                                                })}
+                                            </List>
+                                        </> : <></>}
+
                                     </div>
 
 

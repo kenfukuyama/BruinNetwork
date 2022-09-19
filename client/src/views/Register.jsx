@@ -3,7 +3,7 @@ import {useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import jwt from 'jwt-decode';
+// import jwt from 'jwt-decode';
 
 
 // for loggedin context
@@ -36,7 +36,7 @@ const Register = () => {
     }, {withCredentials: true} )
         .then(res => {
             // console.log("Registering...");
-            const token = res.data.userToken;
+        // const token = res.data.userToken;
             // console.log(jwt(token));
             // console.log(res);
 

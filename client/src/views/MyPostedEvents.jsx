@@ -33,7 +33,7 @@ const MyPostedEvents = () => {
             .then(res => {
                 setEvents(res.data);
             })
-            .catch(err => console.log(err))
+            .catch(err => {})
         
 
       

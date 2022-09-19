@@ -31,7 +31,7 @@ const MySavedEvents = () => {
             .then( res => {
                 setEvents(res.data);
             })
-            .catch( err => console.log(err))
+            .catch( err =>{})
     }, [loggedinInfo.loggedin, loggedinInfo.loggedinId, navigate])
 
     

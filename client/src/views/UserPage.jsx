@@ -62,7 +62,7 @@ const UserPage = (props) => {
         axios.get('http://localhost:8000/api/users/' + id)
             .then(res => {
                 setUser(res.data);
-                console.log(res.data.spirits);
+                // console.log(res.data.spirits);
 
 
                 for (let i = 0; i < res.data.contacts.length; i++) {
@@ -101,21 +101,21 @@ const UserPage = (props) => {
 
                     if (res.data.isApproved) {
                         // * they are friends
-                        console.log("they are friends");
+                        // console.log("they are friends");
                         setfriendshipStatus(2);
                     }
                     else if (res.data.recipient === loggedinInfo.loggedinId) {
-                        console.log("you have request");
+                        // console.log("you have request");
                         setfriendshipStatus(3);
                     }
                     else {
-                        console.log("you sent the request");
+                        // console.log("you sent the request");
                         setfriendshipStatus(4);
                     }
                     // console.log(friendshipStatus.current);
                 }
                 else {
-                    console.log("not found");
+                    // console.log("not found");
                     setfriendshipStatus(1);
                 }
                 // console.log(friendshipStatus.current);
@@ -192,9 +192,9 @@ const UserPage = (props) => {
                     setUserSavedEvents(formatEvents(res.data));
                     // console.log(userSavedEvents.current);
                 })
-                .catch(err => console.log(err));
+                .catch(err => {});
         }
-        console.log("ran there");
+        // console.log("ran there");
 
     }
     
@@ -231,14 +231,14 @@ const UserPage = (props) => {
             if (idx === i) {
                 // not liked
                 if (!eachEvent.liked) {
-                    console.log("add to user event list");
+                    // console.log("add to user event list");
                     let obj = {};
                     obj[eachEvent._id] = eachEvent.name;
                     tempLoggedInUser = { ...tempLoggedInUser, savedEvents: { ...tempLoggedInUser.savedEvents, ...obj } }
                     setloggedinUser(tempLoggedInUser);
                 }
                 else {
-                    console.log("remove it from the list");
+                    // console.log("remove it from the list");
                     delete tempLoggedInUser.savedEvents[eachEvent._id];
                     setloggedinUser(tempLoggedInUser);
                 }
@@ -251,7 +251,7 @@ const UserPage = (props) => {
         if (loggedinUser) {
             axios.put('http://localhost:8000/api/users/' + loggedinInfo.loggedinId, tempLoggedInUser)
                 .then(res => {
-                    console.log(res.data);
+                    // console.log(res.data);
                 })
                 .catch(err => { console.error(err) });
         }
@@ -270,7 +270,7 @@ const UserPage = (props) => {
         if (tempLoggedInUser) {
             axios.put('http://localhost:8000/api/users/' + loggedinInfo.loggedinId, tempLoggedInUser)
                 .then(res => {
-                    console.log(res.data);
+                    // console.log(res.data);
                 })
                 .catch(err => { console.error(err) });
         }

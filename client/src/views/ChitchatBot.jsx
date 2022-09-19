@@ -86,14 +86,14 @@ const ChitchatBot = () => {
         // console.log(tempMessage);
 
         if (tempMessage.startsWith("search:")) {
-            console.log("searching");
+            // console.log("searching");
             customSearch(tempMessage);
         }
 
         else {
             axios.post(`http://localhost:8000/api/bot/chat`, { query: tempMessage })
                 .then(response => {
-                    console.log(response);
+                    // console.log(response);
 
                     if (response.status === 200) {
                         setMessages(messages => {
@@ -309,7 +309,7 @@ const ChitchatBot = () => {
     const customSearch = (tempMessage) => {
         axios.post(`http://localhost:8000/api/bot/search`, {query : tempMessage})
         .then (response => {
-            console.log(response);
+            // console.log(response);
             setMessages(messages =>{ 
                 let found = false;
                 let tempTitle;

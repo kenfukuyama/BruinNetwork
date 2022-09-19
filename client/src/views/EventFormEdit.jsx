@@ -41,7 +41,7 @@ const EventFormEdit = (props) => {
 
         axios.get('http://localhost:8000/api/events/' + id)
             .then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 let tempEvent = res.data;
                 // console.log(tempEvent.eventDate);
 
@@ -81,7 +81,7 @@ const EventFormEdit = (props) => {
             place: event.place
         })
             .then(res => {
-                console.log(res);
+                // console.log(res);
                 // navigate("/myevents");
                 setUpdated(true);
 
@@ -104,9 +104,9 @@ const EventFormEdit = (props) => {
 
     const handleChange = (e) => {
         if ([e.target.name] === 'startTime' || [e.target.name] === 'endTime') {
-            console.log("it's start time or EndTime");
-            console.log(e.target.value.substring(0, 2) + " hour");
-            console.log(e.target.value.substring(3, 5) + " minutes");
+            // console.log("it's start time or EndTime");
+            // console.log(e.target.value.substring(0, 2) + " hour");
+            // console.log(e.target.value.substring(3, 5) + " minutes");
 
         }
 

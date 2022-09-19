@@ -76,7 +76,7 @@ const Chitchat = ({beat}) => {
     }));
 
     useEffect(() => {
-        console.log("runing use Effect chatroomPublic");
+        // console.log("runing use Effect chatroomPublic");
         if (!loggedinInfo.loggedin) {
             // ! disconnect socket if you returning
             socket.disconnect(true);
@@ -129,7 +129,7 @@ const Chitchat = ({beat}) => {
 
         // ! handle incomimg messages
         socket.on('chat', (data) => {
-            console.log(data);
+            // console.log(data);
             setMessages(messages => {return [...messages, data]});
             if (data.type === "CHAT" && data?.userId !== loggedinInfo?.loggedinId) {
                 beat.play().catch();
@@ -139,7 +139,7 @@ const Chitchat = ({beat}) => {
 
         // ! handleOnline number changes
         socket.on('onlineNumberUpdate', (data) => {
-            console.log(data);
+            // console.log(data);
             setOnlineNumber(data?.onlineNumber);
             // if (data.type === "CHAT" && data.userId !== loggedinInfo.loggedinId) {
             //     beat.play().catch();

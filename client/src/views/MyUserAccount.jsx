@@ -196,24 +196,24 @@ const MyUserAccount = () => {
         // console.log("running");
 
         if (Object.keys(errors).length > 0) {
-            console.log("not updated");
+            // console.log("not updated");
             return;
         }
         axios.put('http://localhost:8000/api/users/' + loggedinInfo.loggedinId, user)
                     .then(res => {
                         // console.log(res.data);
-                        console.log("updated");
+                        // console.log("updated");
                         setUpdated(true);
                         setErrors({});
                     })
                     .catch(err => { 
-                        console.log("running12");
+                        // console.log("running12");
                         let errResponse = err.response.data.errors;
                         let errObj = {};
                         for (const key in errResponse) {
                             errObj[key] = errResponse[key].message;
                         }
-                        console.log(errObj);
+                        // console.log(errObj);
                         setErrors(errObj);
                     });
     }
@@ -279,7 +279,7 @@ const MyUserAccount = () => {
         } else {
             yearArr = [e.target.value, yearChoices[e.target.value]];
         }
-        console.log(e.target.value);
+        // console.log(e.target.value);
         // obj[e.target.value] = yearChoices[e.target.value];
         setUser({...user, year : yearArr})
     }

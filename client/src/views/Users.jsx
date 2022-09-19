@@ -82,23 +82,22 @@ const Users = () => {
                             (
                                 <div className="card fade-in px-2 scroll-box" style={{ borderRadius: "15px", backgroundColor: "rgba(25, 138, 209, 0.55)", overflowY : "scroll" , height: "93vh"}}>
                                     <div className="p-4 text-black" >
-                                        <div className="d-flex justify-content-center">
-                                            <div className="input-group search-bar p-4 w-md-75 w-lg-100">
-                                                <input type="text" 
-                                                    className="form-control rounded live-search-box regular" 
-                                                    placeholder="Search People" 
-                                                    aria-label="Search People"
-                                                    aria-describedby="search-addon" 
-                                                    onChange={e => {search(e)}}
-                                                    value={query}
-                                                    />
-                                                <button type="button" className="btn btn-primary"><i className="bi bi-search"></i></button>
-                                            </div>
-                                        </div>
                                         <FriendsNavigation inviationCounts={inviationCounts}/>
                                     </div>
                                     <div className="d-flex align-item-center justify-content-center mb-3">
                                         <Button color='success'  variant="contained" id="navButton" startIcon={<ExploreIcon />}>Explore People</Button>
+                                    </div>
+                                    <div className="d-flex justify-content-center">
+                                        <div className="input-group search-bar p-4 w-md-75 w-lg-100">
+                                            <input type="text"
+                                                className="form-control rounded live-search-box regular"
+                                                placeholder="Search people by nickname, username, major, year ..."
+                                                aria-label="Search People"
+                                                aria-describedby="search-addon"
+                                                onChange={e => { search(e) }}
+                                                value={query}
+                                            />
+                                        </div>
                                     </div>
 
                                     <div className="d-flex justify-content-center flex-wrap text-wrap">

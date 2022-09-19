@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useRef } from 'react'
 import { useState } from 'react';
 
 import ScaleLoader from 'react-spinners/ScaleLoader';
@@ -38,11 +38,15 @@ const MyFriends = () => {
     const {loggedinInfo} = useContext(LoggedinContext);
     const [inviationCounts, setInviationCounts] = useState(0);
 
+    const friendsRef = useRef(null);
+    const [query, setQuery] = useState("");
+
 
     useEffect(() => {
         axios.post("http://localhost:8000/api/friendships/approved", {userId : loggedinInfo.loggedinId})
         .then(res => {
             console.log(res.data);
+            friendsRef.current = res.data;
             setFriends(res.data);
         })
         .finally(() => {setLoading(false);})
@@ -56,6 +60,19 @@ const MyFriends = () => {
 
     }, [loggedinInfo.loggedinId]);
 
+    const search = (e) => {
+        setQuery(e.target.value);
+        let query = e.target.value.toString().toLowerCase();
+        setFriends(friendsRef.current.filter(user => {
+            let target = user.username.toString().toLowerCase();
+            let target1 = user.nickname.toString().toLowerCase();
+            let target2 = user.year[1].toString().toLowerCase();
+            let target3 = user.major.toString().toLowerCase();
+            return (target.includes(query) || target1.includes(query) || target2.includes(query) || target3.includes(query));
+        }));
+    }
+
+
     return (
         <div className="vh-100">
             <div className="container py-5 h-100">
@@ -67,17 +84,23 @@ const MyFriends = () => {
                             (
                                 <div className="card fade-in px-2 scroll-box" style={{ borderRadius: "15px", backgroundColor: "rgba(25, 138, 209, 0.55)", overflowY : "scroll" , height: "93vh"}}>
                                     <div className="p-4 text-black" >
-                                        <div className="d-flex justify-content-center">
-                                            <div className="input-group search-bar p-4 w-md-75 w-lg-100">
-                                                <input type="text" className="form-control rounded live-search-box regular" placeholder="Search People" aria-label="Search People"
-                                                    aria-describedby="search-addon" />
-                                                <button type="button" className="btn btn-primary"><i className="bi bi-search"></i></button>
-                                            </div>
-                                        </div>
                                         <FriendsNavigation inviationCounts={inviationCounts}/>
                                     </div>
                                     <div className="d-flex align-item-center justify-content-center mb-3">
                                         <Button color="primary" variant="contained" id="navButton" startIcon={<PeopleAltIcon />}>Friends</Button>
+                                    </div>
+
+                                    <div className="d-flex justify-content-center">
+                                        <div className="input-group search-bar p-4 w-md-75 w-lg-100">
+                                            <input type="text"
+                                                className="form-control rounded live-search-box regular"
+                                                placeholder="Search Friends"
+                                                aria-label="Search People"
+                                                aria-describedby="search-addon"
+                                                onChange={e => { search(e) }}
+                                                value={query}
+                                            />
+                                        </div>
                                     </div>
 
                                     <div className="d-flex justify-content-center flex-wrap">

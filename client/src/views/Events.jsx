@@ -21,6 +21,7 @@ const Events = () => {
     const eventsRef = useRef(null);
     const [filter, setFilter] = useState("");
 
+    const [query, setQuery] = useState("");
     // * initial message
     // const [ message, setMessage ] = useState("Loading...")  
 
@@ -57,6 +58,7 @@ const Events = () => {
     },[]);
 
 
+
     useEffect(() => {
         if (filter === "SortByTitle") {
             let tempArr = JSON.parse(JSON.stringify(eventsRef.current));
@@ -80,6 +82,27 @@ const Events = () => {
 
     }, [filter]);
 
+
+    const search = (e) => {
+        setQuery(e.target.value);
+        let query = e.target.value.toString().toLowerCase();
+        setEvents(eventsRef.current.filter(event => {
+            let target = event.name?.toString()?.toLowerCase();
+            let target1 = event.description?.toString()?.toLowerCase();
+            
+            let temp2 = new Date(event.eventDate).toLocaleDateString("en", { weekday: 'long', month: 'long', day: 'numeric', timeZone: 'UTC' });
+            let target2 = temp2.toString()?.toLowerCase();
+
+            let temp3 = new Date(event.startTime).toLocaleTimeString('en', { timeStyle: 'short', hour12: false, timeZone: 'America/Los_Angeles' })
+            let target3 = temp3?.toString()?.toLowerCase();
+
+            let temp4  =  new Date(event.endTime).toLocaleTimeString('en', { timeStyle: 'short', hour12: false, timeZone: 'America/Los_Angeles' })
+            let target4 = temp4?.toString()?.toLowerCase();
+            
+            return (target.includes(query) || target1.includes(query) || target2.includes(query) || target3.includes(query) || target4.includes(query));
+        }));
+    }
+
     return (
 
 
@@ -93,12 +116,15 @@ const Events = () => {
                             <div className="fade-in card bg-transparent scroll-box" style={{ borderRadius: "15px", backgroundColor: "#ffffff", overflowY : "scroll" , height: "93vh"}}>
                                 <div className="d-flex justify-content-center">
                                     <div className="input-group search-bar p-4 w-md-75 w-lg-100">
-                                        <input type="text" className="form-control rounded live-search-box regular" placeholder="Search Events" aria-label="Search Events"
-                                            aria-describedby="search-addon" />
-                                        <button type="button" className="btn btn-primary"><i className="bi bi-search"></i></button>
+                                        <input type="text"
+                                            className="form-control rounded live-search-box regular"
+                                            placeholder="Search events by name, location, date and time"
+                                            aria-label="Search People"
+                                            aria-describedby="search-addon"
+                                            onChange={e => { search(e) }}
+                                            value={query}
+                                        />
                                     </div>
-                                    
-
                                 </div>
                                 <EventsFilter setFilter={setFilter}/>
                                 {events && <EventList events={events} />}

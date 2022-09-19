@@ -43,6 +43,9 @@ const Chatrooms = () => {
     const onlineNumbers = useRef(null);
     const { loggedinInfo } = useContext(LoggedinContext);
 
+    const [displayRooms, setDisplayRooms] = useState(chatrooms);
+    const [query, setQuery] = useState("");
+
 
     useEffect(() => {
         if (!loggedinInfo.loggedin) {
@@ -128,6 +131,16 @@ const Chatrooms = () => {
         setRoomSelection(i);
     }
 
+    const search = (e) => {
+        setQuery(e.target.value);
+        let query = e.target.value.toString().toLowerCase();
+        setDisplayRooms(chatrooms.filter(room => {
+            let target = room[0].toString().toLowerCase();
+            let target1 = room[1].toString().toLowerCase();
+            return (target.includes(query) || target1.includes(query));
+        }));
+    }
+
     
 
 
@@ -143,10 +156,15 @@ const Chatrooms = () => {
                                 <h2 className="mt-5">Discover Bruin Community</h2>
                                 {/* <p className="text-success"> <span className=""></span> 1203 online</p> */}
                                 <div className="d-flex justify-content-center">
-                                    <div className="input-group search-bar p-4 w-md-50 w-lg-50">
-                                        <input type="text" className="form-control rounded live-search-box regular" placeholder="Search Channels" aria-label="Search Channels"
-                                            aria-describedby="search-addon" />
-                                        <button type="button" className="btn btn-primary"><i className="bi bi-search"></i></button>
+                                    <div className="input-group search-bar p-4 w-md-75 w-lg-50">
+                                        <input type="text"
+                                            className="form-control rounded live-search-box regular"
+                                            placeholder="Search Chatrooms"
+                                            aria-label="Search Chatrooms"
+                                            aria-describedby="search-addon"
+                                            onChange={e => { search(e) }}
+                                            value={query}
+                                        />
                                     </div>
                                 </div>
 
@@ -227,7 +245,7 @@ const Chatrooms = () => {
                                     <div className="d-flex justify-content-center flex-wrap mx-0 px-0">
                                         <Box className="w-sm-100 w-md-75 w-lg-50">
                                             <List dense sx={{ width: '100%', bgcolor: 'transparent', borderRadius: "15px" }}>
-                                                {chatrooms.map((room, i) => {
+                                                {displayRooms.map((room, i) => {
                                                     const labelId = `checkbox-list-secondary-label-${i}`;
                                                     return (
                                                         <div className="d-flex align-items-center justify-content-between" key={i}>

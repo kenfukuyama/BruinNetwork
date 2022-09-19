@@ -20,12 +20,11 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { blue } from '@mui/material/colors';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import Button from '@mui/material/Button';
+import AvatarIcon from '../components/AvatarIcon';
 
 const UserFriendsPage = () => {
     const nav = useNavigate();
@@ -71,11 +70,11 @@ const UserFriendsPage = () => {
                                                         {/* <img src=""
                                                                     alt="Generic placeholder image" className="img-fluid rounded-circle border border-dark border-3"
                                                                 style={{width: "70px"}}/> */}
-                                                        <Avatar sx={{ bgcolor: blue[500] }}>
-                                                            <AccountCircleIcon />
+                                                        <Avatar sx={{ bgcolor: user.avatarColor }}>
+                                                            <AvatarIcon iconValue={user.avatarIcon} />
                                                         </Avatar>
                                                     </div>
-                                                    <div className="d-flex flex-column ms-3">
+                                                    <div className="d-flex flex-column ms-3 text-white">
                                                         <div className="">
                                                             <h4 className="mb-0">{user.nickname} </h4>
                                                         </div>
@@ -121,8 +120,8 @@ const UserFriendsPage = () => {
                                                     >
                                                         <ListItemButton  sx={{py : 3}} onClick={() => {nav(`/users/${user._id}`)}}>
                                                             <ListItemAvatar>
-                                                                <Avatar sx={{ bgcolor: blue[500] }}>
-                                                                    <AccountCircleIcon />
+                                                                <Avatar sx={{ bgcolor: user.avatarColor}}>
+                                                                    <AvatarIcon iconValue={user.avatarIcon}/>
                                                                 </Avatar>
                                                             </ListItemAvatar>
                                                             <ListItemText id={labelId} primary={<h6 className="mb-0">{user.nickname}<em className="text-muted"> (@{user.username})</em></h6>} />

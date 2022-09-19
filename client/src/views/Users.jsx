@@ -20,8 +20,9 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { blue} from '@mui/material/colors';
+// import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+// import { blue} from '@mui/material/colors';
+import AvatarIcon from '../components/AvatarIcon';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -120,8 +121,8 @@ const Users = () => {
                                                         >
                                                             <ListItemButton   sx={{py : 2}} onClick={() => {nav(`/users/${user._id}`)}}>
                                                                 <ListItemAvatar>
-                                                                    <Avatar sx={{ bgcolor: blue[500] }}>
-                                                                        <AccountCircleIcon />
+                                                                    <Avatar sx={{ bgcolor: user.avatarColor }}>
+                                                                        <AvatarIcon iconValue={user.avatarIcon}/>
                                                                     </Avatar>
                                                                 </ListItemAvatar>
                                                                 <ListItemText id={labelId} primary={<h6 className="mb-0">{user.nickname}<em className="text-muted"> (@{user.username})</em></h6>} />

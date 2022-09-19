@@ -17,8 +17,8 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { blue } from '@mui/material/colors';
+// import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+// import { blue } from '@mui/material/colors';
 
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
@@ -28,6 +28,8 @@ import PendingIcon from '@mui/icons-material/Pending';
 import IconButton from '@mui/material/IconButton';
 import ClearIcon from '@mui/icons-material/Clear';
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
+
+import AvatarIcon from '../components/AvatarIcon';
 
 const MyFriendsPending = () => {
     const nav = useNavigate();
@@ -133,8 +135,8 @@ const MyFriendsPending = () => {
                                                     >
                                                         <ListItemButton  sx={{py : 3}} onClick={() => {nav(`/users/${user._id}`)}}>
                                                             <ListItemAvatar>
-                                                                <Avatar sx={{ bgcolor: blue[500] }}>
-                                                                    <AccountCircleIcon />
+                                                                <Avatar sx={{ bgcolor: user.avatarColor}}>
+                                                                    <AvatarIcon iconValue={user.avatarIcon} />
                                                                 </Avatar>
                                                             </ListItemAvatar>
                                                             <ListItemText id={labelId} primary={<h6 className="mb-0">{user.nickname}<em className="text-muted"> (@{user.username})</em></h6>} />
@@ -172,8 +174,8 @@ const MyFriendsPending = () => {
                                                     >
                                                         <ListItemButton  sx={{py : 2}} onClick={() => {nav(`/users/${user._id}`)}}>
                                                             <ListItemAvatar>
-                                                                <Avatar sx={{ bgcolor: blue[500] }}>
-                                                                    <AccountCircleIcon />
+                                                                <Avatar sx={{ bgcolor: user.avatarColor }}>
+                                                                <AvatarIcon iconValue={user.avatarIcon} />
                                                                 </Avatar>
                                                             </ListItemAvatar>
                                                             <ListItemText id={labelId} primary={<h6 className="mb-0">{user.nickname}<em className="text-muted"> (@{user.username})</em></h6>} />

@@ -6,8 +6,6 @@ import { LoggedinContext } from '../context/LoggedinContext';
 import { useContext } from 'react';
 
 import Avatar from '@mui/material/Avatar';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { blue } from '@mui/material/colors';
 
 import { useRef } from 'react';
 import ScaleLoader from 'react-spinners/ScaleLoader';
@@ -19,6 +17,7 @@ import Box from '@mui/material/Box';
 import Popper from '@mui/material/Popper';
 import InfoIcon from '@mui/icons-material/Info';
 import IconButton from '@mui/material/IconButton';
+import AvatarIcon from '../components/AvatarIcon';
 
 
 
@@ -273,7 +272,14 @@ const UserPage = (props) => {
         // increase the user's sprintCount
         let tempUser = JSON.parse(JSON.stringify(user));
         tempUser.spiritsCount += clapValue;
-        tempUser.spiritsNotifications.push({clapValue: clapValue, userId: loggedinUser._id, username: loggedinUser.username, nickname: loggedinUser.nickname, time : new Date()});
+        tempUser.spiritsNotifications.push({clapValue: clapValue,
+            userId: loggedinUser._id,
+            username: loggedinUser.username,
+            nickname: loggedinUser.nickname,
+            time: new Date(),
+            avatarColor: loggedinUser.avatarColor,
+            avatarIcon : loggedinUser.avatarIcon
+        });
         setUser(tempUser);
         if (tempUser) {
             axios.put('http://localhost:8000/api/users/' + id, tempUser)
@@ -315,8 +321,8 @@ const UserPage = (props) => {
                                                         {/* <img src=""
                                                             alt="Generic placeholder image" className="img-fluid rounded-circle border border-dark border-3"
                                                         style={{width: "70px"}}/> */}
-                                                        <Avatar sx={{ bgcolor: blue[500] }}>
-                                                            <AccountCircleIcon />
+                                                        <Avatar sx={{ bgcolor: user.avatarColor }}>
+                                                            <AvatarIcon iconValue={user.avatarIcon}/>
                                                         </Avatar>
                                                     </div>
                                                     <div className="d-flex flex-column ms-3">

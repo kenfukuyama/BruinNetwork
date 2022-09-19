@@ -9,11 +9,12 @@ import Modal from 'react-modal';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 // import { useRef } from 'react';
+import AvatarIcon from './AvatarIcon';
 
 
 import Avatar from '@mui/material/Avatar';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { blue } from '@mui/material/colors';
+// import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+// import { blue } from '@mui/material/colors';
 import Chip from '@mui/material/Chip';
 import { useState } from 'react';
 
@@ -127,8 +128,8 @@ function ChitchatPopUp() {
                                                 {/* <img src=""
                                                                 alt="Generic placeholder image" className="img-fluid rounded-circle border border-dark border-3"
                                                             style={{width: "70px"}}/> */}
-                                                <Avatar sx={{ bgcolor: blue[500] }}>
-                                                    <AccountCircleIcon />
+                                                <Avatar sx={{ bgcolor: otherUser.avatarColor }}>
+                                                    <AvatarIcon iconValue={otherUser.avatarIcon} />
                                                 </Avatar>
                                             </div>
                                             <div className="d-flex flex-column ms-3">

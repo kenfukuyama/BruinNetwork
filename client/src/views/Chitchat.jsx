@@ -8,10 +8,10 @@ import {LoggedinContext} from '../context/LoggedinContext';
 import PropagateLoader from "react-spinners/PropagateLoader";
 import { useRef } from 'react';
 import Avatar from '@mui/material/Avatar';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import {blue} from '@mui/material/colors';
+// import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+// import {blue} from '@mui/material/colors';
 
-
+import AvatarIcon from '../components/AvatarIcon';
 
 import { styled } from '@mui/material/styles';
 import Badge from '@mui/material/Badge';
@@ -220,8 +220,8 @@ const Chitchat = ({beat}) => {
                                     anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
                                     variant={`${onlineNumber > 1 ? "dot" : ""}`}
                                 >
-                                    <Avatar sx={{ bgcolor: blue[500] }}>
-                                        <AccountCircleIcon />
+                                    <Avatar sx={{ bgcolor: otherUser.avatarColor}}>
+                                        <AvatarIcon iconValue={otherUser.avatarIcon} />
                                     </Avatar>
                                 </StyledBadge>
 

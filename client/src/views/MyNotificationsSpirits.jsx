@@ -5,6 +5,7 @@ import { useState } from 'react';
 import ScaleLoader from 'react-spinners/ScaleLoader';
 // import IconButton from '@mui/material/IconButton';
 import {LoggedinContext} from '../context/LoggedinContext';
+import AvatarIcon from '../components/AvatarIcon';
 
 
 
@@ -20,8 +21,9 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { blue } from '@mui/material/colors';
+// import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+// import { blue } from '@mui/material/colors';
+// import { blue } from '@mui/material/colors';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -133,8 +135,8 @@ const MyNotificationsSpirits = () => {
                                                     >
                                                         <ListItemButton  sx={{py : 2}} onClick={() => {navigate(`/users/${notification?.userId}`)}}>
                                                             <ListItemAvatar>
-                                                                <Avatar sx={{ bgcolor: blue[500] }}>
-                                                                    <AccountCircleIcon />
+                                                                <Avatar sx={{ bgcolor: notification.avatarColor }}>
+                                                                    <AvatarIcon iconValue={notification.avatarIcon} />
                                                                 </Avatar>
                                                             </ListItemAvatar>
                                                             <ListItemText id={labelId} primary={

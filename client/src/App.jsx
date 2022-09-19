@@ -35,6 +35,7 @@ import MyFriendsPending from './views/MyFriendsPending';
 import UserFriendsPage from './views/UserFriendsPage';
 import MyNotificationsRequests from './views/MyNotificationsRequests';
 import MyNotificationsSpirits from './views/MyNotificationsSpirits';
+import EventPage from './views/EventPage';
 
 // import axios from 'axios';
 // import { useEffect } from 'react';
@@ -131,6 +132,7 @@ function App() {
           <Route element={<MySavedEvents/>} path="/myevents/saved"/>
           <Route element={<MyPostedEvents/>} path="/myevents/posted"/>
           <Route element={<EventFormEdit/>} path="/events/:id/edit"/>
+          <Route element={<EventPage/>} path="/events/:id/"/>
         
           {/* // * chat routes */}
           <Route element={<ChitchatLobby/>} path="/chitchat"/>

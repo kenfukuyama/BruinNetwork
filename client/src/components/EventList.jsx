@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, {useContext, useState} from 'react'
 import { useRef } from 'react';
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { LoggedinContext } from '../context/LoggedinContext';
 const EventList = ({events}) => {
@@ -12,6 +13,7 @@ const EventList = ({events}) => {
     const {loggedinInfo} = useContext(LoggedinContext);
     // const [user, setUser] = useState();
     const user = useRef(null);
+    const navigate = useNavigate();
 
     
 
@@ -97,8 +99,8 @@ const EventList = ({events}) => {
                 // }
                 return {...event, 
                     eventDate: new Date(event.eventDate).toLocaleDateString("en", { weekday: 'long', month: 'long', day: 'numeric', timeZone: 'UTC' }),
-                    startTime: new Date(event.startTime).toLocaleTimeString('en', { timeStyle: 'short', hour12: false, timeZone: 'America/Los_Angeles' }),
-                    endTime: new Date(event.endTime).toLocaleTimeString('en', { timeStyle: 'short', hour12: false, timeZone: 'America/Los_Angeles' }),
+                    startTime: new Date(event.startTime).toLocaleTimeString('en', { timeStyle: 'short', hour12: true, timeZone: 'America/Los_Angeles' }),
+                    endTime: new Date(event.endTime).toLocaleTimeString('en', { timeStyle: 'short', hour12: true, timeZone: 'America/Los_Angeles' }),
                     liked : (event._id in user.current.savedEvents)
                 };
             }
@@ -167,7 +169,7 @@ const EventList = ({events}) => {
                         <div className="card-header">
                             <div className="d-flex align-items-center justify-content-between">
                                 <div className="event-name live-search-list">
-                                    <a href="/events/show/{{event.id}}" className="text-decoration-none h5 ">{event.name}</a>
+                                    <p onClick={() => navigate(`/events/${event._id}`)} className="text-primary h5 " style={{cursor : "pointer"}}>{event.name}</p>
                                 </div>
                                 <div className="event-time"> {event.eventDate} at {event.startTime}</div>
                             </div>

@@ -175,7 +175,12 @@ const UserPage = (props) => {
     }
 
 
+
+    useEffect(() => {
+        getSavedEvents();
+    }, [user])
     // saved events handler
+
     const getSavedEvents = () => {
         // only make a api when it does not exist yet
         /// get all the events crated by the user.
@@ -189,9 +194,10 @@ const UserPage = (props) => {
                 })
                 .catch(err => console.log(err));
         }
-
+        console.log("ran there");
 
     }
+    
 
 
     const formatEvents = (paramEvents) => {
@@ -583,7 +589,7 @@ const UserPage = (props) => {
                                                                 <div className="card-header">
                                                                     <div className="d-flex align-items-center justify-content-between">
                                                                         <div className="event-name">
-                                                                            <a href="/events/show/{{event.id}}" className="text-decoration-none h5 ">{event.name}</a>
+                                                                            <p onClick={() => navigate(`/events/${event._id}`)} className="text-primary h5 " style={{cursor : "pointer"}}>{event.name}</p>
                                                                         </div>
                                                                         <div className="event-time"> {event.eventDate} at {event.startTime}</div>
                                                                     </div>

@@ -6,10 +6,10 @@ import { LoggedinContext } from '../context/LoggedinContext';
 import { useContext } from 'react';
 
 import Avatar from '@mui/material/Avatar';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+// import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { blue } from '@mui/material/colors';
 
-import { useRef } from 'react';
+// import { useRef } from 'react';
 import ScaleLoader from 'react-spinners/ScaleLoader';
 
 // import Chip from '@mui/material/Chip';
@@ -21,7 +21,7 @@ import ScaleLoader from 'react-spinners/ScaleLoader';
 // import IconButton from '@mui/material/IconButton';
 
 
-import List from '@mui/material/List';
+// import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
@@ -127,20 +127,21 @@ const EventPage = (props) => {
         if (loading) {
             axios.get('http://localhost:8000/api/events/' + id)
             .then(res => {
-                console.log("user is now0");
-                console.log(user);
+                // console.log("user is now0");
+                // console.log(user);
                 setEvent(formatEvents(res.data));
                 // console.log(res.data.creator);
                 return axios.get('http://localhost:8000/api/users/' + res.data.creator)
             })
             .then(res => {
-                console.log("creator");
-                console.log(res.data ? "true" : "false");
+                // console.log("creator");
+                // console.log(res.data ? "true" : "false");
                 setCreator(res.data);
                 setLoading(false);
             })
 
         }
+    // eslint-disable-next-line
     }, [user])
 
 
@@ -163,7 +164,6 @@ const EventPage = (props) => {
         return tempEvent;
 
     }
-
     const toggleLiked = (e) => {
         // console.log(i);
 
@@ -183,7 +183,7 @@ const EventPage = (props) => {
         if (user) {
             axios.put('http://localhost:8000/api/users/' + loggedinInfo.loggedinId, tempUser)
                 .then(res => {
-                    console.log(res.data);
+                    // console.log(res.data);
                 })
                 .catch(err => { console.error(err) });
         }

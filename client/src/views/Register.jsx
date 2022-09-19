@@ -35,10 +35,10 @@ const Register = () => {
         confirmPassword: user.confirmPassword
     }, {withCredentials: true} )
         .then(res => {
-            console.log("Registering...");
+            // console.log("Registering...");
             const token = res.data.userToken;
-            console.log(jwt(token));
-            console.log(res);
+            // console.log(jwt(token));
+            // console.log(res);
 
             // setLoggedin(true);
             // setLoggedinId(jwt(token).id);

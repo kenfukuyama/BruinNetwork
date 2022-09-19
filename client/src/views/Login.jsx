@@ -31,8 +31,8 @@ const Login = (props) => {
         }, {withCredentials: true})
         .then(res => {
             const token = res.data.userToken
-            console.log(jwt(token));
-            console.log(res);
+            // console.log(jwt(token));
+            // console.log(res);
 
             // setLoggedin(true);
             // setLoggedinId(jwt(token).id);

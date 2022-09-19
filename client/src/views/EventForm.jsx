@@ -63,7 +63,7 @@ const EventForm = (props) => {
 
         })
             .then(res => {
-                console.log(res);
+                // console.log(res);
                 setCreated(true);
                 // setErrors([]);
                 setErrorsObj({});
@@ -71,7 +71,7 @@ const EventForm = (props) => {
 
             })
             .catch(err => {
-                console.log(err);
+                // console.log(err);
                 const errResponse = err.response.data.errors;
                 // const errArr = [];
                 const errObj = {};
@@ -99,9 +99,9 @@ const EventForm = (props) => {
 
     const handleChange = (e) => {
         if ([e.target.name] === 'startTime' || [e.target.name] === 'endTime') {
-            console.log("it's start time or EndTime")
-            console.log(e.target.value.substring(0, 2) + " hour")
-            console.log(e.target.value.substring(3, 5) + " minutes")
+            // console.log("it's start time or EndTime")
+            // console.log(e.target.value.substring(0, 2) + " hour")
+            // console.log(e.target.value.substring(3, 5) + " minutes")
 
 
         }

@@ -209,7 +209,7 @@ const ChatroomPublic = ({beat}) => {
         // console.log("trying to get users");
         axios.post("http://localhost:8000/api/chatrooms/chatusers/all", {roomId : roomId})
         .then(res => {
-            console.log(res.data);
+            // console.log(res.data);
             setChatUsers(res.data);
         })
         .catch()

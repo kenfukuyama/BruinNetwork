@@ -45,7 +45,7 @@ const MyFriends = () => {
     useEffect(() => {
         axios.post("http://localhost:8000/api/friendships/approved", {userId : loggedinInfo.loggedinId})
         .then(res => {
-            console.log(res.data);
+            // console.log(res.data);
             friendsRef.current = res.data;
             setFriends(res.data);
         })

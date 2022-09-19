@@ -16,19 +16,19 @@ const ChitchatLobby = () => {
     // tips selector
     const tips = [
         "UCLA was founded in 1919",
-        "There are 52 differencs between left side and right side of Royce Hall",
+        "There are 52 differences between the left side and right side of Royce Hall",
         "There are about 30,000 undergraduates",
         "UCLA's colors are blue and gold. Blue to symbolize the ocean, and local wildflowers. Yellow to reflect the Golden State, the California poppy and sunsets.",
         "Students at UCLA participate in “Midnight Yell” during finals week",
         "Coach John Wooden won ten NCAA national championships in basketball during his tenure at UCLA",
         "Events > Explore to check events at UCLA",
-        "You can saved your events by clicking bookmark button next to an event",
+        "You can save your events by clicking bookmark button next to an event",
         "Events > Saved Events to see your saved events ",
-        "Events > Add an Event to add an event",
-        "Chats > Chatroom to enter a different chatroom",
-        "Add your instagram tag at Account > My Profile to get discovered easier by others",
+        "Events > Add an Event to create an event",
+        "Chats > Chatroom to join a chatroom",
+        "Add your instagram tag at Account > My Profile to get discovered by others",
         "Account > Discover to see other bruins",
-        "Account > Notifications to see your friend quests",
+        "Account > Requests to see your friend requests",
         "You can tap an user to see their profile"
         ]
 
@@ -53,7 +53,7 @@ const ChitchatLobby = () => {
     useEffect(() => {
 
         if (loggedinInfo.isInQueue) {
-            console.log("it's connecting");
+            // console.log("it's connecting");
             // check back end every 3 second
             interval.current = setInterval(() => {
                 // console.log("running interval every interval");
@@ -67,10 +67,10 @@ const ChitchatLobby = () => {
                     userId: loggedinInfo.loggedinId
                 })
                     .then(res => {
-                        console.log(res.status);
+                        // console.log(res.status);
                         // ! found so it set isInQueue to false and set up the chitchatroom id
                         if (res.status === 200) {
-                            console.log(res.data[loggedinInfo.loggedinId].roomId);
+                            // console.log(res.data[loggedinInfo.loggedinId].roomId);
                             let roomId = res.data[loggedinInfo.loggedinId].roomId; 
 
                             // do everything we need to enter the chatroom and popups
@@ -100,12 +100,12 @@ const ChitchatLobby = () => {
 
             // ! clear the previous time out before sets it
             if (loggedinInfo.timeOutId) {
-                console.log(loggedinInfo.timeOutId);
+                // console.log(loggedinInfo.timeOutId);
                 clearTimeout(loggedinInfo.timeOutId);
             }
 
             let temptimeOutId = setTimeout(() => {
-                console.log("setTimeout dispatch");
+                // console.log("setTimeout dispatch");
                 // removes the interval and set the isInQueue to false
                 clearInterval(interval.current);
                 // ! this loogedinInfo referes to the one currently have so it will overwreites the onne at line 64 (setLoggedinInfo ({ ...loggedinInfo, isInQueue : false, chitchatRoom :  roomId, timeOutId : null});)
@@ -115,7 +115,7 @@ const ChitchatLobby = () => {
                     userId: loggedinInfo.loggedinId
                 })
                     .then(res => {
-                        console.log(res.data);
+                        // console.log(res.data);
                     })
                     .catch(err => console.error(err));
             }, 45 * 1000) // ! when to stop checking queue frequecy
@@ -148,7 +148,7 @@ const ChitchatLobby = () => {
             userId: loggedinInfo.loggedinId
         })
             .then(res => {
-                console.log(res.data);
+                // console.log(res.data);
             })
             .catch(err => console.error(err));
     }
@@ -162,7 +162,7 @@ const ChitchatLobby = () => {
             userId: loggedinInfo.loggedinId
         })
             .then(res => {
-                console.log(res.data);
+                // console.log(res.data);
             })
             .catch(err => console.error(err));
     }

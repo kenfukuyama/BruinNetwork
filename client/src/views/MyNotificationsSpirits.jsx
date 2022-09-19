@@ -54,7 +54,7 @@ const MyNotificationsSpirits = () => {
     useEffect(() => {
         axios.get('http://localhost:8000/api/users/' + loggedinInfo.loggedinId)
         .then(res => {
-            console.log(res.data);
+            // console.log(res.data);
             setSpiritCount(res.data.spiritsCount);
             setSpiritsNotifications(res?.data?.spiritsNotifications?.reverse());
         })
@@ -74,17 +74,17 @@ const MyNotificationsSpirits = () => {
         setSpiritsNotifications(tempArr);
         axios.put('http://localhost:8000/api/users/' + loggedinInfo.loggedinId, {_id : loggedinInfo.loggedinId, spiritsNotifications : tempArr})
                     .then(res => {
-                        console.log(res.data);
+                        // console.log(res.data);
                     })
                     .catch(err => { console.error(err) });
     }
 
     const clearAll = () => {
-        console.log("clikced")
+        // console.log("clikced")
         setSpiritsNotifications([]);
         axios.put('http://localhost:8000/api/users/' + loggedinInfo.loggedinId, {_id : loggedinInfo.loggedinId, spiritsNotifications : []})
                     .then(res => {
-                        console.log(res.data);
+                        // console.log(res.data);
                     })
                     .catch(err => { console.error(err) });
     }

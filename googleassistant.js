@@ -102,7 +102,7 @@ const assistant = new GoogleAssistant(CREDENTIALS);
 const stdio = require('stdio');
 // Allow user to continually input questions and receive answers.
 const promptUser = () => {
-    console.log("running promptUser");
+    // console.log("running promptUser");
     stdio.question('> ', (err, prompt) => {
         assistant.assist(prompt)
             .then(({ text }) => {

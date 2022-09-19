@@ -103,7 +103,7 @@ const Chatroom = () => {
 
         // ! handle incomimg messages
         socket.on('chat', (data) => {
-            console.log(data);
+            // console.log(data);
             setMessages(messages => {return [...messages, data]});
 
         })

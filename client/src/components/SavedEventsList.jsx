@@ -32,7 +32,7 @@ const SavedEventsList = ({events}) => {
             if (user.current) {
                 axios.put('http://localhost:8000/api/users/' + loggedinInfo.loggedinId, user.current)
                     .then(res => {
-                        console.log(res.data);
+                        // console.log(res.data);
                     })
                     .catch(err => { console.error(err) });
             }
@@ -60,18 +60,18 @@ const SavedEventsList = ({events}) => {
     } 
 
     const toggleLiked = (e, i) => {
-        console.log(i);
+        // console.log(i);
         let tempEvents = formattedEvents.map((eachEvent, idx) => {
             if (idx === i) {
                 // not liked
                 if (!eachEvent.liked) {
-                    console.log("add to user event list");
+                    // console.log("add to user event list");
                     let obj = {};
                     obj[eachEvent._id] = eachEvent.name;
                     user.current = {...user.current, savedEvents: {...user.current.savedEvents, ...obj}};
                 }
                 else {
-                    console.log("remove it from the list");
+                    // console.log("remove it from the list");
                     delete user.current.savedEvents[eachEvent._id];
                 }
                 eachEvent.liked = !eachEvent.liked;
@@ -83,7 +83,7 @@ const SavedEventsList = ({events}) => {
         if (user.current) {
             axios.put('http://localhost:8000/api/users/' + loggedinInfo.loggedinId, user.current)
                 .then(res => {
-                    console.log(res.data);
+                    // console.log(res.data);
                 })
                 .catch(err => { console.error(err) });
         }

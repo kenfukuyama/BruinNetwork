@@ -48,7 +48,7 @@ const MyFriendsPending = () => {
     useEffect(() => {
         axios.get('http://localhost:8000/api/users/' + loggedinInfo.loggedinId)
         .then(res => {
-            console.log(res.data);
+            // console.log(res.data);
             setSpiritsNotifications(res?.data?.spiritsNotifications?.reverse());
         })
         .finally(() => {setLoading1(false);})

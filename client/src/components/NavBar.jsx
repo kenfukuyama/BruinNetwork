@@ -178,7 +178,7 @@ function NavBar() {
                                 <ul className="dropdown-menu" style={{backgroundColor : "#000"}}>
                                     <li><Link className="btn text-white" to={"/chitchat"}><i className="bi bi-shuffle nav-icon"></i> Chitchat </Link></li>
                                     <li><Link className="btn text-white" to={"/chatrooms"}><i className="bi bi-person-badge nav-icon"></i> Chatrooms </Link></li>
-                                    <li><Link className="btn text-white" to={"/users/chat"}><i className="bi bi-laptop nav-icon"></i> Bruin Bot </Link></li>
+                                    {/* <li><Link className="btn text-white" to={"/users/chat"}><i className="bi bi-laptop nav-icon"></i> Bruin Bot </Link></li> */}
                                 </ul>
                             </div>
                         </li>

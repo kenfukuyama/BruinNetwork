@@ -122,7 +122,7 @@ function App() {
           <Route element={<MyUserAccount/>} path="/users/account"/>
           <Route element={<MyFriends/>} path="/users/friends"/>
           <Route element={<MyFriendsPending/>} path="/users/friends/pending"/>
-          <Route element={<ChitchatBot/>} path="/users/chat/"/>
+          {/* <Route element={<ChitchatBot/>} path="/users/chat/"/> */}
           <Route element={<MyNotificationsSpirits/>} path="/users/notifications/spirits"/>
           <Route element={<MyNotificationsRequests/>} path="/users/notifications/requests"/>
 

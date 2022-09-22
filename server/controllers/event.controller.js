@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 
 module.exports.createEvent = (request, response) => {
     // ! you need to edit this for each Schema
-    const {name, description, eventDate, startTime, endTime, place, userId} = request.body;
+    const {name, description, eventDate, startTime, endTime, place, userId, link, contactInfo, tags} = request.body;
     // console.log(userId.length);
     let tempUserId = mongoose.Types.ObjectId(userId);
     Event.create({
@@ -15,6 +15,9 @@ module.exports.createEvent = (request, response) => {
         endTime,
         place,
         creator:tempUserId,
+        link,
+        contactInfo,
+        tags
     })
         .then(event =>{ 
             response.json(event);

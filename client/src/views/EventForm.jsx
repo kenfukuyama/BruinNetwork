@@ -5,7 +5,10 @@ import { useEffect } from 'react';
 import { LoggedinContext } from '../context/LoggedinContext';
 import { useContext } from 'react';
 
-
+import Box from '@mui/material/Box';
+import Popper from '@mui/material/Popper';
+import InfoIcon from '@mui/icons-material/Info';
+import IconButton from '@mui/material/IconButton';
 
 
 
@@ -16,6 +19,18 @@ const EventForm = (props) => {
     const [created, setCreated] = useState(false);
     // const [errors, setErrors] = useState([]);
     const [errorsObj, setErrorsObj] = useState({});
+
+
+    // * anchor
+    const [anchorEl, setAnchorEl] = useState(null);
+
+    const handleClick = (event) => {
+        setAnchorEl(anchorEl ? null : event.currentTarget);
+    };
+
+    const open = Boolean(anchorEl);
+    const popId = open ? 'simple-popper' : undefined;
+    
 
     useEffect(() => {
         if (!loggedinInfo.loggedin) {
@@ -40,6 +55,7 @@ const EventForm = (props) => {
         startTime: "18:00",
         endTime: "19:00",
         place: "",
+        link: "",
         userId : loggedinInfo.loggedinId
     }); 
 
@@ -59,6 +75,7 @@ const EventForm = (props) => {
             startTime: eventStartTimeDate,
             endTime: eventEndTimeDate,
             place: event.place,
+            link : event.link,
             userId : event.userId
 
         })
@@ -118,6 +135,7 @@ const EventForm = (props) => {
             startTime: "18:00",
             endTime: "19:00",
             place: "",
+            link: "",
             userId : loggedinInfo.loggedinId
         });
         setCreated(false);
@@ -163,6 +181,58 @@ const EventForm = (props) => {
                                         onChange={handleChange}
                                         className={`form-control ${errorsObj.description ? "border-danger" : "" }`} />
                                     { errorsObj.description ? <span className="form-text text-danger">{errorsObj.description}</span> : <></> }
+                                </div>
+
+                                <div className="mb-2">
+                                            <label className="form-label">Flyer / Post Link
+                                                <IconButton aria-describedby={popId} onClick={handleClick}>
+                                                    <InfoIcon fontSize="small"  style={{color : "#888"}}/>
+                                                </IconButton>
+                                            </label><br />
+                                    {/* // *popper for the link */}
+                                    <Popper
+                                        id={popId}
+                                        open={open}
+                                        anchorEl={anchorEl}
+                                        placement="left-start"
+                                        onClick={handleClick}
+                                        modifiers={[
+                                            {
+                                                name: 'flip',
+                                                enabled: true,
+                                                options: {
+                                                    altBoundary: true,
+                                                    rootBoundary: 'viewport',
+                                                    padding: 8,
+                                                },
+                                            },
+                                            {
+                                                name: 'preventOverflow',
+                                                enabled: true,
+                                                options: {
+                                                    altAxis: true,
+                                                    altBoundary: true,
+                                                    tether: true,
+                                                    rootBoundary: 'document',
+                                                    padding: 8,
+                                                },
+                                            }
+                                        ]}>
+                                        <Box sx={{ border: 1, pt: 1, px: 1, bgcolor: 'background.paper', width: "200px", borderRadius: "15px", borderColor: "#808080" }}>
+                                            <p className='text-small text-muted text-wrap text-center'>
+                                                You can link your instagram story or post. Click on ⋮ on the top right of story or post, and copy the link here. Alternatively, you can provide link to your flyer.
+                                            </p>
+                                        </Box>
+
+                                    </Popper>
+                                    <textarea
+                                        placeholder='paste your link here'
+                                        rows="2"
+                                        name="link"
+                                        value={event.link}
+                                        onChange={handleChange}
+                                        className={`form-control ${errorsObj.link ? "border-danger" : "" }`} />
+                                    { errorsObj.link ? <span className="form-text text-danger">{errorsObj.link}</span> : <></> }
                                 </div>
                                 <div className="mb-2 center">
                                     <label className="form-label">Event Date</label><br />

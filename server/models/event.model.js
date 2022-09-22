@@ -32,8 +32,21 @@ const EventSchema = new mongoose.Schema({
     creator : {
         type:mongoose.Schema.Types.ObjectId,
         ref: 'User'
+    },
+    link : {
+        type: String,
+        maxlength: [500, "Description must be 500 characters or shorter"]
+    },
+    contactInfo : {
+        type: String,
+        maxlength: [100, "Description must be 100 characters or shorter"]
+    },
+    tags: {
+        type: mongoose.Schema.Types.ObjectId,
+        default : {}
     }
-    // categories: [String]
+
+
 }, { timestamps: true });
 
 

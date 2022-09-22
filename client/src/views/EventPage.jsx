@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate, useParams } from 'react-router-dom';
+import {useNavigate, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { LoggedinContext } from '../context/LoggedinContext';
 import { useContext } from 'react';
@@ -11,6 +11,7 @@ import { blue } from '@mui/material/colors';
 
 // import { useRef } from 'react';
 import ScaleLoader from 'react-spinners/ScaleLoader';
+
 
 // import Chip from '@mui/material/Chip';
 // import Collapsible from 'react-collapsible';
@@ -228,8 +229,10 @@ const EventPage = (props) => {
                                                 <div className="col-sm-3">
                                                     <p className="text-muted mb-0">Location</p>
                                                 </div>
-                                                <div className="col-sm-9" onClick={() => window.location.replace(`https://www.google.com/maps/search/${event.place}`)} style={{cursor : "pointer"}}>
-                                                    <p className="text-primary">{event.place}</p>
+                                                {/* <div className="col-sm-9" onClick={() => window.location.replace(`https://www.google.com/maps/search/${event.place}`)} style={{cursor : "pointer"}}> */}
+                                                <div className="col-sm-9">
+                                                    {/* <p className="text-primary">{event.place}</p> */}
+                                                    <a href={`https://www.google.com/maps/search/${event.place}`} className="text-decoration-none">{event.place}</a>
                                                 </div>
                                             </div>
 
@@ -268,6 +271,27 @@ const EventPage = (props) => {
                                                     <p>{event.description}</p>
                                                 </div>
                                             </div>
+
+
+                                            {event.link ? <>
+
+                                                <div className="d-flex align-items-center justify-content-center">
+                                                    <div className="">
+                                                        <h6 className="text-muted btn" style={{ textAlign: "left", pointerEvents : "none" }} >Flyer Post / Link :
+                                                        
+                                                        </h6>
+                                                    </div>
+                                                    {/* <div className="d-flex h5 align-items-center justify-content-center gap-2 btn" onClick={(e) => { window.location.replace(`${event.link}`) }}> */}
+                                                    <div className="d-flex h5 align-items-center justify-content-center gap-2 btn">
+                                                        {/* <div className="div"> */}
+                                                            {/* <p className="text-info" style={{ marginBottom: "0px" }}>Open Link</p> */}
+                                                            <a href={event.link} className="text-decoration-none">Open Link</a>
+                                                        {/* </div> */}
+                                                    </div>
+                                                    
+                                                </div>
+                                                
+                                            </> : <></>}
 
                                             {creator && Object.keys(creator).length > 0 ? <>
                                                 <div className="row mt-4 mb-2">

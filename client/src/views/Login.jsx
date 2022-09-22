@@ -2,7 +2,7 @@ import React from 'react';
 import {useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import jwt from 'jwt-decode';
+// import jwt from 'jwt-decode';
 import { Link } from 'react-router-dom';
 
 // for loggedin context
@@ -30,7 +30,7 @@ const Login = (props) => {
             password: userLogIn.password
         }, {withCredentials: true})
         .then(res => {
-            const token = res.data.userToken
+        // const token = res.data.userToken
             // console.log(jwt(token));
             // console.log(res);
 

@@ -117,7 +117,7 @@ const Events = () => {
                                 <div className="d-flex justify-content-center">
                                     <div className="input-group search-bar p-4 w-md-75 w-lg-100">
                                         <input type="text"
-                                            className="form-control rounded live-search-box regular"
+                                            className="form-control rounded live-search-box "
                                             placeholder="Search events by name, location, date and time"
                                             aria-label="Search People"
                                             aria-describedby="search-addon"

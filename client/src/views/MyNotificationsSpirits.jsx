@@ -112,6 +112,8 @@ const MyNotificationsSpirits = () => {
                                         <Button color="primary" variant="contained" id="navButton" startIcon={<EmojiEventsIcon />}>{spiritCount} SPIRIT{spiritCount > 0 ? "S" : ""}</Button>
                                     </div>
 
+
+                                {spiritsNotifications.length > 0 ? <>
                                     <div className="d-flex justify-content-center flex-wrap">
                                         <List dense sx={{ width: '100%', bgcolor: 'background.paper', borderRadius: "15px"}}>
                                             {spiritsNotifications.map((notification, i) => {
@@ -150,8 +152,7 @@ const MyNotificationsSpirits = () => {
                                             })}
                                         </List>
                                     </div>
-
-
+                                </> : <></>}
                                 </div>
                             )}
 

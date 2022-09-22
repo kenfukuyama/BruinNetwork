@@ -74,7 +74,7 @@ function ChitchatPopUp() {
             axios.get('http://localhost:8000/api/users/' + otherUserId)
             .then(res => {
                 // let otherUser = res.data;
-                console.log(res.data);
+                // console.log(res.data);
                 // otherUser.current = res.data;
                 setOtherUser(res.data);
             })

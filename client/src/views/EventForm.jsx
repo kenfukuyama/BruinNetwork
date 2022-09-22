@@ -148,7 +148,7 @@ const EventForm = (props) => {
                 <div className="container py-5 h-100 fade-in">
                     <div className="row d-flex justify-content-center align-items-center h-100">
                         <div className="col col-md-7 col-lg-8 col-xl-7">
-                    <div className="card bg-transparent text-white scroll-box" style={{overflowY : "overflow", maxHeight: "93vh"}}>
+                    <div className="card bg-transparent text-white scroll-box" style={{overflowY : "scroll", maxHeight: "93vh"}}>
                         <h4 className="card-header p-4">About Your Event</h4>
                         <div className="card-body">
                             <form onSubmit={createEvent}>

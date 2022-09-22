@@ -178,7 +178,6 @@ const UserPage = (props) => {
 
     useEffect(() => {
         getSavedEvents();
-
     // eslint-disable-next-line
     }, [user])
     // saved events handler
@@ -292,7 +291,7 @@ const UserPage = (props) => {
         if (tempUser) {
             axios.put('http://localhost:8000/api/users/' + id, tempUser)
                 .then(res => {
-                    console.log(res.data);
+                    // console.log(res.data);
                 })
                 .catch(err => { console.error(err) });
         }

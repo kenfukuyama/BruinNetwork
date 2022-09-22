@@ -36,7 +36,7 @@ require('./server/routes/event.routes')(app);
 require('./server/routes/user.routes')(app); 
 require('./server/routes/chitchat.routes')(app); 
 require('./server/routes/friendship.routes')(app); 
-require('./server/routes/bot.routes')(app); 
+// require('./server/routes/bot.routes')(app); 
 
 
 
@@ -52,7 +52,7 @@ const io = require('socket.io')(server, { cors: true });
 // socket connections
 io.on("connection", (socket) => {
     // ! connection received
-    console.log(colors.magenta(`<- user connected: ${socket.id}`));
+    // console.log(colors.magenta(`<- user connected: ${socket.id}`));
 
     // emitters
     // socket.emit("chat", {type: "JOIN", content: "user joined", username: "someone"});
@@ -86,7 +86,7 @@ io.on("connection", (socket) => {
 
     // ! we will update all the users abou the change
     socket.on("disconnecting", (reason) => {
-        console.log("disconnecting");
+        // console.log("disconnecting");
         // console.log(socket.rooms);
         for (const room of socket.rooms) {
             if (room !== socket.id) {
@@ -100,7 +100,7 @@ io.on("connection", (socket) => {
         }
     });
     socket.on("disconnect", (reason) => {
-        console.log(colors.red(`-> user disconnected: ${socket.id} - ${reason}`));
+        // console.log(colors.red(`-> user disconnected: ${socket.id} - ${reason}`));
         // console.log(socket.rooms);
         
     });

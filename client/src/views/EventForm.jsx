@@ -220,7 +220,7 @@ const EventForm = (props) => {
                                         ]}>
                                         <Box sx={{ border: 1, pt: 1, px: 1, bgcolor: 'background.paper', width: "200px", borderRadius: "15px", borderColor: "#808080" }}>
                                             <p className='text-small text-muted text-wrap text-center'>
-                                                You can link your instagram story or post. Click on ⋮ on the top right of story or post, and copy the link here. Alternatively, you can provide link to your flyer.
+                                                You can link your Instagram story or post. Click ⋮ on the top right of the story or post, and paste the link here. Alternatively, you can provide a link to your flyer.
                                             </p>
                                         </Box>
 

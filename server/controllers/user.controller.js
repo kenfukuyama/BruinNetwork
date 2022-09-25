@@ -120,7 +120,7 @@ module.exports.deleteUser = (request, response) => {
 // login
 module.exports.login = (req, res) => {
     let tempUser = null;
-    User.findOne({ email: req.body.email })
+    User.findOne({$or : [{ email: req.body.email}, {username: req.body.email}]})
     .then( (user) => {
         // console.log(user);
         if (user === null) {

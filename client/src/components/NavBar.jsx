@@ -155,10 +155,10 @@ function NavBar() {
                                     <i className="bi bi-calendar2-event-fill nav-icon"></i>  EVENTS
                                 </button>
                                 <ul className="dropdown-menu" style={{backgroundColor : "#000"}}>
-                                    <li><Link className="btn text-white" to={"/events"} onClick={() => {mobileButtonRef.current.click();}}><i className="bi bi-search nav-icon"></i> Explore </Link></li>
-                                    <li><Link className="btn text-white" to={"/myevents/saved"} onClick={() => {mobileButtonRef.current.click();}}><i className="bi bi-bookmark-fill nav-icon"></i> Saved Events</Link></li>
-                                    <li><Link className="btn text-white" to={"/myevents/posted"} onClick={() => {mobileButtonRef.current.click();}}><i className="bi bi-person-lines-fill nav-icon"></i> My Events</Link></li>
-                                    <li><Link className="btn text-white" to={"/events/new"} onClick={() => {mobileButtonRef.current.click();}}><i className="bi bi-file-plus nav-icon"></i> Add an Event</Link></li>
+                                    <li><Link className="btn text-white" to={"/events"}><i className="bi bi-search nav-icon"></i> Explore </Link></li>
+                                    <li><Link className="btn text-white" to={"/myevents/saved"}><i className="bi bi-bookmark-fill nav-icon"></i> Saved Events</Link></li>
+                                    <li><Link className="btn text-white" to={"/myevents/posted"}><i className="bi bi-person-lines-fill nav-icon"></i> My Events</Link></li>
+                                    <li><Link className="btn text-white" to={"/events/new"}><i className="bi bi-file-plus nav-icon"></i> Add an Event</Link></li>
                                     {/* <li><a className="dropdown-item" href="/users/dashboard/myevents">My Events</a></li>
                                     <li><hr className="dropdown-divider"/></li>
                                     <li><a className="dropdown-item" href="/users/dashboard/groups">Groups</a></li>
@@ -178,8 +178,8 @@ function NavBar() {
                                     <i className="bi bi-chat-dots-fill nav-icon"></i> CHATS
                                 </button>
                                 <ul className="dropdown-menu" style={{backgroundColor : "#000"}}>
-                                    <li><Link className="btn text-white" to={"/chitchat"} onClick={() => {mobileButtonRef.current.click();}}><i className="bi bi-shuffle nav-icon"></i> Chitchat </Link></li>
-                                    <li><Link className="btn text-white" to={"/chatrooms"} onClick={() => {mobileButtonRef.current.click();}}><i className="bi bi-person-badge nav-icon"></i> Chatrooms </Link></li>
+                                    <li><Link className="btn text-white" to={"/chitchat"}><i className="bi bi-shuffle nav-icon"></i> Chitchat </Link></li>
+                                    <li><Link className="btn text-white" to={"/chatrooms"}><i className="bi bi-person-badge nav-icon"></i> Chatrooms </Link></li>
                                     {/* <li><Link className="btn text-white" to={"/users/chat"}><i className="bi bi-laptop nav-icon"></i> Bruin Bot </Link></li> */}
                                 </ul>
                             </div>
@@ -192,10 +192,10 @@ function NavBar() {
                                     <i className="bi bi-person-circle  nav-icon"></i> ACCOUNT
                                 </button>
                                 <ul className="dropdown-menu" style={{backgroundColor : "#000"}}>
-                                    <li><Link className="btn text-white" to={"/users/friends"} onClick={() => {mobileButtonRef.current.click();}}><i className="bi bi-people-fill nav-icon"></i> Friends </Link></li>
-                                    <li><Link className="btn text-white" to={"/users/friends/pending"} onClick={() => {mobileButtonRef.current.click();}}><i className="bi bi-person-plus-fill nav-icon"></i> Requests </Link></li>
-                                    <li><Link className="btn text-white" to={"/users"} onClick={() => {mobileButtonRef.current.click();}}><i className="bi bi-binoculars-fill nav-icon"></i> Discover </Link></li>
-                                    <li><Link className="btn text-white" to={"/users/account"} onClick={() => {mobileButtonRef.current.click();}}><i className="bi bi-person-circle nav-icon"></i> My Profile </Link></li>
+                                    <li><Link className="btn text-white" to={"/users/friends"}><i className="bi bi-people-fill nav-icon"></i> Friends </Link></li>
+                                    <li><Link className="btn text-white" to={"/users/friends/pending"}><i className="bi bi-person-plus-fill nav-icon"></i> Requests </Link></li>
+                                    <li><Link className="btn text-white" to={"/users"}><i className="bi bi-binoculars-fill nav-icon"></i> Discover </Link></li>
+                                    <li><Link className="btn text-white" to={"/users/account"}><i className="bi bi-person-circle nav-icon"></i> My Profile </Link></li>
                                     <Logout setIntVal={notificationIntVal.current}/>
                                 </ul>
                             </div>

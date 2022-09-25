@@ -75,7 +75,7 @@ const Login = (props) => {
                     {/* <label className="form-label">email</label><br /> */}
                     <input
                         type="text"
-                        placeholder='email'
+                        placeholder='username or email'
                         name="email"
                         value={userLogIn.email}
                         onChange={handleChangeLoggedIn}

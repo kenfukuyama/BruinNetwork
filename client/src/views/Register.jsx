@@ -14,6 +14,7 @@ const Register = () => {
     const {setLoggedinInfo, loggedinInfo} = useContext(LoggedinContext);
     const navigate = useNavigate();
     const [errors, setErrors] = useState({});
+    const re = new RegExp(/^[a-z0-9._]+$/i);
 
     const [user, setUser] = useState({
         username: "",
@@ -28,7 +29,7 @@ const Register = () => {
         e.preventDefault();
 
         axios.post('http://localhost:8000/api/register', {
-        username: user.username,
+        username: user.username?.toLowerCase(),
         nickname: user.nickname,
         email: user.email,
         password: user.password,
@@ -65,6 +66,20 @@ const Register = () => {
     }
 
     const handleChange = (e) => {
+
+        if (e.target.name  === 'username') {
+            // console.log("it's username");
+            let tempErrors = JSON.parse(JSON.stringify(errors));
+            
+            if (re.test(e.target.value)) {
+                // console.log("you have unsporrted characters");
+                delete tempErrors['username'];
+            }
+            else {
+                tempErrors['username'] = "username can only contain alphabets, numbers, periods, and underscores"
+            }
+            setErrors(tempErrors);
+        }
         setUser({...user, [e.target.name] : e.target.value});
     }
 

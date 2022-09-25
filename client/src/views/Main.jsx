@@ -1,9 +1,13 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom';
+
+
+import {LoggedinContext} from '../context/LoggedinContext';
 
 
 
 const Main = () => {
+    const {loggedinInfo} = useContext(LoggedinContext);
 
     return (
         <div className="container">
@@ -20,6 +24,9 @@ const Main = () => {
                     <Link className="btn btn-light btn-lg mt-2" to={"/login"}><strong>Login</strong> <i className="bi-arrow-right-short"></i></Link>
                     <Link className="btn btn-light btn-lg mt-2" to={"/register"}><strong>Register</strong> <i className="bi-arrow-right-short"></i></Link>
                 </div> */}
+
+
+                {loggedinInfo.loggedin ? <></> : <Link className="btn btn-trasparent btn-lg mt-2 text-center text-white" style={{position : "fixed", bottom: "3%"}} to={"/guests/events"}><strong>Quick Guest Access</strong> <i className="bi-arrow-right-short"></i></Link> }
             </div>   
         </div>
     );

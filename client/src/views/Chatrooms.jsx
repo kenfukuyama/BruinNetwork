@@ -40,7 +40,8 @@ const Chatrooms = () => {
     const [loading, setLoading] = useState(true);
     const user = useRef(null);
     const recentButtonRef = useRef(null);
-    const onlineNumbers = useRef(null);
+    // const onlineNumbers = useRef(null);
+    const [onlineNumbers, setonlineNumbers] = useState(null);
     const { loggedinInfo } = useContext(LoggedinContext);
 
     const [displayRooms, setDisplayRooms] = useState(chatrooms);
@@ -67,7 +68,8 @@ const Chatrooms = () => {
         axios.post('http://localhost:8000/api/chatrooms/online-number/all', {})
         .then(res => {
             // console.log(res.data);
-            onlineNumbers.current = res.data;
+            // onlineNumbers = res.data;
+            setonlineNumbers(res.data);
         })
         // eslint-disable-next-line
     }, []);
@@ -236,11 +238,11 @@ const Chatrooms = () => {
                                                                                     </ListItem>
                                                                                     <div className="category d-flex align-items-center justify-content-center">
                                                                                         {/* <p className="pe-1 text-muted">Major</p> */}
-                                                                                        { onlineNumbers.current ? <>
-                                                                                                {onlineNumbers.current[chatrooms[recentSelection][0]] ? 
+                                                                                        { onlineNumbers ? <>
+                                                                                                {onlineNumbers[chatrooms[recentSelection][0]] ? 
                                                                                                 <>
                                                                                                     <div className="online-number">
-                                                                                                        <p className="pe-1 text-muted mb-0">{onlineNumbers.current[chatrooms[recentSelection][0]] }</p>
+                                                                                                        <p className="pe-1 text-muted mb-0">{onlineNumbers[chatrooms[recentSelection][0]] }</p>
                                                                                                     </div>
                                                                                                     <svg height="25" width="25" className="blinking">
                                                                                                         <circle cx="12.5" cy="12.5" r="5" fill="green" />
@@ -252,7 +254,7 @@ const Chatrooms = () => {
                                                                                         </> : <></>}
                                                                                         
                                                                                         
-                                                                                        {/* <p className="pe-1 text-muted">{onlineNumbers.current[chatrooms[recentSelection]] ? onlineNumbers.current[chatrooms[recentSelection]] : ""}</p> */}
+                                                                                        {/* <p className="pe-1 text-muted">{onlineNumbers[chatrooms[recentSelection]] ? onlineNumbers[chatrooms[recentSelection]] : ""}</p> */}
 
                                                                                     </div>
                                                                                 </div>
@@ -310,11 +312,11 @@ const Chatrooms = () => {
                                                             </ListItem>
                                                             <div className="category d-flex align-items-center justify-content-center">
                                                                 {/* <p className="pe-1 text-muted">Major</p> */}
-                                                                {onlineNumbers.current ? <>
-                                                                    {onlineNumbers.current[room[0]] ?
+                                                                {onlineNumbers ? <>
+                                                                    {onlineNumbers[room[0]] ?
                                                                         <>
                                                                             <div className="online-number">
-                                                                                <p className="pe-1 text-muted mb-0">{onlineNumbers.current[room[0]]}</p>
+                                                                                <p className="pe-1 text-muted mb-0">{onlineNumbers[room[0]]}</p>
                                                                             </div>
                                                                             <svg height="25" width="25" className="blinking">
                                                                                 <circle cx="12.5" cy="12.5" r="5" fill="green" />
@@ -324,7 +326,7 @@ const Chatrooms = () => {
 
                                                                 </> : <></>}
 
-                                                                {/* <p className="pe-1 text-muted">{onlineNumbers.current[chatrooms[recentSelection]] ? onlineNumbers.current[chatrooms[recentSelection]] : ""}</p> */}
+                                                                {/* <p className="pe-1 text-muted">{onlineNumbers[chatrooms[recentSelection]] ? onlineNumbers[chatrooms[recentSelection]] : ""}</p> */}
 
                                                             </div>
                                                         </div>
@@ -340,7 +342,7 @@ const Chatrooms = () => {
 
                                     <div className="form-group fixed-bottom mb-4">
                                         {error && <p className="text-danger">{error}</p>}
-                                        <button type="submit" className={`chatrooms-submit ${roomSelection === -1 ? "bg-transparent border-info" : ""} text-wrap btn btn-lg w-md-50 w-lg-25 w-xl-25 w-xxl-25 ${error ? "border-danger" : ""}`} onClick={enterChat}>
+                                        <button type="submit" className={`chatrooms-submit text-white ${roomSelection === -1 ? "bg-transparent border-info" : ""} text-wrap btn btn-lg w-md-50 w-lg-25 w-xl-25 w-xxl-25 ${error ? "border-danger" : ""}`} onClick={enterChat}>
                                             {roomSelection === -1 ? <>Let's Chat</> : <>{chatrooms[roomSelection][0]} <i className="bi-arrow-right-short"></i></>}
 
 

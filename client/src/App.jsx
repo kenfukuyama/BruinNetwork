@@ -3,6 +3,7 @@ import './App.css';
 
 import Main from './views/Main';
 import Events from './views/Events';
+import GuestEvents from './views/GuestEvents';
 import EventForm from './views/EventForm';
 import NavBar from './components/NavBar';
 import Login from './views/Login';
@@ -17,8 +18,10 @@ import Cookies from 'universal-cookie';
 import { useState } from 'react';
 import jwt from 'jwt-decode';
 // import { createContext } from 'react';
+import GuestEventPage from './views/GuestEventPage';
 
 import MyUserAccount from './views/MyUserAccount'
+
 // for context
 // import AppWrapperComponent from './AppWrapperComponent';
 import {LoggedinContext} from './context/LoggedinContext';
@@ -36,6 +39,7 @@ import UserFriendsPage from './views/UserFriendsPage';
 import MyNotificationsRequests from './views/MyNotificationsRequests';
 import MyNotificationsSpirits from './views/MyNotificationsSpirits';
 import EventPage from './views/EventPage';
+import GuestChatrooms from './views/GuestChatrooms';
 
 // import axios from 'axios';
 // import { useEffect } from 'react';
@@ -139,6 +143,12 @@ function App() {
           <Route element={<ChatroomPublic beat={beat}/>} path="/chatroom/:roomId"/>
           <Route element={<Chitchat beat={beat}/>} path="/chitchat/:roomId"/>
           <Route element={<Chatrooms/>} path="/chatrooms"/>
+          
+
+          {/* // Guests routes */}
+          <Route element={<GuestEvents/>} path="/guests/events"/>
+          <Route element={<GuestEventPage/>} path="/guests/events/:id"/>
+          <Route element={<GuestChatrooms/>} path="/guests/chatrooms"/>
           
         </Routes>
       </LoggedinContext.Provider>

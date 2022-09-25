@@ -618,6 +618,10 @@ margin-bottom: 0;
 .w-sm-25 {
   width:25%!important;
 }
+
+.w-sm-12 {
+  width:12%!important;
+}
 .h-sm-100 {
   height:100%!important;
 }
@@ -664,6 +668,10 @@ margin-bottom: 0;
 .w-md-21 {
   width:21%!important;
 }
+.w-md-12 {
+  width:12%!important;
+}
+
 .h-md-100 {
   height:100%!important;
 }

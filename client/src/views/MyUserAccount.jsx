@@ -458,7 +458,7 @@ const MyUserAccount = () => {
                                                     
                                                 ]}> */}
                                                 <Box sx={{ border: 1, pt: 1, px: 1, bgcolor: '#fff', borderRadius: "15px", borderColor: "#808080", zIndex: "1000"}} 
-                                                    style={{ position: 'fixed', top: "20%", display: [none]}}
+                                                    style={{ position: 'fixed', top: "20%", display: [none], maxHeight: "70vh", overflowY : "scroll"}}
                                                     className="w-sm-75 w-md-32 w-lg-32 w-xl-25">
                                                     <div className="d-flex justify-content-end">
                                                         <div className="close-button">

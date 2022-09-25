@@ -156,9 +156,6 @@ const getUsersInRoom = (request, response) => {
 
 };
 
-
-
-
 // module.exports = {getOnlineNumber};
 
 app.post('/api/chatrooms/online-number/all', getOnlineNumber);

@@ -9,6 +9,10 @@ import { Link } from 'react-router-dom';
 import {LoggedinContext} from '../context/LoggedinContext';
 import { useContext } from 'react';
 
+import Box from '@mui/material/Box';
+import Popper from '@mui/material/Popper';
+import InfoIcon from '@mui/icons-material/Info';
+import IconButton from '@mui/material/IconButton';
 
 const Login = (props) => {
     const {setLoggedinInfo, loggedinInfo} = useContext(LoggedinContext);
@@ -16,6 +20,15 @@ const Login = (props) => {
     const navigate = useNavigate();
 
     const [error, setError] = useState({});
+
+
+    // * anchor
+    const [anchorEl, setAnchorEl] = useState(null);
+    const handleClick = (event) => {
+        setAnchorEl(anchorEl ? null : event.currentTarget);
+    };
+    const open = Boolean(anchorEl);
+    const popId = open ? 'simple-popper' : undefined;
 
     const [userLogIn, setUserLogIn] = useState({
         email: "",
@@ -105,7 +118,48 @@ const Login = (props) => {
                 <button type="submit" className="btn btn-light btn-lg mt-1 styled-button">Sign In</button>
             </form>
             {/* <p className="styled-text">Don't have an account? <a href="/accounts/register">Sign Up</a></p> */}
-            <p className="styled-text">Don't have an account? <Link to={"/register"}>Sign Up</Link></p>
+            <p className="styled-text mb-0">Don't have an account? <Link to={"/register"}>Sign Up</Link> <IconButton aria-describedby={popId} onClick={handleClick}>
+                <InfoIcon fontSize="small" style={{ color: "#888" }} />
+            </IconButton></p>
+
+
+            <Popper
+                                        id={popId}
+                                        open={open}
+                                        anchorEl={anchorEl}
+                                        placement="left-start"
+                                        onClick={handleClick}
+                                        modifiers={[
+                                            {
+                                                name: 'flip',
+                                                enabled: true,
+                                                options: {
+                                                    altBoundary: true,
+                                                    rootBoundary: 'viewport',
+                                                    padding: 8,
+                                                },
+                                            },
+                                            {
+                                                name: 'preventOverflow',
+                                                enabled: true,
+                                                options: {
+                                                    altAxis: true,
+                                                    altBoundary: true,
+                                                    tether: true,
+                                                    rootBoundary: 'document',
+                                                    padding: 8,
+                                                },
+                                            }
+                                        ]}>
+                                        <Box sx={{ border: 1, pt: 1, px: 1, bgcolor: 'background.paper', width: "300px", borderRadius: "15px", borderColor: "#808080" }}>
+                                            <p className='text-small text-muted text-wrap text-center'>
+                                                If you have trouble accessing your existing account, please email <strong>bruinnetwork.connect@gmail.com</strong> for further instructions. Please send a message using the email you used to sign up.
+                                            </p>
+                                        </Box>
+
+                                    </Popper>
+
+
         </div>
     )
 }

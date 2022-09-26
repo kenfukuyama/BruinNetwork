@@ -186,7 +186,7 @@ const UserPage = (props) => {
         // only make a api when it does not exist yet
         /// get all the events crated by the user.
 
-        if (userSavedEvents === null) {
+        if (!userSavedEvents) {
             axios.get('http://localhost:8000/api/users/' + user._id + "/saved-events")
                 // axios.get("api/events/user/6317f12d985af7817efe4bc9")
                 .then(res => {
@@ -211,8 +211,8 @@ const UserPage = (props) => {
                 return {
                     ...event,
                     eventDate: new Date(event.eventDate).toLocaleDateString("en", { weekday: 'long', month: 'long', day: 'numeric', timeZone: 'UTC' }),
-                    startTime: new Date(event.startTime).toLocaleTimeString('en', { timeStyle: 'short', hour12: false, timeZone: 'America/Los_Angeles' }),
-                    endTime: new Date(event.endTime).toLocaleTimeString('en', { timeStyle: 'short', hour12: false, timeZone: 'America/Los_Angeles' }),
+                    startTime: new Date(event.startTime).toLocaleTimeString('en', { timeStyle: 'short', hour12: true, timeZone: 'America/Los_Angeles' }),
+                    endTime: new Date(event.endTime).toLocaleTimeString('en', { timeStyle: 'short', hour12: true, timeZone: 'America/Los_Angeles' }),
                     liked: (event._id in loggedinUser.savedEvents)
                 };
             }
@@ -591,10 +591,10 @@ const UserPage = (props) => {
                                                             <div className="card m-2 shadow-lg card-border-radius">
                                                                 <div className="card-header">
                                                                     <div className="d-flex align-items-center justify-content-between">
-                                                                        <div className="event-name">
+                                                                        <div className="event-name" style={{textAlign : "left"}}>
                                                                             <p onClick={() => navigate(`/events/${event._id}`)} className="text-primary h5 " style={{cursor : "pointer"}}>{event.name}</p>
                                                                         </div>
-                                                                        <div className="event-time"> {event.eventDate} at {event.startTime}</div>
+                                                                        <div className="event-time"  style={{textAlign : "right"}}> {event.eventDate} at {event.startTime}</div>
                                                                     </div>
                                                                     <div className="d-flex align-items-center justify-content-end">
                                                                         <div className="event-time">{event.place}</div>

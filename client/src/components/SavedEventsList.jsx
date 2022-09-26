@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, {useContext, useState} from 'react'
+import React, { useContext, useState } from 'react'
 import { useRef } from 'react';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -7,13 +7,13 @@ import { useNavigate } from 'react-router-dom';
 import { LoggedinContext } from '../context/LoggedinContext';
 
 
-const SavedEventsList = ({events}) => {
+const SavedEventsList = ({ events }) => {
     const [formattedEvents, SetFormattedEvents] = useState([]);
-    const {loggedinInfo} = useContext(LoggedinContext);
+    const { loggedinInfo } = useContext(LoggedinContext);
     const user = useRef(null);
     const navigate = useNavigate();
 
-    
+
 
     useEffect(() => {
         // console.log(events)
@@ -28,7 +28,7 @@ const SavedEventsList = ({events}) => {
                 // setLoggedinInfo({ ...loggedinInfo, loggedinUsername: tempedUsername })
             })
 
-        return () => { 
+        return () => {
             if (user.current) {
                 axios.put('http://localhost:8000/api/users/' + loggedinInfo.loggedinId, user.current)
                     .then(res => {
@@ -36,28 +36,29 @@ const SavedEventsList = ({events}) => {
                     })
                     .catch(err => { console.error(err) });
             }
-            
+
         };
     }, [events, loggedinInfo.loggedinId]);
 
-    
+
     const formatEvents = (paramEvents) => {
         let tempFormattedEvents = paramEvents.map((event, i) => {
             if (event.startTime && event.endTime && event.eventDate) {
-                return {...event, 
+                return {
+                    ...event,
                     eventDate: new Date(event.eventDate).toLocaleDateString("en", { weekday: 'long', month: 'long', day: 'numeric', timeZone: 'UTC' }),
                     startTime: new Date(event.startTime).toLocaleTimeString('en', { timeStyle: 'short', hour12: true, timeZone: 'America/Los_Angeles' }),
                     endTime: new Date(event.endTime).toLocaleTimeString('en', { timeStyle: 'short', hour12: true, timeZone: 'America/Los_Angeles' }),
-                    liked : (event._id in user.current.savedEvents)
+                    liked: (event._id in user.current.savedEvents)
                 };
             }
             else {
-                return {...event};
+                return { ...event };
             }
         });
         return tempFormattedEvents;
 
-    } 
+    }
 
     const toggleLiked = (e, i) => {
         // console.log(i);
@@ -68,7 +69,7 @@ const SavedEventsList = ({events}) => {
                     // console.log("add to user event list");
                     let obj = {};
                     obj[eachEvent._id] = eachEvent.name;
-                    user.current = {...user.current, savedEvents: {...user.current.savedEvents, ...obj}};
+                    user.current = { ...user.current, savedEvents: { ...user.current.savedEvents, ...obj } };
                 }
                 else {
                     // console.log("remove it from the list");
@@ -90,38 +91,43 @@ const SavedEventsList = ({events}) => {
         SetFormattedEvents(tempEvents);
     };
 
-    return (
+    return (<>
+    {
+        formattedEvents.length > 0 ? 
         <>
-                    {formattedEvents.map((event, i) =>
-                    <div className="" key={i}>
-                        <div className="card m-2 shadow-lg card-border-radius">
-                            <div className="card-header">
-                                <div className="d-flex align-items-center justify-content-between">
-                                    <div className="event-name">
-                                    <p onClick={() => navigate(`/events/${event._id}`)} className="text-primary h5 " style={{cursor : "pointer"}}>{event.name}</p>
-                                    </div>
-                                    <div className="event-time"> {event.eventDate} at {event.startTime}</div>
+            {formattedEvents.map((event, i) =>
+                <div className="" key={i}>
+                    <div className="card m-2 shadow-lg card-border-radius">
+                        <div className="card-header">
+                            <div className="d-flex align-items-center justify-content-between">
+                                <div className="event-name"  style={{textAlign : "left"}}>
+                                    <p onClick={() => navigate(`/events/${event._id}`)} className="text-primary h5 " style={{ cursor: "pointer" }}>{event.name}</p>
                                 </div>
-                                <div className="d-flex align-items-center justify-content-end">
-                                    <div className="event-time">{event.place}</div>
-                                </div>
+                                <div className="event-time" style={{textAlign : "right"}}> {event.eventDate} at {event.startTime}</div>
                             </div>
-                            <div className="card-body">
-                                <div className="d-flex  justify-content-between">
-                                    <div className="">{event.description}  <br /></div>
-                                    <div className="d-flex gap-1">
-                                        <i className={`bi bi-bookmark${event.liked ? "-fill" : "" } nav-icon`} onClick={(e) => toggleLiked(e, i)}></i>
-                                    </div>
+                            <div className="d-flex align-items-center justify-content-end">
+                                <div className="event-time">{event.place}</div>
+                            </div>
+                        </div>
+                        <div className="card-body">
+                            <div className="d-flex  justify-content-between">
+                                <div className="">{event.description}  <br /></div>
+                                <div className="d-flex gap-1">
+                                    <i className={`bi bi-bookmark${event.liked ? "-fill" : ""} nav-icon`} onClick={(e) => toggleLiked(e, i)}></i>
                                 </div>
                             </div>
                         </div>
                     </div>
-                )}
-        </>
-
-
-
-    )
+                </div>
+            )}
+        
+        </> : <><p className='text-muted'>No saved events on this day</p></>
+    }
+    
+    
+    
+    
+    </>)
 }
 
 export default SavedEventsList

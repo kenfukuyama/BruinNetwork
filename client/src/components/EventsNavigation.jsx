@@ -16,7 +16,7 @@ const EventsNavigation = ({inviationCounts}) => {
     const navigate = useNavigate();
     return (
         <div className="navigation-icons d-flex justify-content-center align-items-center gap-5">
-            <IconButton sx={{color : "#fff"}} onClick={(e) => navigate('/myevents/saved')}>
+            <IconButton sx={{color : "#fff"}} onClick={(e) => navigate('/myevents/saved/calendar')}>
                 <BookmarkIcon fontSize="medium" />
             </IconButton>
 

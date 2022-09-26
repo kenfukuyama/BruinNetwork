@@ -11,12 +11,17 @@ import ScaleLoader from 'react-spinners/ScaleLoader';
 import EventsNavigation from '../components/EventsNavigation';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import Button from '@mui/material/Button';
+import EventIcon from '@mui/icons-material/Event';
+import IconButton from '@mui/material/IconButton';
 
-const MySavedEvents = () => {
+
+
+const MySavedEventsList = () => {
     const {loggedinInfo} = useContext(LoggedinContext);
     const navigate = useNavigate();
 
     const [events, setEvents] = useState([]);
+    
 
 
     useEffect(() => {
@@ -46,8 +51,11 @@ const MySavedEvents = () => {
                             <div className="fade-in card bg-transparent scroll-box"  style={{ borderRadius: "15px", backgroundColor: "#ffffff", overflowY : "scroll" , height: "93vh"}}>
 
                                 <EventsNavigation/>
-                                <div className="d-flex align-item-center justify-content-center my-2">
-                                        <Button color="primary" variant="contained" id="navButton" startIcon={<BookmarkIcon />}>SAVED EVENTS</Button>
+                                <div className="d-flex align-item-center justify-content-center my-2 gap-2">
+                                    <Button color="primary" variant="contained" id="navButton" startIcon={<BookmarkIcon />}>SAVED EVENTS - LIST </Button>
+                                    <IconButton sx={{ color: "#fff"}} onClick={(e) => navigate('/myevents/saved/calendar')}>
+                                        <EventIcon fontSize="medium" />
+                                    </IconButton>
                                 </div>
 
                                 {events && <SavedEventsList events={events} />}
@@ -61,4 +69,4 @@ const MySavedEvents = () => {
     )
 }
 
-export default MySavedEvents;
+export default MySavedEventsList;

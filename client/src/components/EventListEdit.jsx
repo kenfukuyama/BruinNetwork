@@ -56,13 +56,13 @@ const EventList = ({events}) => {
                         <div className="card m-2 shadow-lg card-border-radius">
                             <div className="card-header">
                                 <div className="d-flex align-items-center justify-content-between">
-                                    <div className="event-name">
+                                    <div className="event-name" style={{textAlign : "left"}}>
                                         <p onClick={() => navigate(`/events/${event._id}`)} className="text-primary h5 " style={{cursor : "pointer"}}>{event.name}</p>
                                     </div>
-                                    <div className="event-time"> {event.eventDate} at {event.startTime}</div>
+                                    <div className="event-time" style={{textAlign : "right"}}> {event.eventDate} at {event.startTime}</div>
                                 </div>
                                 <div className="d-flex align-items-center justify-content-end">
-                                    <div className="event-time">{event.place}</div>
+                                    <div className="event-time" >{event.place}</div>
                                 </div>
                             </div>
                             <div className="card-body">

@@ -109,17 +109,10 @@ const MyFriends = () => {
                                                 {friends.map((user, i) => {
                                                     const labelId = `checkbox-list-secondary-label-${i}`;
                                                     return (
+                                                        <div className="d-flex text-wrap justify-content-center" key={i}>
                                                         <ListItem sx={{ px: 2 }}
                                                             key={i}
                                                             disablePadding
-                                                            secondaryAction={
-                                                                // <Checkbox
-                                                                //     edge="end"
-                                                                //     inputProps={{ 'aria-labelledby': labelId }}
-                                                                // />
-                                                                <p id="profile-major-year-text" className="mb-0 text-right pe-3">{user.year[1]} <br /><em className="text-muted">{user.major}</em></p>
-
-                                                            }
                                                         >
                                                             <ListItemButton sx={{ py: 2 }} onClick={() => { nav(`/users/${user._id}`) }}>
                                                                 <ListItemAvatar>
@@ -130,6 +123,16 @@ const MyFriends = () => {
                                                                 <ListItemText id={labelId} primary={<h6 className="mb-0">{user.nickname}<em className="text-muted"> (@{user.username})</em></h6>} />
                                                             </ListItemButton>
                                                         </ListItem>
+                                                        <div className="d-flex align-items-center justify-content-end w-sm-50 w-md-50 w-lg-50 text-wrap flex-wrap">
+                                                                <div>
+                                                                    <p id="profile-major-year-text" className="mb-0 me-3">{user.year[1]} <br /><em className="text-muted ">{user.major}</em></p>
+                                                                </div>
+
+                                                            </div>
+
+
+                                                        </div>
+
                                                     );
                                                 })}
                                             </List>
@@ -153,3 +156,6 @@ const MyFriends = () => {
 }
 
 export default MyFriends;
+
+
+ // <p id="profile-major-year-text" className="mb-0 text-right pe-3 text-wrap">{user.year[1]} <br /><em className="text-muted">{user.major}</em></p>

@@ -956,3 +956,13 @@ margin-bottom: 0;
 }
 
 
+
+
+/* calendar css fix */
+.react-calendar__tile--now {
+  background: #82cdc8 !important;
+}
+
+.react-calendar__tile--active:enabled:hover, .react-calendar__tile--active:enabled:focus {
+  background: #1087ff96 !important;
+}

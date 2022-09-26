@@ -156,7 +156,7 @@ function NavBar() {
                                 </button>
                                 <ul className="dropdown-menu" style={{backgroundColor : "#000"}}>
                                     <li><Link className="btn text-white" to={"/events"}><i className="bi bi-search nav-icon"></i> Explore </Link></li>
-                                    <li><Link className="btn text-white" to={"/myevents/saved"}><i className="bi bi-bookmark-fill nav-icon"></i> Saved Events</Link></li>
+                                    <li><Link className="btn text-white" to={"/myevents/saved/calendar"}><i className="bi bi-bookmark-fill nav-icon"></i> Saved Events</Link></li>
                                     <li><Link className="btn text-white" to={"/myevents/posted"}><i className="bi bi-person-lines-fill nav-icon"></i> My Events</Link></li>
                                     <li><Link className="btn text-white" to={"/events/new"}><i className="bi bi-file-plus nav-icon"></i> Add an Event</Link></li>
                                     {/* <li><a className="dropdown-item" href="/users/dashboard/myevents">My Events</a></li>

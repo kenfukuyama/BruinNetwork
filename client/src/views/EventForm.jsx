@@ -119,15 +119,30 @@ const EventForm = (props) => {
     }
 
     const handleChange = (e) => {
-        if ([e.target.name] === 'startTime' || [e.target.name] === 'endTime') {
+        if (e.target.name === 'startTime') {
+            let date = new Date()
+            date.setHours(e.target.value.substring(0, 2), e.target.value.substring(3, 5))
+            let tempEndHour = "";
+            if (date.getHours()+1 === 24) {
+                tempEndHour = "00";
+            }
+            else {
+                tempEndHour = String(date.getHours()+1).padStart(2, '0');
+            }
+            let tempEndTime =  tempEndHour + ":" + String(date.getMinutes()).padStart(2, '0')
+            // console.log();
+            // console.log(date.getMinutes().padStart(2, '0'));
+            setEvent({...event,  startTime: e.target.value, endTime: tempEndTime });
+            
             // console.log("it's start time or EndTime")
             // console.log(e.target.value.substring(0, 2) + " hour")
             // console.log(e.target.value.substring(3, 5) + " minutes")
 
 
         }
-
-        setEvent({...event, [e.target.name] : e.target.value});
+        else {
+            setEvent({...event, [e.target.name] : e.target.value});
+        }
     }
 
 

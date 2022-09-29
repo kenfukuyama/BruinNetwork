@@ -49,7 +49,7 @@ const Register = () => {
                 loggedinUsername : res.data.user.username,
                 loadingUser : false
             })
-            navigate('/');
+            navigate("/");
 
         })
         .catch(err => {

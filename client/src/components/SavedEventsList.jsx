@@ -121,7 +121,7 @@ const SavedEventsList = ({ events }) => {
                 </div>
             )}
         
-        </> : <><p className='text-muted'>No saved events on this day</p></>
+        </> : <><p className='text-muted'>No saved events</p></>
     }
     
     

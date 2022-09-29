@@ -156,7 +156,7 @@ const EventForm = (props) => {
                                     return <p className="text-danger" key={i}>{error}</p>
                                 })} */}
                                 <div className="mb-2">
-                                    <label className="form-label">Name</label><br />
+                                    <label className="form-label">Event Name <span className='text-danger'>*</span></label><br />
                                     <input
                                         type="text"
                                         placeholder='Event name'
@@ -172,9 +172,9 @@ const EventForm = (props) => {
                                         : <></> }
                                 </div>
                                 <div className="mb-2">
-                                    <label className="form-label">Description</label><br />
+                                    <label className="form-label">Description <span className='text-danger'>*</span></label><br />
                                     <textarea
-                                        placeholder='Description'
+                                        placeholder='Description (≥ 10 characters)'
                                         rows="5"
                                         name="description"
                                         value={event.description}
@@ -220,7 +220,7 @@ const EventForm = (props) => {
                                         ]}>
                                         <Box sx={{ border: 1, pt: 1, px: 1, bgcolor: 'background.paper', width: "200px", borderRadius: "15px", borderColor: "#808080" }}>
                                             <p className='text-small text-muted text-wrap text-center'>
-                                                You can link your Instagram story or post. Click ⋮ on the top right of the story or post, and paste the link here. Alternatively, you can provide a link to your flyer.
+                                                You can link your Instagram story or post. Click ⋮ on the top right of the story or post, and paste the link here. Alternatively, you can provide a link to your flyer from other media.
                                             </p>
                                         </Box>
 
@@ -235,7 +235,7 @@ const EventForm = (props) => {
                                     { errorsObj.link ? <span className="form-text text-danger">{errorsObj.link}</span> : <></> }
                                 </div>
                                 <div className="mb-2 center">
-                                    <label className="form-label">Event Date</label><br />
+                                    <label className="form-label">Event Date <span className='text-danger'>*</span></label><br />
                                     <input
                                         type="date"
                                         name="eventDate"
@@ -247,7 +247,7 @@ const EventForm = (props) => {
                                 </div>
 
                                 <div className="mb-2">
-                                    <label className="form-label">Start Time</label><br />
+                                    <label className="form-label">Start Time <span className='text-danger'>*</span></label><br />
                                     <input type="time"
                                         id="startTime" 
                                         name="startTime" 
@@ -260,7 +260,7 @@ const EventForm = (props) => {
 
 
                                 <div className="mb-2">
-                                    <label className="form-label">End Time</label><br />
+                                    <label className="form-label">End Time <span className='text-danger'>*</span></label><br />
                                     <input type="time"
                                         id="endTime" 
                                         name="endTime" 
@@ -272,7 +272,7 @@ const EventForm = (props) => {
                                 </div>
 
                                 <div className="mb-3">
-                                    <label className="form-label">Location</label><br />
+                                    <label className="form-label">Location <span className='text-danger'>*</span></label><br />
                                     <input
                                         type="text"
                                         placeholder='Location'

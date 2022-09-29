@@ -166,6 +166,14 @@ const Chatrooms = () => {
         }
     }
 
+    const handleRecentRoomChange = (e, idx) => {
+        if (idx!== -1) {
+            setError("");
+        }
+        setRoomSelection(idx);
+
+    }
+
     const search = (e) => {
         setQuery(e.target.value);
         let query = e.target.value.toString().toLowerCase();
@@ -226,7 +234,7 @@ const Chatrooms = () => {
                                                                                 <div className="d-flex align-items-center justify-content-between">
                                                                                     <ListItem sx={{ px: 2 }}
                                                                                         key={i}>
-                                                                                        <ListItemButton sx={{ py: 3 }} onClick={(e) => { handleChange(e, recentSelection) }} >
+                                                                                        <ListItemButton sx={{ py: 3 }} onClick={(e) => { handleRecentRoomChange(e, recentSelection) }} >
                                                                                             <ListItemAvatar>
                                                                                                 <Avatar sx={{ bgcolor: lime[800] }}>
                                                                                                     <AssistantIcon />

@@ -59,7 +59,7 @@ const Login = (props) => {
                     loggedinUsername: res.data.user.username,
                     loadingUser: false
                 })
-                navigate('/');
+                navigate(-1);
 
             })
             .catch(err => {

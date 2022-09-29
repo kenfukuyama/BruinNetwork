@@ -89,6 +89,7 @@ const Events = () => {
         setEvents(eventsRef.current.filter(event => {
             let target = event.name?.toString()?.toLowerCase();
             let target1 = event.description?.toString()?.toLowerCase();
+            let target5 = event.place?.toString()?.toLowerCase();
             
             let temp2 = new Date(event.eventDate).toLocaleDateString("en", { weekday: 'long', month: 'long', day: 'numeric', timeZone: 'UTC' });
             let target2 = temp2.toString()?.toLowerCase();
@@ -98,8 +99,12 @@ const Events = () => {
 
             let temp4  =  new Date(event.endTime).toLocaleTimeString('en', { timeStyle: 'short', hour12: false, timeZone: 'America/Los_Angeles' })
             let target4 = temp4?.toString()?.toLowerCase();
+
+            // let target5 = event?.location?.toString()?.toLowerCase();
+            // || target4.includes(query)
+
             
-            return (target.includes(query) || target1.includes(query) || target2.includes(query) || target3.includes(query) || target4.includes(query));
+            return (target.includes(query) || target1.includes(query) || target2.includes(query) || target3.includes(query) || target4.includes(query) || target5.includes(query));
         }));
     }
 

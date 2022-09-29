@@ -20,7 +20,7 @@ const EventsNavigation = ({inviationCounts}) => {
                 <BookmarkIcon fontSize="medium" />
             </IconButton>
 
-            <IconButton sx={{color : "#fff"}} onClick={(e) => navigate('/myevents/posted')}>
+            <IconButton sx={{color : "#fff"}} onClick={(e) => navigate('/myevents/posted/calendar')}>
                 <LibraryBooksIcon fontSize="medium" />
             </IconButton>
         </div>

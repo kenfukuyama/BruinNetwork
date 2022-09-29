@@ -91,6 +91,8 @@ const SavedEventsList = ({ events }) => {
         SetFormattedEvents(tempEvents);
     };
 
+
+
     return (<>
     {
         formattedEvents.length > 0 ? 

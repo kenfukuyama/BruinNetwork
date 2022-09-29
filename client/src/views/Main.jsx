@@ -13,13 +13,13 @@ const Main = () => {
     return (
         <div className="container">
             <div className="d-flex vh-100 align-items-center justify-content-center flex-column fade-in">
-                <img src={logo}/>
+                <img src={logo} alt="BruinNetwork logo"/>
                 <h3 className="display-3 styled-heading">BruinNetwork</h3>
                 <p className="lead styled-text" style={{fontFamily : "Courier New, monospace"}}>Meet and Connect with UCLA Bruins</p>
 
                 <div className="d-flex gap-2">
-                    <Link className="btn btn-light btn-lg mt-2 text-center" to={"/events"}><strong>Explore Events</strong> <i className="bi-arrow-right-short"></i></Link>
-                    <Link  className="btn btn-light btn-lg mt-2 text-center" to={"/chitchat"}><strong>Chat with Random Bruins</strong> <i className="bi-arrow-right-short"></i></Link>
+                    <Link className="btn btn-light btn-lg mt-2 text-center" to={"/events"} style={{background : "#2774AE", color: "#fff"}}><strong>Explore Events</strong> <i className="bi-arrow-right-short"></i></Link>
+                    <Link  className="btn btn-light btn-lg mt-2 text-center" to={"/chitchat"} style={{background : "#2774AE", color: "#fff"}}><strong>Chat with Random Bruins</strong> <i className="bi-arrow-right-short"></i></Link>
                 </div>
 
                 {/* <div className="d-flex gap-2">

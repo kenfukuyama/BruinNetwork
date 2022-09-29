@@ -181,11 +181,11 @@ const ChitchatLobby = () => {
                             <span className="text-muted text-small"><small>browse other pages while you wait ...</small></span> <br/>
                             {tip}
                         </p>
-                        <button className="btn btn-outline-primary" onClick={exitWaitingRoom}>Connecting ...</button> 
+                        <button className="btn btn-outline-primary" onClick={exitWaitingRoom} >Connecting ...</button> 
                     </div>
 
                     
-                    : <button className="btn btn-outline-light" onClick={enterWaitingRoom}>Connect with a Random Bruin</button>
+                    : <button className="btn btn-outline-light" onClick={enterWaitingRoom}  style={{background : "#2774AE", color: "#fff"}}>Connect with a Random Bruin</button>
                 }
                 </div>
             </div>

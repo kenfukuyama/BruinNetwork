@@ -218,8 +218,12 @@ const EventPage = (props) => {
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div className="div">
-                                                    <i className={`bi bi-bookmark${event.liked ? "-fill" : ""} nav-icon`} onClick={(e) => toggleLiked(e)}></i>
+                                                <div className="d-flex gap-4">
+                                                    {
+                                                        event.creator === loggedinInfo.loggedinId ? <i className="bi bi-pencil-square text-primary"  style={{cursor : "pointer"}} onClick={() => navigate(`/events/${id}/edit`)}></i> : <></>
+                                                    }
+                                                    
+                                                    <i className={`bi bi-bookmark${event.liked ? "-fill" : ""} nav-icon`} style={{cursor : "pointer"}} onClick={(e) => toggleLiked(e)}></i>
                                                 </div>
 
 

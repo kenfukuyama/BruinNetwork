@@ -8,7 +8,7 @@ import EventForm from './views/EventForm';
 import NavBar from './components/NavBar';
 import Login from './views/Login';
 import Register from './views/Register';
-import MyPostedEvents from './views/MyPostedEvents';
+// import MyPostedEvents from './views/MyPostedEvents';
 // import MySavedEvents  from './views/MySavedEvents';
 import MySavedEventsCalendar from './views/MySavedEventsCalendar';
 import MySavedEventsList from './views/MySavedEventsList';
@@ -42,6 +42,8 @@ import MyNotificationsRequests from './views/MyNotificationsRequests';
 import MyNotificationsSpirits from './views/MyNotificationsSpirits';
 import EventPage from './views/EventPage';
 import GuestChatrooms from './views/GuestChatrooms';
+import MyPostedEventsCalendar from './views/MyPostedEventsCalendar';
+import MyPostedEventsList from './views/MyPostedEventsList';
 
 // import axios from 'axios';
 // import { useEffect } from 'react';
@@ -137,7 +139,8 @@ function App() {
           <Route element={<EventForm/>} path="/events/new"/>
           <Route element={<MySavedEventsCalendar/>} path="/myevents/saved/calendar"/>
           <Route element={<MySavedEventsList/>} path="/myevents/saved/list"/>
-          <Route element={<MyPostedEvents/>} path="/myevents/posted"/>
+          <Route element={<MyPostedEventsCalendar/>} path="/myevents/posted/calendar"/>
+          <Route element={<MyPostedEventsList/>} path="/myevents/posted/list"/>
           <Route element={<EventFormEdit/>} path="/events/:id/edit"/>
           <Route element={<EventPage/>} path="/events/:id/"/>
         

@@ -9,7 +9,9 @@ import Box from '@mui/material/Box';
 import Popper from '@mui/material/Popper';
 import InfoIcon from '@mui/icons-material/Info';
 import IconButton from '@mui/material/IconButton';
-
+import EventIcon from '@mui/icons-material/Event';
+import Button from '@mui/material/Button';
+import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 
 
 const EventForm = (props) => {
@@ -19,6 +21,7 @@ const EventForm = (props) => {
     const [created, setCreated] = useState(false);
     // const [errors, setErrors] = useState([]);
     const [errorsObj, setErrorsObj] = useState({});
+    const [createdId, setCreatedId] = useState(null);
 
 
     // * anchor
@@ -82,6 +85,7 @@ const EventForm = (props) => {
             .then(res => {
                 // console.log(res);
                 setCreated(true);
+                setCreatedId(res.data._id);
                 // setErrors([]);
                 setErrorsObj({});
                 // navigate("/myevents");
@@ -283,7 +287,21 @@ const EventForm = (props) => {
                                         { errorsObj.place ? <span className="form-text text-danger">{errorsObj.place}</span> : <></> }
                                 </div>
 
-                                {created ? (<div className="div"><p>✓ Event Posted</p> <button className="btn btn-outline-info" onClick={refreshComponent}>Create Another Event</button></div> ): <input type="submit" className="btn btn-outline-primary" />}
+                                {created ? (<div className="div">
+                                    <div className="div">✓ Event Posted</div>
+                                    <button className="btn btn-outline-info" onClick={refreshComponent}>Create Another Event</button>
+                                    <div className="d-flex align-item-center justify-content-center my-2 gap-2">
+                                        {/* <button className="btn text-white" onClick={() => navigate(`/events/${createdId}`)}> See Posted Event <i className="bi-arrow-right-short"></i></button> */}
+                                        {/* <IconButton sx={{ color: "#fff" }} onClick={(e) => navigate('/myevents/posted/calendar')}>
+                                            <EventIcon fontSize="medium" /> 
+                                        </IconButton> */}
+                                        <Button color="info" variant="contained" onClick={() => navigate(`/events/${createdId}`)} startIcon={<LibraryBooksIcon />}>Check Posted Event</Button>
+                                        <Button color="primary" variant="contained"  onClick={(e) => navigate('/myevents/posted/calendar')} startIcon={<EventIcon />}>Calendar View</Button>
+                                    </div> 
+                                    
+                                    
+                                    </div> ): <input type="submit" className="btn btn-outline-primary" />}
+                                    
                                 
                             </form>
 

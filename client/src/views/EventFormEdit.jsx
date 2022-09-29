@@ -279,9 +279,15 @@ const EventFormEdit = (props) => {
                                         </div>
 
 
+                                        {/* <div className="d-flex align-items-center justify-content-around"> */}
 
-                                        <input type="submit" className="btn btn-outline-primary" value={updated ? "✓ Updated" : "Update"} />
+                                            <div className="mb-2"><input type="submit" className="btn btn-outline-primary" value={updated ? "✓ Updated" : "Update"} /></div>
+                                            <div className="div"><button className="btn text-white" onClick={() => navigate(-1)}><i className="bi-arrow-left-short"></i> Back</button></div>
+                                        
+                                        {/* </div> */}
                                     </form>
+
+
 
                                 </div>
                             </div>

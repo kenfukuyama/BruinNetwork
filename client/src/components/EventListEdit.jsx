@@ -3,7 +3,7 @@ import React, {useState} from 'react'
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const EventList = ({events}) => {
+const EventList = ({deleteIdFromEvents, events}) => {
     const navigate = useNavigate();
     const [formattedEvents, SetFormattedEvents] = useState([]);
 
@@ -35,6 +35,7 @@ const EventList = ({events}) => {
             console.log(res);
             const filtered =  formattedEvents.filter((event, i) => {return event._id !== id});
             SetFormattedEvents(filtered);
+            deleteIdFromEvents(id);
         })
         .catch(err => console.log(err));
         

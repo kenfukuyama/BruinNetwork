@@ -4,29 +4,27 @@ import React, { useContext } from 'react'
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { LoggedinContext } from '../context/LoggedinContext';
 
-import SavedEventsList from '../components/SavedEventsList';
+import { LoggedinContext } from '../context/LoggedinContext';
+import EventListEdit from '../components/EventListEdit';
 import ScaleLoader from 'react-spinners/ScaleLoader';
 import EventsNavigation from '../components/EventsNavigation';
-import BookmarkIcon from '@mui/icons-material/Bookmark';
-import Button from '@mui/material/Button';
+
+import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
+import Button from '@mui/material/Button'
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import IconButton from '@mui/material/IconButton';
 
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
-// import { useRef } from 'react';
-// import CalendarTile from '../components/CalendarTile'
 
-
-const MySavedEventsCalendar = () => {
-    const { loggedinInfo } = useContext(LoggedinContext);
+const MyPostedEventsCalendar = () => {
+    const {loggedinInfo} = useContext(LoggedinContext);
     const navigate = useNavigate();
 
     const [events, setEvents] = useState([]);
     const [displayEvents, setDisplayEvents] = useState([]);
-    const [savedEventObj, setSavedEventObj] = useState({});
+    const [postedEventObj, setPostedEventObj] = useState({});
     const [value, onChange] = useState(new Date());
 
 
@@ -34,10 +32,10 @@ const MySavedEventsCalendar = () => {
         if (!loggedinInfo.loggedin) {
             navigate('/login');
             return;
-        }
+        } 
 
         /// get all the events crated by the user.
-        axios.get('http://localhost:8000/api/users/' + loggedinInfo.loggedinId + "/saved-events")
+        axios.get('http://localhost:8000/api/events/user/' + loggedinInfo.loggedinId)
             // axios.get("api/events/user/6317f12d985af7817efe4bc9")
             .then(res => {
                 setEvents(res.data);
@@ -54,12 +52,14 @@ const MySavedEventsCalendar = () => {
                     }
                 }
                 // console.log(tempObj);
-                setSavedEventObj(tempObj);
+                setPostedEventObj(tempObj);
+                
             })
-            .catch(err => { })
+            .catch(err => {})
+        
+
+      
     }, [loggedinInfo.loggedin, loggedinInfo.loggedinId, navigate])
-
-
 
 
     useEffect(() => {
@@ -82,12 +82,29 @@ const MySavedEventsCalendar = () => {
         // console.log(typeof(value));
     }, [value, events]);
 
-    // const calendarChange = (e) => {
-    //     console.log(e.target.value);
-    //     // console.log(value);
-    //     // onChange();
-    // }
+
+    const deleteIdFromEvents = (id) => {
+        let tempEvents = events.filter(event => {
+
+            if (event._id === id) {
+                let tempPostedEventObj = JSON.parse(JSON.stringify(postedEventObj));
+                let tempDate = new Date(new Date(event.eventDate).toLocaleDateString("en", { weekday: 'long', month: 'long', day: 'numeric', year: "numeric", timeZone: 'UTC' }));
+                tempPostedEventObj[tempDate]--;
+                if (tempPostedEventObj[tempDate] === 0) {
+                    delete tempPostedEventObj[tempDate];
+                }
+                setPostedEventObj(tempPostedEventObj);
+            }
+            return event._id !== id
+        });
+
+        setEvents(tempEvents);
+    };
+
+    
     return (
+
+
         <div className="vh-100">
             <div className="container py-5 h-100">
                 <div className="row d-flex justify-content-center align-items-center h-100">
@@ -95,15 +112,18 @@ const MySavedEventsCalendar = () => {
                         {!events ?
                             (<ScaleLoader size={100} color="white" loading={!events} cssOverride={{ display: "block", position: "fixed", bottom: "5%", right: "10%" }} />)
                             :
-                            <div className="fade-in card bg-transparent scroll-box" style={{ borderRadius: "15px", backgroundColor: "#ffffff", overflowY: "scroll", height: "93vh" }}>
-
-                                <EventsNavigation />
+                            <div className="card fade-in bg-transparent scroll-box" style={{ borderRadius: "15px", backgroundColor: "#ffffff", overflowY : "scroll" , height: "93vh"}}>
+                                <EventsNavigation/>
                                 <div className="d-flex align-item-center justify-content-center my-2 gap-2">
-                                    <Button sx={{background : "#eb9c21"}} variant="contained" id="navButton" startIcon={<BookmarkIcon />}>SAVED EVENTS - CALENDAR </Button>
-                                    <IconButton sx={{ color: "#fff" }} onClick={(e) => navigate('/myevents/saved/list')}>
+                                    <Button color="primary" variant="contained" id="navButton" startIcon={<LibraryBooksIcon />}>POSTED EVENTS - CALENDAR </Button>
+                                    <IconButton sx={{ color: "#fff" }} onClick={(e) => navigate('/myevents/posted/list')}>
                                         <FormatListBulletedIcon fontSize="medium" />
                                     </IconButton>
                                 </div>
+
+
+                                {/* calendar */}
+
                                 <div className="d-flex justify-content-center align-items-center my-2">
                                     <Calendar className={['rounded']}
                                         onChange={onChange}
@@ -114,14 +134,14 @@ const MySavedEventsCalendar = () => {
                                         next2Label = {null}
                                         calendarType = "US"
                                         tileContent={
-                                            ({ activeStartDate, date, view }) => view === 'month' && (new Date(date.setHours(0, 0, 0, 0)) in savedEventObj) ? 
+                                            ({ activeStartDate, date, view }) => view === 'month' && (new Date(date.setHours(0, 0, 0, 0)) in postedEventObj) ? 
                                             <>
                                                 <br />
                                                 <p className='mb-0'>
                                                     <svg height="10" width="10">
                                                         <circle cx="5" cy="5" r="2.5" fill="green" />
                                                     </svg>
-                                                    <span className="text-muted" style={{ fontSize: "12px" }}>{savedEventObj[new Date(date.setHours(0, 0, 0, 0))]}</span>
+                                                    <span className="text-muted" style={{ fontSize: "12px" }}>{postedEventObj[new Date(date.setHours(0, 0, 0, 0))]}</span>
                                                 </p>
 
                                             </>
@@ -144,16 +164,15 @@ const MySavedEventsCalendar = () => {
                                     <hr className='' />
                                 </div>
 
-                                {events && <SavedEventsList events={displayEvents} />}
+
+                                {events && <EventListEdit deleteIdFromEvents={deleteIdFromEvents} events={displayEvents} />}
                             </div>
                         }
                     </div>
                 </div>
             </div>
         </div>
-
     )
 }
 
-export default MySavedEventsCalendar;
-
+export default MyPostedEventsCalendar;

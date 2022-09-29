@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 
 import {LoggedinContext} from '../context/LoggedinContext';
+import logo from '../assets/network.png';
 
 
 
@@ -12,8 +13,9 @@ const Main = () => {
     return (
         <div className="container">
             <div className="d-flex vh-100 align-items-center justify-content-center flex-column fade-in">
+                <img src={logo}/>
                 <h3 className="display-3 styled-heading">BruinNetwork</h3>
-                <p className="lead styled-text" style={{fontFamily : "Courier New, monospace"}}>Meet and Connect with Bruins</p>
+                <p className="lead styled-text" style={{fontFamily : "Courier New, monospace"}}>Meet and Connect with UCLA Bruins</p>
 
                 <div className="d-flex gap-2">
                     <Link className="btn btn-light btn-lg mt-2 text-center" to={"/events"}><strong>Explore Events</strong> <i className="bi-arrow-right-short"></i></Link>

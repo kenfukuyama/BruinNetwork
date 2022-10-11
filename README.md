@@ -1,5 +1,7 @@
 # BruinNetwork
-Full Stack MERN Social Network Site 
+Full stack social network site for students
+Tech Stack: MongoDB, Express, React, Node.js (MERN), socket.io, Google Cloud APIs, Mongoose, Material UI, AWS
+
 
 
 <hr/>

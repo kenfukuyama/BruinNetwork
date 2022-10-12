@@ -4,6 +4,11 @@ Tech Stack: MongoDB, Express, React, Node.js (MERN), socket.io, Google Cloud API
 
 ### - Random Chat / Chatrooms -
 Users can join a queue to chat with other online users, the algorithm will automatically connect users
+<!-- ![ChitchatGIF](chitchat.gif) -->
+
+<p align="center">
+  <img src="chitchat.gif" alt="chitchat img">
+</p>
 
 Users can manually join a chatrooms, and see who's online
 

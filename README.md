@@ -7,7 +7,7 @@ Users can join a queue to chat with other online users, the algorithm will autom
 <!-- ![ChitchatGIF](chitchat.gif) -->
 
 <p align="center">
-  <img height="800px" src="chitchat.gif" alt="chitchat img">
+  <img src="chitchat.gif" alt="chitchat img">
 </p>
 
 Users can manually join a chatrooms, and see who's online

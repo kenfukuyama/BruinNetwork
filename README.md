@@ -10,7 +10,7 @@ Tech Stack: MongoDB, Express, React, Node.js (MERN), socket.io, Google Cloud API
   <img src="chitchat.gif" alt="chitchat img">
 </p>
 
-- Searh and enter chatrooms, and see who's online
+- Searh and join chatrooms, and see who's online
 <p align="center">
   <img src="chatrooms.gif" alt="chatrooms img">
 </p>

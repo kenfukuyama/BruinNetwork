@@ -1,6 +1,6 @@
 # BruinNetwork
 Full stack social network site for students in JavaScript </br>
-Tech Stack: MongoDB, Express, React, Node.js (MERN), socket.io, Google Cloud APIs, Mongoose, Material UI, AWS
+Tech Stack: MongoDB, Express, React, Node.js (MERN), socket.io, Google Cloud APIs, Mongoose, Material UI, Bootstrap, AWS
 
 ## - Random Chat / Chatrooms -
 - Join a queue to chat with random online users, the algorithm will automatically connect users

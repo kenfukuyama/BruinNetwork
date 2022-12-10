@@ -17,7 +17,7 @@ Tech Stack: MongoDB, Express, React, Node.js (MERN), socket.io, Google Cloud API
 
 
 ## - Events -
-- Search, filter and save events, and see the detailed page as well as get the direction using Google Maps.
+- Search, filter, and save events, and see the detailed page as well as get the direction using Google Maps.
 
 <p align="center">
   <img src="event_navigate.gif" alt="chatrooms img">

@@ -4,7 +4,6 @@
 // colors.enable();
 // const gs = require('../../googleassistant.js');
 
-
 // const homedir = require('homedir')
 // // const deviceCredentials = require(`${homedir()}/.config/google-oauthlib-tool/credentials.json`);
 // const deviceCredentials = require("../../credentials.json");

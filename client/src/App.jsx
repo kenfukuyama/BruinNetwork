@@ -15,7 +15,6 @@ import MySavedEventsList from './views/MySavedEventsList';
 import Chatrooms from './views/Chatrooms';
 import ChitchatPopUp from './components/ChitchatPopUp';
 
-
 import Cookies from 'universal-cookie';
 import { useState } from 'react';
 import jwt from 'jwt-decode';

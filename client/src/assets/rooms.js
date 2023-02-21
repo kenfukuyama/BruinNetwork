@@ -143,8 +143,11 @@ const rooms = [
 ["Landfair Vista", "university apartment"],
 ["Levering Terrace", "university apartment"],
 ["Westwood Chateau", "university apartment"],
-["Westwood Palm", "university apartment"]
+["Westwood Palm", "university apartment"],
 
+
+// Extra
+["SpaceX", "Changing the Future"]
 ]
 
 

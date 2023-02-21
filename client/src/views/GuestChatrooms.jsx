@@ -11,8 +11,9 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
+import RocketLaunch from '@mui/icons-material/RocketLaunch';
 // import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { blue, teal, cyan } from '@mui/material/colors';
+import { blue, teal, cyan, red} from '@mui/material/colors';
 import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/box';
 
@@ -171,24 +172,26 @@ const GuestChatrooms = () => {
                                                             key={i}>
                                                             <ListItemButton sx={{ py: 3 }} onClick={(e) => { handleChange(e, i) }} >
                                                                 <ListItemAvatar>
-                                                                    <Avatar sx={{
-                                                                        bgcolor:
-                                                                            room[1] === "major" ? blue[500] :
-                                                                                (room[1] === "dorm" || room[1] === "on campus" ? teal[500] :
-                                                                                    (room[1] === "university apartment" || room[1] === "off campus" ? cyan[500] :
-                                                                                        ""
-                                                                                    )
-                                                                                )
-                                                                    }}>
-
-                                                                        {room[1] === "major" ? <SchoolIcon /> :
-                                                                            <> {room[1] === "dorm" || room[1] === "on campus" ? <ChairIcon /> :
-                                                                                <> {room[1] === "university apartment" || room[1] === "off campus" ? <MapsHomeWorkIcon /> :
-                                                                                    <>
-                                                                                    </>
+                                                                    <Avatar sx={{ bgcolor: 
+                                                                                room[1] === "major" ?  blue[500] : 
+                                                                                    (room[1] === "dorm" || room[1] === "on campus" ? teal[500] :
+                                                                                        (room[1] === "university apartment" ||  room[1] === "off campus" ? cyan[500] : 
+                                                                                            (room[1] === "Changing the Future" ? red[500] : 
+                                                                                                "")
+                                                                                        )
+                                                                                    ) 
+                                                                            }}>
+                                                                                
+                                                                            {room[1] ==="major" ?  <SchoolIcon /> : 
+                                                                                <> {room[1] === "dorm" || room[1] === "on campus" ? <ChairIcon/> : 
+                                                                                    <> {room[1] === "university apartment" ||  room[1] === "off campus" ? <MapsHomeWorkIcon/> : 
+                                                                                        <> {room[1] === "Changing the Future" ? <RocketLaunch/> : 
+                                                                                            <>
+                                                                                            </>
+                                                                                        } </>
+                                                                                    } </>
                                                                                 } </>
-                                                                            } </>
-                                                                        }
+                                                                            }
                                                                     </Avatar>
                                                                 </ListItemAvatar>
                                                                 <ListItemText className="text-wrap" id={labelId} primary={<h6 className="mb-0 text-wrap">{room[0]}<em className="text-muted"><br />{room[1]}</em></h6>} />

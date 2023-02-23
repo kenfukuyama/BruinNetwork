@@ -31,7 +31,7 @@ import ChatroomPublic from './views/ChatroomPublic';
 import Chitchat from './views/Chitchat';
 import ChitchatLobby from './views/ChitchatLobby';
 import UserPage from './views/UserPage';
-// import ChitchatBot from './views/ChitchatBot';
+import ChitchatBot from './views/ChitchatBot';
 
 import MyFriends from './views/MyFriends';
 import Users from './views/Users';
@@ -129,7 +129,7 @@ function App() {
           <Route element={<MyUserAccount/>} path="/users/account"/>
           <Route element={<MyFriends/>} path="/users/friends"/>
           <Route element={<MyFriendsPending/>} path="/users/friends/pending"/>
-          {/* <Route element={<ChitchatBot/>} path="/users/chat/"/> */}
+          <Route element={<ChitchatBot/>} path="/users/chat/"/>
           <Route element={<MyNotificationsSpirits/>} path="/users/notifications/spirits"/>
           <Route element={<MyNotificationsRequests/>} path="/users/notifications/requests"/>
 

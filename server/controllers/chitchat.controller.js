@@ -117,7 +117,6 @@ setInterval(() => {
     // remove users after 3 minutes
     // console.log(colors.cyan(queueObject));
 
-
     // ! clear the queue frequecy
     let removeIntervalInMS= 120 * 1000;
     let now = new Date();

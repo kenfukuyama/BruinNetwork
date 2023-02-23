@@ -163,3 +163,48 @@ app.post('/api/chatrooms/chatusers/all', getUsersInRoom);
 
 // googleAssistant.promptUser();
 // googleAssistant.getResponse("hello there!");
+
+
+
+// ChatGPT integration
+const bodyParser = require("body-parser");
+const { Configuration, OpenAIApi } = require("openai");
+
+
+// configuration for openai
+const configuration = new Configuration({
+    apiKey: process.env.openai_key,
+});
+const openai = new OpenAIApi(configuration);
+// app.use(bodyParser.json());
+
+
+// establish endpoints
+// Set up the ChatGPT endpoint
+// Set up the ChatGPT endpoint
+app.post("/api/chatgpt", async (req, res) => {
+    try {
+            // Get the prompt from the request
+    const { prompt } = req.body;
+    // console.log(prompt);
+
+    // Generate a response with ChatGPT
+    const completion = await openai.createCompletion({
+        model: "text-davinci-002",
+        prompt: prompt,
+        max_tokens : 50,
+    })
+    // res.send(completion.data.choices[0].text);
+    // console.log(completion.data)
+    res.status(200).json(completion.data);
+
+    } catch (error) {
+        res.status(401).json(error);
+    }
+
+});
+
+
+
+
+

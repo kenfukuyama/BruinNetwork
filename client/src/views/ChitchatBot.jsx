@@ -13,7 +13,41 @@ import {blue} from '@mui/material/colors';
 import axios from 'axios';
 // import data from './data'
 
+import { styled } from '@mui/material/styles';
+import Badge from '@mui/material/Badge';
+
 const ChitchatBot = () => {
+     // ! for avator theme
+     const StyledBadge = styled(Badge)(({ theme }) => ({
+        '& .MuiBadge-badge': {
+            backgroundColor: '#44b700',
+            color: '#44b700',
+            boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
+            '&::after': {
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+                borderRadius: '50%',
+                animation: 'ripple 1.2s infinite ease-in-out',
+                border: '1px solid currentColor',
+                content: '""',
+            },
+        },
+        '@keyframes ripple': {
+            '0%': {
+                transform: 'scale(.8)',
+                opacity: 1,
+            },
+            '100%': {
+                transform: 'scale(2.4)',
+                opacity: 0,
+            },
+        },
+    }));
+
+
     const messageAreaRef = useRef(null);
     // const navigate = useNavigate();
 
@@ -85,37 +119,87 @@ const ChitchatBot = () => {
 
         // console.log(tempMessage);
 
-        if (tempMessage.startsWith("search:")) {
-            // console.log("searching");
-            customSearch(tempMessage);
-        }
 
-        else {
-            axios.post(`http://localhost:8000/api/bot/chat`, { query: tempMessage })
-                .then(response => {
-                    // console.log(response);
+        // Implemetation using google assistant
+        // if (tempMessage.startsWith("search:")) {
+        //     // console.log("searching");
+        //     customSearch(tempMessage);
+        // }
 
-                    if (response.status === 200) {
-                        setMessages(messages => {
+        // else {
+        //     axios.post(`http://localhost:8000/api/bot/chat`, { query: tempMessage })
+        //         .then(response => {
+        //             // console.log(response);
 
-                            return ([...messages,
-                            {
-                                content: response?.data?.msg,
-                                username: "BruinBot",
-                                type: "BOT"
-                                // ! this might not always exited, and actually all of them
+        //             if (response.status === 200) {
+        //                 setMessages(messages => {
+
+        //                     return ([...messages,
+        //                     {
+        //                         content: response?.data?.msg,
+        //                         username: "BruinBot",
+        //                         type: "BOT"
+        //                         // ! this might not always exited, and actually all of them
     
-                            }
-                            ]);
-                        });
-                    }
-                    else {
-                        customSearch(tempMessage);
-                    }
+        //                     }
+        //                     ]);
+        //                 });
+        //             }
+        //             else {
+        //                 customSearch(tempMessage);
+        //             }
                     
-                });
+        //         });
             
-        }     
+        // }     
+
+
+        // Implemetation using chatgpt
+
+        axios.post(`http://localhost:8000/api/chatgpt`, { prompt: tempMessage })
+        .then(response => {
+            // console.log(response);
+
+            if (response.status === 200) {
+                // console.log(response)
+                setMessages(messages => {
+
+                    return ([...messages,
+                    {
+                        content: response?.data?.choices[0]?.text,
+                        username: "BruinBot",
+                        type: "BOT"
+                        // ! this might not always exited, and actually all of them
+
+                    }
+                    ]);
+                });
+            }
+            else {
+                setMessages(messages => {
+
+                    return ([...messages,
+                    {
+                        content: "I can't help you right now. Maybe try it again later...",
+                        username: "BruinBot",
+                        type: "BOT"
+                    }
+                    ]);
+                });
+            }
+            
+        }).catch(error => {
+            setMessages(messages => {
+
+                return ([...messages,
+                {
+                    content: "I can't help you right now. Maybe try it again later...",
+                    username: "BruinBot",
+                    type: "BOT"
+                }
+                ]);
+            });
+        });
 
         // axios.post(`http://localhost:8000/api/bot/search`, {query : tempMessage})
         // .then (response => {
@@ -306,108 +390,109 @@ const ChitchatBot = () => {
 
     };
 
-    const customSearch = (tempMessage) => {
-        axios.post(`http://localhost:8000/api/bot/search`, {query : tempMessage})
-        .then (response => {
-            // console.log(response);
-            setMessages(messages =>{ 
-                let found = false;
-                let tempTitle;
-                try {
-                    tempTitle =  response.data?.items[0]?.title;
-                    found = found || tempTitle ? true : false;
-                } 
-                catch {
-                    tempTitle = "";
-                }
+    // for custom search
+    // const customSearch = (tempMessage) => {
+    //     axios.post(`http://localhost:8000/api/bot/search`, {query : tempMessage})
+    //     .then (response => {
+    //         // console.log(response);
+    //         setMessages(messages =>{ 
+    //             let found = false;
+    //             let tempTitle;
+    //             try {
+    //                 tempTitle =  response.data?.items[0]?.title;
+    //                 found = found || tempTitle ? true : false;
+    //             } 
+    //             catch {
+    //                 tempTitle = "";
+    //             }
     
-                let tempLink;
-                try {
-                    tempLink =  response.data?.items[0]?.link;
-                    found =  found || tempLink ? true : false;
-                } 
-                catch {
-                    tempLink = "";
-                }
+    //             let tempLink;
+    //             try {
+    //                 tempLink =  response.data?.items[0]?.link;
+    //                 found =  found || tempLink ? true : false;
+    //             } 
+    //             catch {
+    //                 tempLink = "";
+    //             }
     
                 
-                let tempImg;
-                try {
-                    tempImg =   response.data?.items[0]?.pagemap?.cse_thumbnail[0];
-                    found =  found || tempImg ? true : false;
-                } 
-                catch {
-                    tempImg = "";
-                }
+    //             let tempImg;
+    //             try {
+    //                 tempImg =   response.data?.items[0]?.pagemap?.cse_thumbnail[0];
+    //                 found =  found || tempImg ? true : false;
+    //             } 
+    //             catch {
+    //                 tempImg = "";
+    //             }
     
-                let tempContent = found ? "Check this out!" : "Could not find anything ..."; 
+    //             let tempContent = found ? "Check this out!" : "Could not find anything ..."; 
     
-                return ([...messages, 
-                    {
-                        content : tempContent,
-                        username : "BruinBot",
-                        type : "BOT",
-                        title : tempTitle,
-                        link : tempLink,
-                        img : tempImg,
-                        // ! this might not always exited, and actually all of them
+    //             return ([...messages, 
+    //                 {
+    //                     content : tempContent,
+    //                     username : "BruinBot",
+    //                     type : "BOT",
+    //                     title : tempTitle,
+    //                     link : tempLink,
+    //                     img : tempImg,
+    //                     // ! this might not always exited, and actually all of them
     
-                    }
-                ]);
-            });
+    //                 }
+    //             ]);
+    //         });
 
 
-            setTimeout(() => {
-                setMessages(messages =>{ 
-                    let found = false;
-                    let tempTitle;
-                    try {
-                        tempTitle =  response.data?.items[1]?.title;
-                        found = found || tempTitle ? true : false;
-                    } 
-                    catch {
-                        tempTitle = "";
-                    }
+    //         setTimeout(() => {
+    //             setMessages(messages =>{ 
+    //                 let found = false;
+    //                 let tempTitle;
+    //                 try {
+    //                     tempTitle =  response.data?.items[1]?.title;
+    //                     found = found || tempTitle ? true : false;
+    //                 } 
+    //                 catch {
+    //                     tempTitle = "";
+    //                 }
         
-                    let tempLink;
-                    try {
-                        tempLink =  response.data?.items[1]?.link;
-                        found =  found || tempLink ? true : false;
-                    } 
-                    catch {
-                        tempLink = "";
-                    }
+    //                 let tempLink;
+    //                 try {
+    //                     tempLink =  response.data?.items[1]?.link;
+    //                     found =  found || tempLink ? true : false;
+    //                 } 
+    //                 catch {
+    //                     tempLink = "";
+    //                 }
         
                     
-                    let tempImg;
-                    try {
-                        tempImg =   response.data?.items[1]?.pagemap?.cse_thumbnail[0];
-                        found =  found || tempImg ? true : false;
-                    } 
-                    catch {
-                        tempImg = "";
-                    }
+    //                 let tempImg;
+    //                 try {
+    //                     tempImg =   response.data?.items[1]?.pagemap?.cse_thumbnail[0];
+    //                     found =  found || tempImg ? true : false;
+    //                 } 
+    //                 catch {
+    //                     tempImg = "";
+    //                 }
         
-                    let tempContent = found ? "And there we go!" : "I tried but no cigar..."; 
+    //                 let tempContent = found ? "And there we go!" : "I tried but no cigar..."; 
         
-                    return ([...messages, 
-                        {
-                            content : tempContent,
-                            username : "BruinBot",
-                            type : "BOT",
-                            title : tempTitle,
-                            link : tempLink,
-                            img : tempImg,
-                            // ! this might not always exited, and actually all of them
+    //                 return ([...messages, 
+    //                     {
+    //                         content : tempContent,
+    //                         username : "BruinBot",
+    //                         type : "BOT",
+    //                         title : tempTitle,
+    //                         link : tempLink,
+    //                         img : tempImg,
+    //                         // ! this might not always exited, and actually all of them
         
-                        }
-                    ]);
-                });
+    //                     }
+    //                 ]);
+    //             });
 
-            }, 2000);
-        });
+    //         }, 2000);
+    //     });
 
-    }
+    // }
 
     if (loading) {
         return (
@@ -425,14 +510,22 @@ const ChitchatBot = () => {
                     <div className="d-flex align-items-center mb-4 justify-content-center">
                         <div className="d-flex userName align-items-center">
                             <div className="">
-                                <Avatar sx={{ bgcolor: blue[500] }}>
-                                    <AccountCircleIcon />
-                                </Avatar>
+                                <StyledBadge
+                                    overlap="circular"
+                                    anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                                    variant="dot"
+                                >
+                                    <Avatar sx={{ bgcolor: blue[500] }}>
+                                        <AccountCircleIcon />
+                                    </Avatar>
+                                </StyledBadge>
+
                             </div>
                             <div className="d-flex flex-column ms-3 justify-content-center align-items-center mt-2">
                                 <div className="text-wrap">
                                     <h4 className="text-wrap mb-0 text-white">Bruin Bot</h4>
-                                    <p><em>Powered by Google Assistant</em></p>
+                                    {/* <p><em>Powered by Google Assistant</em></p> */}
+                                    <p><em>Powered by OpenAI</em></p>
                                 </div>
                             </div>
                         </div>
